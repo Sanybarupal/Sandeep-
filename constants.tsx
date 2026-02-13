@@ -3,16 +3,19 @@ import React from 'react';
 import { 
   Layout, 
   Code2, 
-  UserCircle2, 
-  Briefcase, 
   Settings, 
   Palette, 
-  MonitorSmartphone, 
-  Database, 
   Github, 
   Figma, 
   Cpu,
-  Layers
+  Layers,
+  Smartphone,
+  Box,
+  Globe,
+  Database,
+  Terminal,
+  Search,
+  PenTool
 } from 'lucide-react';
 import { Service, Skill, Project } from './types';
 
@@ -35,7 +38,7 @@ export const SERVICES: Service[] = [
   {
     title: "Portfolio & Business",
     description: "Tailored agency, startup, and company websites designed to showcase your unique value.",
-    icon: <Briefcase className="w-8 h-8 text-blue-500" />
+    icon: <Globe className="w-8 h-8 text-blue-500" />
   },
   {
     title: "Custom Web Solutions",
@@ -46,23 +49,23 @@ export const SERVICES: Service[] = [
 
 export const SKILLS: Skill[] = [
   // Design
-  { name: "UI/UX Design", category: "design" },
-  { name: "Website Layout", category: "design" },
-  { name: "Responsive Design", category: "design" },
-  { name: "Wireframing", category: "design" },
-  { name: "Prototyping", category: "design" },
+  { name: "UI/UX Design", category: "design", icon: <Layout size={24} /> },
+  { name: "Website Layout", category: "design", icon: <Layers size={24} /> },
+  { name: "Responsive Design", category: "design", icon: <Smartphone size={24} /> },
+  { name: "Wireframing", category: "design", icon: <PenTool size={24} /> },
+  { name: "3D Modeling", category: "design", icon: <Box size={24} /> },
   // Dev
-  { name: "HTML5/CSS3", category: "development" },
-  { name: "JavaScript (ES6+)", category: "development" },
-  { name: "React JS", category: "development" },
-  { name: "Tailwind CSS", category: "development" },
-  { name: "PHP & MySQL", category: "development" },
-  { name: "WordPress", category: "development" },
+  { name: "React JS", category: "development", icon: <Globe size={24} /> },
+  { name: "Tailwind CSS", category: "development", icon: <Palette size={24} /> },
+  { name: "Three.js", category: "development", icon: <Cpu size={24} /> },
+  { name: "JavaScript", category: "development", icon: <Code2 size={24} /> },
+  { name: "WordPress", category: "development", icon: <Settings size={24} /> },
   // Tools
-  { name: "Figma", category: "tools" },
-  { name: "VS Code", category: "tools" },
-  { name: "Git & GitHub", category: "tools" },
-  { name: "Browser DevTools", category: "tools" }
+  { name: "Figma", category: "tools", icon: <Figma size={24} /> },
+  { name: "GitHub", category: "tools", icon: <Github size={24} /> },
+  { name: "VS Code", category: "tools", icon: <Terminal size={24} /> },
+  { name: "SEO", category: "tools", icon: <Search size={24} /> },
+  { name: "Database", category: "tools", icon: <Database size={24} /> }
 ];
 
 export const PROJECTS: Project[] = [

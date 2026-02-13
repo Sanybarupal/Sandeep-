@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Menu, 
   X, 
@@ -8,7 +8,8 @@ import {
   Instagram,
   Linkedin,
   Phone,
-  Mail
+  Mail,
+  ChevronUp
 } from 'lucide-react';
 import { SERVICES, SKILLS } from './constants';
 
@@ -56,8 +57,8 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <div className="flex -space-x-1">
-            <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent"></div>
-            <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent"></div>
+            <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent animate-pulse"></div>
+            <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent animate-pulse delay-75"></div>
           </div>
           <a href="#home" className="text-2xl font-display font-black tracking-tighter text-black">SK.</a>
         </div>
@@ -73,8 +74,8 @@ const Navbar = () => {
             </a>
           ))}
           <a 
-            href="mailto:hello@sandeep.com" 
-            className="bg-black text-white px-6 py-2.5 rounded-lg text-xs font-display font-bold hover:bg-orange-500 transition-all shadow-[4px_4px_0px_#fb923c]"
+            href="#contact" 
+            className="bg-black text-white px-6 py-2.5 rounded-lg text-xs font-display font-bold hover:bg-orange-500 transition-all shadow-[4px_4px_0px_#fb923c] active:translate-x-1 active:translate-y-1 active:shadow-none"
           >
             HIRE ME
           </a>
@@ -98,14 +99,14 @@ const Navbar = () => {
 };
 
 const Marquee = () => (
-  <div className="bg-black py-4 overflow-hidden flex whitespace-nowrap border-y-2 border-black">
+  <div className="bg-black py-6 overflow-hidden flex whitespace-nowrap border-y-4 border-black">
     <div className="flex animate-marquee items-center">
       {[...Array(10)].map((_, i) => (
         <React.Fragment key={i}>
-          <span className="text-white font-display font-black text-2xl mx-10 flex items-center gap-4">
-            3D ARTIST <span className="w-2 h-2 bg-orange-500 rounded-full"></span> 
-            DEVELOPER <span className="w-2 h-2 bg-white rounded-full"></span> 
-            UI/UX DESIGNER <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+          <span className="text-white font-display font-black text-3xl mx-12 flex items-center gap-6">
+            3D ARTIST <span className="w-3 h-3 bg-orange-500 rounded-full"></span> 
+            DEVELOPER <span className="w-3 h-3 bg-white rounded-full"></span> 
+            DESIGNER <span className="w-3 h-3 bg-purple-500 rounded-full"></span>
           </span>
         </React.Fragment>
       ))}
@@ -114,21 +115,25 @@ const Marquee = () => (
 );
 
 const FooterShapes = () => (
-  <div className="flex flex-wrap gap-4 mt-8">
-    <div className="w-16 h-16 bg-[#8A5CF6] flex items-center justify-center rounded-2xl rotate-12">
-      <div className="relative w-10 h-10">
+  <div className="flex flex-wrap gap-6 mt-12">
+    <div className="w-20 h-20 bg-[#8A5CF6] flex items-center justify-center rounded-2xl rotate-12 transition-transform hover:rotate-0 hover:scale-110 cursor-pointer">
+      <div className="relative w-12 h-12">
         <div className="absolute top-1/2 left-0 w-full h-2 bg-black -translate-y-1/2 rotate-45"></div>
         <div className="absolute top-1/2 left-0 w-full h-2 bg-black -translate-y-1/2 -rotate-45"></div>
       </div>
     </div>
-    <div className="w-16 h-16 bg-[#C1FF72] grid grid-cols-3 gap-1 p-3 rounded-2xl">
+    <div className="w-20 h-20 bg-[#C1FF72] grid grid-cols-3 gap-1.5 p-4 rounded-2xl transition-transform hover:scale-110 cursor-pointer">
       {[...Array(9)].map((_, i) => (
-        <div key={i} className="w-2 h-2 bg-black rounded-full"></div>
+        <div key={i} className="w-full h-full bg-black rounded-full"></div>
       ))}
     </div>
-    <div className="w-32 h-16 bg-[#8A5CF6] rounded-full"></div>
-    <div className="w-16 h-16 bg-[#3B82F6] rounded-t-full mt-auto"></div>
-    <div className="w-16 h-16 bg-[#FFDD00] rounded-full"></div>
+    <div className="w-36 h-20 bg-[#FFDD00] rounded-full flex items-center justify-center transition-transform hover:-rotate-6 hover:scale-105 cursor-pointer">
+      <div className="w-24 h-4 bg-black rounded-full"></div>
+    </div>
+    <div className="w-20 h-20 bg-[#3B82F6] rounded-t-full mt-auto transition-all hover:h-28 cursor-pointer"></div>
+    <div className="w-20 h-20 bg-white rounded-full border-4 border-black flex items-center justify-center group cursor-pointer transition-transform hover:rotate-180">
+      <div className="w-8 h-8 bg-orange-500 rounded-full group-hover:bg-purple-500 transition-colors"></div>
+    </div>
   </div>
 );
 
@@ -142,6 +147,10 @@ const App: React.FC = () => {
     'bg-[#fb923c]', // Orange
     'bg-[#3B82F6]', // Blue
   ];
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -181,26 +190,25 @@ const App: React.FC = () => {
           <div className="opacity-0 animate-[revealUp_0.8s_ease_forwards_0.6s]">
             <a 
               href="#contact"
-              className="group relative bg-black text-white px-16 py-6 rounded-2xl font-display font-black text-xl tracking-tighter hover:bg-orange-500 transition-all shadow-[8px_8px_0px_#C1FF72] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none inline-block"
+              className="group relative bg-black text-white px-16 py-6 rounded-2xl font-display font-black text-xl tracking-tighter hover:bg-orange-500 transition-all shadow-[8px_8px_0px_#C1FF72] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none inline-block active:translate-x-2 active:translate-y-2 active:shadow-none"
             >
               HIRE ME
             </a>
           </div>
 
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-20 grayscale pointer-events-none animate-[revealUp_0.8s_ease_forwards_0.8s]">
-            <span className="font-bold text-lg tracking-tighter uppercase font-display">React</span>
-            <span className="font-bold text-lg tracking-tighter uppercase font-display">Three.js</span>
-            <span className="font-bold text-lg tracking-tighter uppercase font-display">Blender</span>
-            <span className="font-bold text-lg tracking-tighter uppercase font-display">Figma</span>
+          <div className="flex flex-wrap justify-center items-center gap-10 opacity-20 grayscale pointer-events-none animate-[revealUp_0.8s_ease_forwards_0.8s]">
+            <span className="font-bold text-lg tracking-tighter uppercase font-display border-b-4 border-transparent hover:border-black transition-all">React</span>
+            <span className="font-bold text-lg tracking-tighter uppercase font-display border-b-4 border-transparent hover:border-black transition-all">Three.js</span>
+            <span className="font-bold text-lg tracking-tighter uppercase font-display border-b-4 border-transparent hover:border-black transition-all">Blender</span>
+            <span className="font-bold text-lg tracking-tighter uppercase font-display border-b-4 border-transparent hover:border-black transition-all">Figma</span>
           </div>
         </div>
       </section>
 
       <Marquee />
 
-      {/* Improved & Compressed About Section */}
+      {/* About Section */}
       <section id="about" className="py-40 relative bg-black text-white overflow-hidden px-6">
-        {/* Background Decorative Element */}
         <div className="absolute top-0 right-0 text-[30vw] font-display font-black text-white/5 leading-none select-none pointer-events-none">
           ABOUT
         </div>
@@ -251,23 +259,48 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Colorful Skills Section */}
-      <section id="skills" className="py-40 bg-white text-black px-6 border-y border-zinc-200 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="reveal-scroll mb-24">
-            <h2 className="text-7xl md:text-[10vw] font-display font-black tracking-tighter uppercase italic leading-none border-b-8 border-black inline-block">SKILLS</h2>
+      {/* Modern High-Impact Skills Section */}
+      <section id="skills" className="py-40 bg-zinc-50 text-black px-6 border-y-4 border-black overflow-hidden relative">
+        <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, black 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-32 gap-12 reveal-scroll">
+            <div>
+              <span className="text-orange-500 font-display font-bold text-sm tracking-[0.4em] uppercase block mb-4">My Arsenal</span>
+              <h2 className="text-7xl md:text-[9vw] font-display font-black tracking-tighter uppercase italic leading-[0.8]">
+                SKILLS <br /> <span className="text-zinc-300">& TOOLS</span>
+              </h2>
+            </div>
+            <div className="max-w-xs">
+              <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs leading-loose">
+                Mastering the balance between aesthetics and functionality using industry-leading technologies.
+              </p>
+            </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
             {SKILLS.map((skill, idx) => {
               const cardColor = SKILL_COLORS[idx % SKILL_COLORS.length];
               return (
                 <div 
                   key={idx} 
-                  className={`group p-6 border-2 border-black ${cardColor} aspect-square flex flex-col justify-between hover:bg-black hover:text-white transition-all cursor-default shadow-[8px_8px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] reveal-scroll`}
+                  className={`group relative p-8 border-4 border-black ${cardColor} transition-all hover:-translate-y-2 hover:-translate-x-1 hover:shadow-[12px_12px_0px_#000] cursor-default reveal-scroll h-full flex flex-col justify-between`}
                   style={{ transitionDelay: `${(idx % 5) * 50}ms` }}
                 >
-                  <span className="text-[10px] font-display font-black tracking-widest uppercase opacity-40 group-hover:opacity-100">0{idx + 1}</span>
-                  <h3 className="text-xl font-display font-black tracking-tighter leading-none break-words uppercase">{skill.name}</h3>
+                  <div className="flex justify-between items-start mb-12">
+                     <div className="p-3 bg-white border-2 border-black rounded-xl group-hover:rotate-12 transition-transform">
+                        {skill.icon}
+                     </div>
+                     <span className="text-xs font-display font-black tracking-widest uppercase opacity-30 group-hover:opacity-100">
+                        {idx < 9 ? `0${idx + 1}` : idx + 1}
+                     </span>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-display font-black tracking-tighter leading-tight uppercase mb-4 transition-all group-hover:scale-105 origin-left">
+                      {skill.name}
+                    </h3>
+                    <div className="w-full h-1 bg-black/10 group-hover:bg-black/100 transition-colors"></div>
+                  </div>
                 </div>
               );
             })}
@@ -306,8 +339,10 @@ const App: React.FC = () => {
       </section>
 
       {/* Redesigned Contact Section */}
-      <section id="contact" className="py-40 bg-[#FFDD00] text-black px-6 md:px-12 border-t-8 border-black">
-        <div className="max-w-7xl mx-auto reveal-scroll">
+      <section id="contact" className="py-40 bg-[#FFDD00] text-black px-6 md:px-12 border-t-8 border-black relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #000 0, #000 2px, transparent 0, transparent 40px)' }}></div>
+        
+        <div className="max-w-7xl mx-auto reveal-scroll relative z-10">
           <div className="flex flex-col gap-12 mb-24">
             <div className="relative">
               <h2 className="text-[15vw] md:text-[12vw] font-display font-black tracking-tighter leading-[0.75] uppercase mb-4">
@@ -316,8 +351,8 @@ const App: React.FC = () => {
                 TOUCH
               </h2>
               <div className="absolute top-1/2 right-0 hidden lg:block rotate-12 -translate-y-1/2">
-                <div className="w-64 h-64 bg-black rounded-full flex items-center justify-center text-[#FFDD00] font-display font-black text-center p-8 leading-tight">
-                  SAY HELLO!
+                <div className="w-72 h-72 bg-black rounded-full flex items-center justify-center text-[#FFDD00] font-display font-black text-center p-10 leading-tight text-2xl shadow-[20px_20px_0px_rgba(0,0,0,0.2)] animate-float">
+                  SAY HELLO TO SANDEEP!
                 </div>
               </div>
             </div>
@@ -327,12 +362,12 @@ const App: React.FC = () => {
                 href="https://instagram.com/itz_sandeep_97" 
                 target="_blank" 
                 rel="noreferrer"
-                className="group p-10 bg-black text-white border-2 border-black hover:bg-white hover:text-black transition-all shadow-[8px_8px_0px_#8A5CF6] flex flex-col gap-6"
+                className="group p-10 bg-black text-white border-4 border-black hover:bg-white hover:text-black transition-all shadow-[12px_12px_0px_#8A5CF6] flex flex-col gap-8 h-full active:shadow-none"
               >
-                <Instagram size={40} className="group-hover:scale-125 transition-transform" />
+                <Instagram size={48} className="group-hover:scale-125 transition-transform" />
                 <div>
-                  <div className="font-display font-black text-sm tracking-widest uppercase mb-2 opacity-60">Instagram</div>
-                  <div className="text-2xl font-display font-black tracking-tighter uppercase italic">itz_sandeep_97</div>
+                  <div className="font-display font-black text-xs tracking-widest uppercase mb-4 opacity-50">Instagram</div>
+                  <div className="text-2xl font-display font-black tracking-tighter uppercase italic break-all">itz_sandeep_97</div>
                 </div>
               </a>
 
@@ -340,19 +375,19 @@ const App: React.FC = () => {
                 href="https://linkedin.com/in/Sandeep-Barupal" 
                 target="_blank" 
                 rel="noreferrer"
-                className="group p-10 bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-all shadow-[8px_8px_0px_#3B82F6] flex flex-col gap-6"
+                className="group p-10 bg-white text-black border-4 border-black hover:bg-black hover:text-white transition-all shadow-[12px_12px_0px_#3B82F6] flex flex-col gap-8 h-full active:shadow-none"
               >
-                <Linkedin size={40} className="group-hover:scale-125 transition-transform" />
+                <Linkedin size={48} className="group-hover:scale-125 transition-transform" />
                 <div>
-                  <div className="font-display font-black text-sm tracking-widest uppercase mb-2 opacity-60">LinkedIn</div>
-                  <div className="text-2xl font-display font-black tracking-tighter uppercase italic">Sandeep Barupal</div>
+                  <div className="font-display font-black text-xs tracking-widest uppercase mb-4 opacity-50">LinkedIn</div>
+                  <div className="text-2xl font-display font-black tracking-tighter uppercase italic break-all">Sandeep Barupal</div>
                 </div>
               </a>
 
-              <div className="group p-10 bg-black text-white border-2 border-black hover:bg-white hover:text-black transition-all shadow-[8px_8px_0px_#C1FF72] flex flex-col gap-6">
-                <Phone size={40} className="group-hover:scale-125 transition-transform" />
+              <div className="group p-10 bg-black text-white border-4 border-black hover:bg-white hover:text-black transition-all shadow-[12px_12px_0px_#C1FF72] flex flex-col gap-8 h-full active:shadow-none">
+                <Phone size={48} className="group-hover:scale-125 transition-transform" />
                 <div>
-                  <div className="font-display font-black text-sm tracking-widest uppercase mb-2 opacity-60">Phone</div>
+                  <div className="font-display font-black text-xs tracking-widest uppercase mb-4 opacity-50">Phone</div>
                   <div className="text-2xl font-display font-black tracking-tighter uppercase italic">+91 7878142323</div>
                 </div>
               </div>
@@ -362,47 +397,71 @@ const App: React.FC = () => {
       </section>
 
       {/* Signature Brutalist Footer */}
-      <footer className="bg-black text-white py-24 px-6 md:px-12 border-t border-zinc-900 overflow-hidden">
-        <div className="max-w-7xl mx-auto reveal-scroll">
-          <div className="flex flex-col md:flex-row justify-between gap-20">
-            <div className="flex-1">
-              <h2 className="text-6xl md:text-8xl font-display font-black tracking-tighter uppercase leading-none mb-8">
+      <footer className="bg-black text-white pt-32 pb-16 px-6 md:px-12 border-t-8 border-black relative overflow-hidden">
+        <div className="max-w-7xl mx-auto relative z-10 reveal-scroll">
+          <div className="flex flex-col lg:flex-row justify-between gap-24 lg:gap-12 mb-32">
+            <div className="flex-1 max-w-2xl">
+              <h2 className="text-[12vw] lg:text-[10vw] font-display font-black tracking-tighter uppercase leading-[0.8] mb-12 hover:outlined-text-black hover:text-white transition-all duration-700 cursor-default">
                 SANDEEP <br /> KUMAR
               </h2>
-              <FooterShapes />
+              <div className="max-w-md">
+                <p className="text-xl text-zinc-500 font-medium mb-12 leading-relaxed">
+                  Crafting high-end digital experiences through the lens of <span className="text-white">3D Art</span> and <span className="text-white">Modern Engineering</span>. Let's build something extraordinary.
+                </p>
+                <FooterShapes />
+              </div>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-20 md:gap-32">
-              <div>
-                <h3 className="text-[10px] font-display font-black text-zinc-500 tracking-widest uppercase mb-10">SOCIAL</h3>
-                <ul className="space-y-4 font-display font-bold text-sm tracking-[0.1em] uppercase">
-                  <li><a href="https://instagram.com/itz_sandeep_97" className="hover:text-orange-400 transition-colors">Instagram</a></li>
-                  <li><a href="https://linkedin.com/in/Sandeep-Barupal" className="hover:text-orange-400 transition-colors">LinkedIn</a></li>
-                  <li><a href="#" className="hover:text-orange-400 transition-colors">Twitter</a></li>
-                  <li><a href="#" className="hover:text-orange-400 transition-colors">Artstation</a></li>
+            <div className="flex flex-col sm:flex-row gap-20 sm:gap-40 lg:mt-12">
+              <div className="flex flex-col gap-10">
+                <h3 className="text-[10px] font-display font-black text-zinc-500 tracking-[0.4em] uppercase">QUICK LINKS</h3>
+                <ul className="space-y-6 font-display font-black text-sm tracking-[0.1em] uppercase">
+                  <li><a href="#home" className="hover:text-orange-400 transition-colors flex items-center gap-2 group"><div className="w-0 group-hover:w-4 h-0.5 bg-orange-400 transition-all"></div> HOME</a></li>
+                  <li><a href="#about" className="hover:text-purple-400 transition-colors flex items-center gap-2 group"><div className="w-0 group-hover:w-4 h-0.5 bg-purple-400 transition-all"></div> ABOUT</a></li>
+                  <li><a href="#services" className="hover:text-[#C1FF72] transition-colors flex items-center gap-2 group"><div className="w-0 group-hover:w-4 h-0.5 bg-[#C1FF72] transition-all"></div> SERVICES</a></li>
+                  <li><a href="#contact" className="hover:text-blue-400 transition-colors flex items-center gap-2 group"><div className="w-0 group-hover:w-4 h-0.5 bg-blue-400 transition-all"></div> CONTACT</a></li>
                 </ul>
               </div>
-              <div>
-                <h3 className="text-[10px] font-display font-black text-zinc-500 tracking-widest uppercase mb-10">CONTACT</h3>
+
+              <div className="flex flex-col gap-10">
+                <h3 className="text-[10px] font-display font-black text-zinc-500 tracking-[0.4em] uppercase">LOCATION</h3>
                 <div className="space-y-4 font-display font-bold text-sm tracking-[0.1em] uppercase leading-loose">
-                  <p className="flex items-center gap-2"><Mail size={14} /> hello@sandeep.com</p>
-                  <p className="flex items-center gap-2"><Phone size={14} /> +91 7878142323</p>
-                  <p className="text-zinc-500">
-                    India-based multidisciplinary<br />
-                    design & development studio
-                  </p>
+                  <p className="text-zinc-400">RAJASTHAN, INDIA</p>
+                  <p className="text-zinc-500 italic max-w-[200px]">Remote collaborations worldwide.</p>
+                </div>
+                
+                <div className="mt-12">
+                   <h3 className="text-[10px] font-display font-black text-zinc-500 tracking-[0.4em] uppercase mb-8">STAY CONNECTED</h3>
+                   <div className="flex gap-4">
+                      <a href="https://instagram.com/itz_sandeep_97" className="w-12 h-12 bg-zinc-900 border-2 border-zinc-800 rounded-lg flex items-center justify-center hover:bg-[#8A5CF6] hover:border-black transition-all hover:-translate-y-1"><Instagram size={20} /></a>
+                      <a href="https://linkedin.com/in/Sandeep-Barupal" className="w-12 h-12 bg-zinc-900 border-2 border-zinc-800 rounded-lg flex items-center justify-center hover:bg-[#3B82F6] hover:border-black transition-all hover:-translate-y-1"><Linkedin size={20} /></a>
+                      <a href="mailto:hello@sandeep.com" className="w-12 h-12 bg-zinc-900 border-2 border-zinc-800 rounded-lg flex items-center justify-center hover:bg-[#fb923c] hover:border-black transition-all hover:-translate-y-1"><Mail size={20} /></a>
+                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="mt-40 pt-10 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-display font-bold tracking-[0.3em] text-zinc-600 uppercase">
-             <div>© {new Date().getFullYear()} SANDEEP KUMAR DESIGN STUDIO</div>
-             <div className="flex gap-10">
-                <a href="#" className="hover:text-white transition-colors">PRIVACY</a>
-                <a href="#" className="hover:text-white transition-colors">TERMS</a>
-             </div>
+          <div className="pt-16 border-t-2 border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-12">
+            <div className="text-[10px] font-display font-bold tracking-[0.4em] text-zinc-700 uppercase">
+               © {new Date().getFullYear()} SANDEEP KUMAR DESIGN STUDIO. ALL RIGHTS RESERVED.
+            </div>
+            
+            <button 
+              onClick={scrollToTop}
+              className="group w-16 h-16 bg-white rounded-full flex flex-col items-center justify-center overflow-hidden border-2 border-black hover:bg-orange-500 transition-all active:scale-95"
+            >
+              <div className="group-hover:-translate-y-20 transition-transform duration-500 flex flex-col items-center gap-20">
+                <ChevronUp className="text-black" size={24} />
+                <ChevronUp className="text-white" size={24} />
+              </div>
+            </button>
           </div>
+        </div>
+        
+        {/* Background Accent Text */}
+        <div className="absolute bottom-[-10vw] left-[-5vw] text-[40vw] font-display font-black text-white/[0.02] pointer-events-none select-none leading-none">
+          SK
         </div>
       </footer>
     </div>

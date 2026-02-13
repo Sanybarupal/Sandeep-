@@ -1,3 +1,4 @@
+
 // Fix: Imported React to provide the React namespace for ReactNode
 import React from 'react';
 
@@ -10,6 +11,7 @@ export interface Service {
 export interface Skill {
   name: string;
   category: 'design' | 'development' | 'tools';
+  icon?: React.ReactNode;
 }
 
 export interface Project {
