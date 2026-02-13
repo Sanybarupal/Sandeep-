@@ -53,7 +53,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 py-6 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md border-b border-zinc-100 shadow-sm' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 py-6 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md border-b border-zinc-200 shadow-sm' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <div className="flex -space-x-1">
@@ -99,7 +99,7 @@ const Navbar = () => {
 };
 
 const Marquee = () => (
-  <div className="bg-black py-6 overflow-hidden flex whitespace-nowrap border-y-4 border-black">
+  <div className="bg-black py-6 overflow-hidden flex whitespace-nowrap border-y-4 border-black relative z-20">
     <div className="flex animate-marquee items-center">
       {[...Array(10)].map((_, i) => (
         <React.Fragment key={i}>
@@ -153,11 +153,11 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <Navbar />
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 bg-white overflow-hidden">
+      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 bg-transparent overflow-hidden">
         <div className="mb-12 flex items-center gap-2 opacity-0 animate-[revealUp_0.8s_ease_forwards_0.1s]">
           <span className="text-2xl">👋</span>
           <p className="text-lg md:text-xl font-medium text-zinc-600 uppercase tracking-widest font-display">
@@ -197,10 +197,10 @@ const App: React.FC = () => {
           </div>
 
           <div className="flex flex-wrap justify-center items-center gap-10 opacity-20 grayscale pointer-events-none animate-[revealUp_0.8s_ease_forwards_0.8s]">
-            <span className="font-bold text-lg tracking-tighter uppercase font-display border-b-4 border-transparent hover:border-black transition-all">React</span>
-            <span className="font-bold text-lg tracking-tighter uppercase font-display border-b-4 border-transparent hover:border-black transition-all">Three.js</span>
-            <span className="font-bold text-lg tracking-tighter uppercase font-display border-b-4 border-transparent hover:border-black transition-all">Blender</span>
-            <span className="font-bold text-lg tracking-tighter uppercase font-display border-b-4 border-transparent hover:border-black transition-all">Figma</span>
+            <span className="font-bold text-lg tracking-tighter uppercase font-display">React</span>
+            <span className="font-bold text-lg tracking-tighter uppercase font-display">Three.js</span>
+            <span className="font-bold text-lg tracking-tighter uppercase font-display">Blender</span>
+            <span className="font-bold text-lg tracking-tighter uppercase font-display">Figma</span>
           </div>
         </div>
       </section>
@@ -260,15 +260,13 @@ const App: React.FC = () => {
       </section>
 
       {/* Modern High-Impact Skills Section */}
-      <section id="skills" className="py-40 bg-zinc-50 text-black px-6 border-y-4 border-black overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, black 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
-        
+      <section id="skills" className="py-40 bg-white text-black px-6 border-y-4 border-black overflow-hidden relative">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-32 gap-12 reveal-scroll">
             <div>
               <span className="text-orange-500 font-display font-bold text-sm tracking-[0.4em] uppercase block mb-4">My Arsenal</span>
               <h2 className="text-7xl md:text-[9vw] font-display font-black tracking-tighter uppercase italic leading-[0.8]">
-                SKILLS <br /> <span className="text-zinc-300">& TOOLS</span>
+                SKILLS <br /> <span className="text-zinc-200">& TOOLS</span>
               </h2>
             </div>
             <div className="max-w-xs">
@@ -278,28 +276,28 @@ const App: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {SKILLS.map((skill, idx) => {
               const cardColor = SKILL_COLORS[idx % SKILL_COLORS.length];
               return (
                 <div 
                   key={idx} 
-                  className={`group relative p-8 border-4 border-black ${cardColor} transition-all hover:-translate-y-2 hover:-translate-x-1 hover:shadow-[12px_12px_0px_#000] cursor-default reveal-scroll h-full flex flex-col justify-between`}
+                  className={`group relative p-6 border-4 border-black ${cardColor} transition-all hover:-translate-y-2 hover:-translate-x-1 hover:shadow-[10px_10px_0px_#000] cursor-default reveal-scroll min-h-[220px] flex flex-col justify-between overflow-hidden`}
                   style={{ transitionDelay: `${(idx % 5) * 50}ms` }}
                 >
-                  <div className="flex justify-between items-start mb-12">
-                     <div className="p-3 bg-white border-2 border-black rounded-xl group-hover:rotate-12 transition-transform">
+                  <div className="flex justify-between items-start mb-6">
+                     <div className="p-2 bg-white border-2 border-black rounded-xl group-hover:rotate-12 transition-transform">
                         {skill.icon}
                      </div>
-                     <span className="text-xs font-display font-black tracking-widest uppercase opacity-30 group-hover:opacity-100">
+                     <span className="text-[10px] font-display font-black tracking-widest uppercase opacity-30 group-hover:opacity-100">
                         {idx < 9 ? `0${idx + 1}` : idx + 1}
                      </span>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-display font-black tracking-tighter leading-tight uppercase mb-4 transition-all group-hover:scale-105 origin-left">
+                    <h3 className="text-lg md:text-xl font-display font-black tracking-tighter leading-[1.1] uppercase break-words transition-all group-hover:scale-105 origin-left">
                       {skill.name}
                     </h3>
-                    <div className="w-full h-1 bg-black/10 group-hover:bg-black/100 transition-colors"></div>
+                    <div className="w-full h-1 bg-black/10 group-hover:bg-black/100 transition-colors mt-4"></div>
                   </div>
                 </div>
               );
@@ -340,8 +338,6 @@ const App: React.FC = () => {
 
       {/* Redesigned Contact Section */}
       <section id="contact" className="py-40 bg-[#FFDD00] text-black px-6 md:px-12 border-t-8 border-black relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #000 0, #000 2px, transparent 0, transparent 40px)' }}></div>
-        
         <div className="max-w-7xl mx-auto reveal-scroll relative z-10">
           <div className="flex flex-col gap-12 mb-24">
             <div className="relative">
@@ -352,7 +348,7 @@ const App: React.FC = () => {
               </h2>
               <div className="absolute top-1/2 right-0 hidden lg:block rotate-12 -translate-y-1/2">
                 <div className="w-72 h-72 bg-black rounded-full flex items-center justify-center text-[#FFDD00] font-display font-black text-center p-10 leading-tight text-2xl shadow-[20px_20px_0px_rgba(0,0,0,0.2)] animate-float">
-                  SAY HELLO TO SANDEEP!
+                  SAY HELLO!
                 </div>
               </div>
             </div>
