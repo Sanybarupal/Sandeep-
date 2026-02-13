@@ -1,16 +1,35 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Menu, 
   X, 
   ArrowUpRight, 
-  ExternalLink,
-  Github, 
-  Linkedin, 
-  Twitter,
   MoveUpRight
 } from 'lucide-react';
 import { SERVICES, SKILLS } from './constants';
+
+const useIntersectionObserver = () => {
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.15,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, observerOptions);
+
+    const revealElements = document.querySelectorAll('.reveal-scroll');
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => {
+      revealElements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+};
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -110,11 +129,13 @@ const FooterShapes = () => (
 );
 
 const App: React.FC = () => {
+  useIntersectionObserver();
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
 
-      {/* Hero Section - Cleaned up and Animated */}
+      {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 bg-white overflow-hidden">
         <div className="mb-12 flex items-center gap-2 opacity-0 animate-[revealUp_0.8s_ease_forwards_0.1s]">
           <span className="text-2xl">👋</span>
@@ -163,27 +184,27 @@ const App: React.FC = () => {
 
       <Marquee />
 
-      {/* Improved About Section */}
+      {/* Improved & Compressed About Section */}
       <section id="about" className="py-40 relative bg-black text-white overflow-hidden px-6">
         {/* Background Decorative Element */}
         <div className="absolute top-0 right-0 text-[30vw] font-display font-black text-white/5 leading-none select-none pointer-events-none">
           ABOUT
         </div>
         
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className="max-w-7xl mx-auto relative z-10 reveal-scroll">
           <div className="grid lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-7">
               <span className="text-orange-400 font-display font-bold text-sm tracking-[0.3em] uppercase block mb-6">Introduction</span>
-              <h2 className="text-6xl md:text-[7vw] font-display font-black mb-12 leading-[0.9] tracking-tighter">
+              <h2 className="text-5xl md:text-[6vw] font-display font-black mb-8 leading-[0.85] tracking-tighter uppercase">
                 BEYOND THE <br /> 
                 <span className="text-white italic relative inline-block">
                   PIXELS
-                  <span className="absolute bottom-0 left-0 w-full h-2 bg-orange-400 -z-10"></span>
+                  <span className="absolute bottom-1 left-0 w-full h-1 md:h-2 bg-orange-400 -z-10"></span>
                 </span> 
                 <br /> & POLYGONS.
               </h2>
               <div className="max-w-2xl">
-                <p className="text-2xl md:text-3xl text-zinc-400 font-medium leading-tight mb-8">
+                <p className="text-xl md:text-2xl text-zinc-400 font-medium leading-tight mb-8">
                   I'm Sandeep Kumar, a multidisciplinary creator bridging the gap between <span className="text-white">high-fidelity 3D modeling</span> and <span className="text-white">advanced web architecture</span>.
                 </p>
                 <p className="text-lg text-zinc-500 leading-relaxed mb-12 border-l-4 border-orange-400 pl-8 italic">
@@ -194,14 +215,15 @@ const App: React.FC = () => {
             
             <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-6 lg:mt-24">
               {[
-                { label: 'EXPERIENCE', value: '4+ YEARS', color: 'border-orange-400', shadow: 'shadow-orange-400/20' },
-                { label: '3D PROJECTS', value: '25+', color: 'border-purple-400', shadow: 'shadow-purple-400/20' },
-                { label: 'SATISFACTION', value: '100%', color: 'border-[#C1FF72]', shadow: 'shadow-[#C1FF72]/20' },
-                { label: 'PASSION', value: 'INFINITE', color: 'border-blue-400', shadow: 'shadow-blue-400/20' }
+                { label: 'EXPERIENCE', value: '4+ YEARS', color: 'border-orange-400' },
+                { label: '3D PROJECTS', value: '25+', color: 'border-purple-400' },
+                { label: 'SATISFACTION', value: '100%', color: 'border-[#C1FF72]' },
+                { label: 'PASSION', value: 'INFINITE', color: 'border-blue-400' }
               ].map((stat, i) => (
                 <div 
                   key={i} 
-                  className={`group p-8 border-2 ${stat.color} bg-zinc-900 shadow-[8px_8px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none cursor-default`}
+                  className={`group p-8 border-2 ${stat.color} bg-zinc-900 shadow-[8px_8px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none cursor-default reveal-scroll`}
+                  style={{ transitionDelay: `${i * 100}ms` }}
                 >
                   <div className="text-[10px] font-display font-bold text-zinc-500 mb-4 tracking-widest uppercase">{stat.label}</div>
                   <div className="text-3xl font-display font-black uppercase text-white group-hover:text-white transition-colors flex items-end justify-between">
@@ -215,15 +237,18 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Skills Section - Restored Grid Style */}
-      <section id="skills" className="py-40 bg-white text-black px-6 border-y border-zinc-200">
+      {/* Skills Section */}
+      <section id="skills" className="py-40 bg-white text-black px-6 border-y border-zinc-200 overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-7xl md:text-[10vw] font-display font-black tracking-tighter uppercase italic leading-none mb-24 border-b-8 border-black inline-block">SKILLS</h2>
+          <div className="reveal-scroll mb-24">
+            <h2 className="text-7xl md:text-[10vw] font-display font-black tracking-tighter uppercase italic leading-none border-b-8 border-black inline-block">SKILLS</h2>
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {SKILLS.map((skill, idx) => (
               <div 
                 key={idx} 
-                className="group p-6 border-2 border-black bg-white aspect-square flex flex-col justify-between hover:bg-black hover:text-white transition-all cursor-default shadow-[6px_6px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px]"
+                className="group p-6 border-2 border-black bg-white aspect-square flex flex-col justify-between hover:bg-black hover:text-white transition-all cursor-default shadow-[6px_6px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] reveal-scroll"
+                style={{ transitionDelay: `${(idx % 5) * 50}ms` }}
               >
                 <span className="text-[10px] font-display font-black tracking-widest uppercase opacity-40 group-hover:opacity-100">0{idx + 1}</span>
                 <h3 className="text-xl font-display font-black tracking-tighter leading-none break-words uppercase">{skill.name}</h3>
@@ -233,16 +258,19 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Services Section - Restored Brutalist List */}
-      <section id="services" className="py-32 bg-black text-white px-6">
+      {/* Services Section */}
+      <section id="services" className="py-32 bg-black text-white px-6 overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 reveal-scroll">
             <h2 className="text-7xl md:text-[8vw] font-display font-black tracking-tighter uppercase leading-none">OFFERINGS</h2>
             <p className="max-w-sm text-zinc-500 font-bold uppercase tracking-widest text-xs">High performance design and development solutions for modern brands.</p>
           </div>
           <div className="space-y-0">
             {SERVICES.map((service, idx) => (
-              <div key={idx} className="group border-t border-zinc-800 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white hover:text-black transition-all px-6">
+              <div 
+                key={idx} 
+                className="group border-t border-zinc-800 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white hover:text-black transition-all px-6 reveal-scroll"
+              >
                 <div className="flex items-center gap-10">
                   <span className="text-2xl font-display font-black opacity-20 group-hover:opacity-100">0{idx + 1}</span>
                   <h3 className="text-3xl md:text-5xl font-display font-black uppercase tracking-tighter">{service.title}</h3>
@@ -260,9 +288,9 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Contact Section - Restored Brutalist style */}
+      {/* Contact Section */}
       <section id="contact" className="py-40 bg-white text-black px-6 md:px-12 border-t-8 border-black">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto reveal-scroll">
           <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
             <div>
               <h2 className="text-7xl md:text-[8vw] font-display font-black tracking-tighter leading-[0.8] uppercase">
@@ -282,8 +310,8 @@ const App: React.FC = () => {
       </section>
 
       {/* Signature Brutalist Footer */}
-      <footer className="bg-black text-white py-24 px-6 md:px-12 border-t border-zinc-900">
-        <div className="max-w-7xl mx-auto">
+      <footer className="bg-black text-white py-24 px-6 md:px-12 border-t border-zinc-900 overflow-hidden">
+        <div className="max-w-7xl mx-auto reveal-scroll">
           <div className="flex flex-col md:flex-row justify-between gap-20">
             <div className="flex-1">
               <h2 className="text-6xl md:text-8xl font-display font-black tracking-tighter uppercase leading-none mb-8">

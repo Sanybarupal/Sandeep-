@@ -45,6 +45,17 @@
         overflow: hidden;
       }
 
+      /* Scroll Reveal Classes */
+      .reveal-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal-scroll.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
       /* Ensure text is selectable even with transparent color */
       .outlined-text-black::selection {
         background: #fb923c;
