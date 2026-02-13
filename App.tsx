@@ -395,8 +395,8 @@ const App: React.FC = () => {
 
       {/* High-Impact Refined Footer */}
       <footer className="bg-zinc-950 text-white pt-40 pb-20 px-6 md:px-12 border-t-8 border-black relative overflow-hidden">
-        {/* Background Decorative Large Text */}
-        <div className="absolute bottom-[-5vw] left-1/2 -translate-x-1/2 text-[30vw] font-display font-black text-white/[0.03] pointer-events-none select-none leading-none tracking-tighter whitespace-nowrap">
+        {/* Background Decorative Large Text - Reduced font size as requested */}
+        <div className="absolute bottom-[-2vw] left-1/2 -translate-x-1/2 text-[20vw] font-display font-black text-white/[0.03] pointer-events-none select-none leading-none tracking-tighter whitespace-nowrap">
           BARUPAL
         </div>
 
