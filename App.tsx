@@ -62,7 +62,7 @@ const Navbar = () => {
             <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent animate-pulse"></div>
             <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent animate-pulse delay-75"></div>
           </div>
-          <a href="#home" className="text-2xl font-display font-black tracking-tighter text-black uppercase">S.K</a>
+          <a href="#home" className="text-2xl font-display font-black tracking-tighter text-black uppercase">S.B</a>
         </div>
         
         <div className="hidden md:flex items-center space-x-12">
@@ -162,7 +162,7 @@ const App: React.FC = () => {
         <div className="mb-12 flex items-center gap-2 opacity-0 animate-[revealUp_0.8s_ease_forwards_0.1s]">
           <span className="text-2xl">👋</span>
           <p className="text-lg md:text-xl font-medium text-zinc-600 uppercase tracking-widest font-display">
-            Sandeep Kumar
+            Sandeep Barupal
           </p>
         </div>
 
@@ -210,6 +210,7 @@ const App: React.FC = () => {
 
       {/* About Section */}
       <section id="about" className="py-40 relative bg-black text-white overflow-hidden px-6">
+        {/* Background text class will be scaled down to 17vw via CSS injection in index.html */}
         <div className="absolute top-0 right-0 text-[30vw] font-display font-black text-white/5 leading-none select-none pointer-events-none">
           ABOUT
         </div>
@@ -228,7 +229,7 @@ const App: React.FC = () => {
               </h2>
               <div className="max-w-2xl">
                 <p className="text-xl md:text-2xl text-zinc-400 font-medium leading-tight mb-8">
-                  I'm Sandeep Kumar, a multidisciplinary creator bridging the gap between <span className="text-white">high-fidelity 3D modeling</span> and <span className="text-white">advanced web architecture</span>.
+                  I'm Sandeep Barupal, a multidisciplinary creator bridging the gap between <span className="text-white">high-fidelity 3D modeling</span> and <span className="text-white">advanced web architecture</span>.
                 </p>
                 <p className="text-lg text-zinc-500 leading-relaxed mb-12 border-l-4 border-orange-400 pl-8 italic">
                   "My goal is to craft digital experiences that aren't just seen, but felt. From the precision of a 3D mesh to the performance of a React component, every detail matters."
@@ -395,8 +396,8 @@ const App: React.FC = () => {
 
       {/* High-Impact Refined Footer */}
       <footer className="bg-zinc-950 text-white pt-40 pb-20 px-6 md:px-12 border-t-8 border-black relative overflow-hidden">
-        {/* Background Decorative Large Text - Reduced font size as requested */}
-        <div className="absolute bottom-[-2vw] left-1/2 -translate-x-1/2 text-[20vw] font-display font-black text-white/[0.03] pointer-events-none select-none leading-none tracking-tighter whitespace-nowrap">
+        {/* Background Decorative Large Text - Class text-[30vw] is targeted in CSS to be 17vw */}
+        <div className="absolute bottom-[-2vw] left-1/2 -translate-x-1/2 text-[30vw] font-display font-black text-white/[0.03] pointer-events-none select-none leading-none tracking-tighter whitespace-nowrap">
           BARUPAL
         </div>
 
@@ -405,7 +406,7 @@ const App: React.FC = () => {
             <div className="flex-1">
               <div className="flex items-center gap-4 mb-12">
                 <div className="w-12 h-12 bg-orange-500 rounded-full"></div>
-                <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter uppercase">SANDEEP KUMAR</h2>
+                <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter uppercase">SANDEEP BARUPAL</h2>
               </div>
               <p className="text-2xl text-zinc-500 font-medium max-w-xl leading-snug mb-12">
                 Engineering digital marvels at the intersection of <span className="text-white italic">design precision</span> and <span className="text-white italic">computational power</span>.
@@ -452,7 +453,7 @@ const App: React.FC = () => {
 
           <div className="pt-16 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-12 relative z-10">
             <div className="text-[9px] font-display font-bold tracking-[0.5em] text-zinc-700 uppercase">
-               © {new Date().getFullYear()} SANDEEP KUMAR DESIGN STUDIO. BUILT WITH PASSION.
+               © {new Date().getFullYear()} SANDEEP BARUPAL DESIGN STUDIO. BUILT WITH PASSION.
             </div>
             
             <div className="flex items-center gap-12">
