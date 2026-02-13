@@ -23,7 +23,6 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'WORK', href: '#portfolio' },
     { name: 'ABOUT', href: '#about' },
     { name: 'SERVICES', href: '#services' },
     { name: 'CONTACT', href: '#contact' }
@@ -111,29 +110,6 @@ const FooterShapes = () => (
 );
 
 const App: React.FC = () => {
-  const PROJECTS_3D = [
-    {
-      title: "G-FIELD COLLECTIBLE",
-      category: "3D AIGC / DESIGN",
-      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7uS3H7sH7S7S7S7S7S7S7S7S7S.png"
-    },
-    {
-      title: "LUFFY GEAR VISTA",
-      category: "RENDER / UI",
-      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8uS8H8S8H8S8H8S8H8S8H8S8H.png"
-    },
-    {
-      title: "SPACE DORAEMON",
-      category: "CONCEPT / ANIMATION",
-      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9uS9H9S9H9S9H9S9H9S9H9S9H.png"
-    },
-    {
-      title: "NEO TOY SERIES",
-      category: "PRODUCT DESIGN",
-      image: "https://picsum.photos/seed/neo3d/800/600"
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -284,31 +260,6 @@ const App: React.FC = () => {
               </div>
             ))}
             <div className="border-t border-zinc-800"></div>
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section - Restored Brutalist style */}
-      <section id="portfolio" className="py-32 px-6 bg-zinc-950 text-white">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-7xl md:text-[10vw] font-display font-black tracking-tighter uppercase italic leading-none mb-24">WORKS</h2>
-          <div className="grid md:grid-cols-2 gap-16">
-            {PROJECTS_3D.map((project, idx) => (
-              <div key={idx} className="group flex flex-col gap-8 cursor-pointer">
-                <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden bg-white/5 border border-zinc-800/50 shadow-2xl transition-all duration-500 hover:shadow-orange-400/10">
-                  <img src={project.image} alt={project.title} className="w-full h-full object-contain p-8 group-hover:scale-110 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                    <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center text-black shadow-2xl">
-                       <ExternalLink size={40} />
-                    </div>
-                  </div>
-                </div>
-                <div className="px-4">
-                  <h3 className="text-3xl font-display font-black uppercase text-white group-hover:text-orange-400 transition-colors">{project.title}</h3>
-                  <p className="text-zinc-500 text-xs font-display tracking-widest uppercase mt-2">{project.category}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
