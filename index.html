@@ -10,24 +10,46 @@
     <style>
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #ffffff;
-        -webkit-font-smoothing: antialiased;
+        background-color: #f8f8f8;
+        background-image: 
+          linear-gradient(#e5e5e5 1px, transparent 1px),
+          linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+        background-size: 40px 40px;
       }
       .font-display {
         font-family: 'Syncopate', sans-serif;
       }
       .outlined-text-black {
-        -webkit-text-stroke: 1px #000;
+        -webkit-text-stroke: 1.5px #000;
         color: transparent;
       }
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+      }
+      @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
       @keyframes revealUp {
-        0% { transform: translateY(50px); opacity: 0; }
+        0% { transform: translateY(100%); opacity: 0; }
         100% { transform: translateY(0); opacity: 1; }
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .animate-marquee {
+        animation: marquee 30s linear infinite;
       }
       .animate-reveal {
         animation: revealUp 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
       }
+      .delay-200 { animation-delay: 0.2s; }
       
+      .reveal-container {
+        overflow: hidden;
+      }
+
       /* Scroll Reveal Classes */
       .reveal-scroll {
         opacity: 0;
@@ -39,13 +61,20 @@
         transform: translateY(0);
       }
 
-      /* Image Grayscale Effect */
-      .grayscale-hover {
-        filter: grayscale(100%);
-        transition: filter 0.5s ease;
+      /* User Requested CSS Overrides */
+      .text-\[30vw\] {
+        font-size: 17vw !important;
       }
-      .grayscale-hover:hover {
-        filter: grayscale(0%);
+
+      .bottom-\[-5vw\] {
+        bottom: -2vw !important;
+      }
+
+      /* Ensure text is selectable even with transparent color */
+      .outlined-text-black::selection {
+        background: #fb923c;
+        color: white;
+        -webkit-text-stroke: 0;
       }
     </style>
   <script type="importmap">
