@@ -114,9 +114,9 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-white">
       <Navbar />
 
-      {/* Hero Section - Bazil Style (Heading size reduced) */}
+      {/* Hero Section - Cleaned up and Animated */}
       <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 bg-white overflow-hidden">
-        <div className="mb-8 flex items-center gap-2">
+        <div className="mb-12 flex items-center gap-2 opacity-0 animate-[revealUp_0.8s_ease_forwards_0.1s]">
           <span className="text-2xl">👋</span>
           <p className="text-lg md:text-xl font-medium text-zinc-600">
             , my name is Sandeep and I am a freelance
@@ -124,39 +124,35 @@ const App: React.FC = () => {
         </div>
 
         <div className="relative w-full max-w-7xl">
-          <div className="relative z-0 text-center select-none">
-            <h1 className="text-[10vw] md:text-[8vw] font-display font-black leading-[0.85] tracking-tighter text-black mb-2">
-              3D Artist
-            </h1>
-            <h2 className="text-[10vw] md:text-[8vw] font-display font-bold leading-[0.85] tracking-tighter outlined-text-black">
-              & Developer
-            </h2>
-          </div>
-
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] w-full max-w-2xl pointer-events-none z-10 flex justify-center">
-            <img 
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8uS8H8S8H8S8H8S8H8S8H8S8H.png" 
-              alt="Central character" 
-              className="w-full max-w-md md:max-w-lg drop-shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 animate-float"
-            />
+          <div className="relative z-0 text-center select-none flex flex-col items-center">
+            <div className="reveal-container mb-2">
+              <h1 className="text-[10vw] md:text-[8vw] font-display font-black leading-[0.85] tracking-tighter text-black animate-reveal opacity-0">
+                3D Artist
+              </h1>
+            </div>
+            <div className="reveal-container">
+              <h2 className="text-[10vw] md:text-[8vw] font-display font-bold leading-[0.85] tracking-tighter outlined-text-black animate-reveal delay-200 opacity-0">
+                & Developer
+              </h2>
+            </div>
           </div>
         </div>
 
-        <div className="w-full max-w-7xl mt-12 grid grid-cols-1 md:grid-cols-3 gap-12 items-end">
-          <div className="text-left">
+        <div className="w-full max-w-7xl mt-16 grid grid-cols-1 md:grid-cols-3 gap-12 items-end">
+          <div className="text-left opacity-0 animate-[revealUp_0.8s_ease_forwards_0.4s]">
             <p className="text-xl md:text-2xl font-medium text-zinc-500">
               based in India.
             </p>
           </div>
-          <div className="flex flex-col md:flex-row gap-4 justify-center items-center z-20">
+          <div className="flex flex-col md:flex-row gap-4 justify-center items-center z-20 opacity-0 animate-[revealUp_0.8s_ease_forwards_0.6s]">
             <button className="bg-black text-white px-8 py-4 rounded-xl font-bold text-sm tracking-tight hover:bg-zinc-800 transition-all w-full md:w-auto shadow-[4px_4px_0px_#C1FF72]">
-              You need a 3D artist
+              3D Design Inquiries
             </button>
             <button className="bg-white text-black border-2 border-black px-8 py-4 rounded-xl font-bold text-sm tracking-tight hover:bg-zinc-50 transition-all w-full md:w-auto shadow-[4px_4px_0px_#fb923c]">
-              You need a developer
+              Development Projects
             </button>
           </div>
-          <div className="flex flex-wrap justify-center md:justify-end items-center gap-8 opacity-40 grayscale pointer-events-none">
+          <div className="flex flex-wrap justify-center md:justify-end items-center gap-8 opacity-20 grayscale pointer-events-none animate-[revealUp_0.8s_ease_forwards_0.8s]">
             <span className="font-bold text-lg tracking-tighter">React</span>
             <span className="font-bold text-lg tracking-tighter">Three.js</span>
             <span className="font-bold text-lg tracking-tighter">Blender</span>

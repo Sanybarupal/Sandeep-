@@ -26,12 +26,25 @@
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
       }
+      @keyframes revealUp {
+        0% { transform: translateY(100%); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
+      }
       .animate-float {
         animation: float 6s ease-in-out infinite;
       }
       .animate-marquee {
         animation: marquee 30s linear infinite;
       }
+      .animate-reveal {
+        animation: revealUp 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+      }
+      .delay-200 { animation-delay: 0.2s; }
+      
+      .reveal-container {
+        overflow: hidden;
+      }
+
       /* Ensure text is selectable even with transparent color */
       .outlined-text-black::selection {
         background: #fb923c;
