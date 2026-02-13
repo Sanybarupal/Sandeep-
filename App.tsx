@@ -7,7 +7,8 @@ import {
   ExternalLink,
   Github, 
   Linkedin, 
-  Twitter
+  Twitter,
+  MoveUpRight
 } from 'lucide-react';
 import { SERVICES, SKILLS } from './constants';
 
@@ -29,7 +30,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 py-6 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md border-b border-zinc-100' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 py-6 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md border-b border-zinc-100 shadow-sm' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <div className="flex -space-x-1">
@@ -51,13 +52,13 @@ const Navbar = () => {
           ))}
           <a 
             href="mailto:hello@sandeep.com" 
-            className="bg-black text-white px-6 py-2 rounded-lg text-xs font-display font-bold hover:bg-zinc-800 transition-all shadow-[4px_4px_0px_#fb923c]"
+            className="bg-black text-white px-6 py-2.5 rounded-lg text-xs font-display font-bold hover:bg-orange-500 transition-all shadow-[4px_4px_0px_#fb923c]"
           >
             GET IN TOUCH
           </a>
         </div>
 
-        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-black">
+        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-black p-2 border-2 border-black rounded-lg">
           {isOpen ? <X /> : <Menu />}
         </button>
       </div>
@@ -66,13 +67,29 @@ const Navbar = () => {
         <div className="md:hidden fixed inset-0 bg-white flex flex-col items-center justify-center space-y-8 z-[60]">
           <button onClick={() => setIsOpen(false)} className="absolute top-8 right-8 text-black"><X size={32} /></button>
           {navLinks.map((link) => (
-            <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="text-3xl font-display font-black text-black tracking-widest">{link.name}</a>
+            <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="text-4xl font-display font-black text-black tracking-widest">{link.name}</a>
           ))}
         </div>
       )}
     </nav>
   );
 };
+
+const Marquee = () => (
+  <div className="bg-black py-4 overflow-hidden flex whitespace-nowrap border-y-2 border-black">
+    <div className="flex animate-marquee items-center">
+      {[...Array(10)].map((_, i) => (
+        <React.Fragment key={i}>
+          <span className="text-white font-display font-black text-2xl mx-10 flex items-center gap-4">
+            3D ARTIST <span className="w-2 h-2 bg-orange-500 rounded-full"></span> 
+            DEVELOPER <span className="w-2 h-2 bg-white rounded-full"></span> 
+            UI/UX DESIGNER <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+          </span>
+        </React.Fragment>
+      ))}
+    </div>
+  </div>
+);
 
 const FooterShapes = () => (
   <div className="flex flex-wrap gap-4 mt-8">
@@ -172,32 +189,55 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* About Section - Restored Brutalist style */}
-      <section id="about" className="py-40 relative bg-black text-white overflow-hidden px-4">
+      <Marquee />
+
+      {/* Improved About Section */}
+      <section id="about" className="py-40 relative bg-black text-white overflow-hidden px-6">
+        {/* Background Decorative Element */}
+        <div className="absolute top-0 right-0 text-[30vw] font-display font-black text-white/5 leading-none select-none pointer-events-none">
+          ABOUT
+        </div>
+        
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid md:grid-cols-2 gap-20 items-center">
-            <div>
-              <h2 className="text-6xl md:text-[8vw] font-display font-black mb-10 leading-[0.8] tracking-tighter">
-                CRAFTING <br /> <span className="text-orange-400 italic">DIGITAL</span> <br /> REALMS.
+          <div className="grid lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-7">
+              <span className="text-orange-400 font-display font-bold text-sm tracking-[0.3em] uppercase block mb-6">Introduction</span>
+              <h2 className="text-6xl md:text-[7vw] font-display font-black mb-12 leading-[0.9] tracking-tighter">
+                BEYOND THE <br /> 
+                <span className="text-white italic relative inline-block">
+                  PIXELS
+                  <span className="absolute bottom-0 left-0 w-full h-2 bg-orange-400 -z-10"></span>
+                </span> 
+                <br /> & POLYGONS.
               </h2>
-            </div>
-            <div className="space-y-10">
-              <p className="text-2xl md:text-3xl text-zinc-400 font-medium leading-relaxed">
-                I specialize in bridging the gap between high-fidelity 3D modeling and cutting-edge web development.
-              </p>
-              <div className="grid grid-cols-2 gap-6">
-                {[
-                  { label: 'EXPERIENCE', value: '4+ YEARS', color: 'border-orange-400' },
-                  { label: '3D PROJECTS', value: '25+', color: 'border-purple-400' },
-                  { label: 'SATISFACTION', value: '100%', color: 'border-[#C1FF72]' },
-                  { label: 'PASSION', value: 'INFINITE', color: 'border-blue-400' }
-                ].map((stat, i) => (
-                  <div key={i} className={`p-8 border-2 ${stat.color} bg-zinc-900 shadow-[8px_8px_0px_rgba(255,255,255,0.1)]`}>
-                    <div className="text-[10px] font-display font-bold text-zinc-500 mb-2 tracking-widest uppercase">{stat.label}</div>
-                    <div className="text-2xl font-display font-black uppercase text-white">{stat.value}</div>
-                  </div>
-                ))}
+              <div className="max-w-2xl">
+                <p className="text-2xl md:text-3xl text-zinc-400 font-medium leading-tight mb-8">
+                  I'm Sandeep Kumar, a multidisciplinary creator bridging the gap between <span className="text-white">high-fidelity 3D modeling</span> and <span className="text-white">advanced web architecture</span>.
+                </p>
+                <p className="text-lg text-zinc-500 leading-relaxed mb-12 border-l-4 border-orange-400 pl-8 italic">
+                  "My goal is to craft digital experiences that aren't just seen, but felt. From the precision of a 3D mesh to the performance of a React component, every detail matters."
+                </p>
               </div>
+            </div>
+            
+            <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-6 lg:mt-24">
+              {[
+                { label: 'EXPERIENCE', value: '4+ YEARS', color: 'border-orange-400', shadow: 'shadow-orange-400/20' },
+                { label: '3D PROJECTS', value: '25+', color: 'border-purple-400', shadow: 'shadow-purple-400/20' },
+                { label: 'SATISFACTION', value: '100%', color: 'border-[#C1FF72]', shadow: 'shadow-[#C1FF72]/20' },
+                { label: 'PASSION', value: 'INFINITE', color: 'border-blue-400', shadow: 'shadow-blue-400/20' }
+              ].map((stat, i) => (
+                <div 
+                  key={i} 
+                  className={`group p-8 border-2 ${stat.color} bg-zinc-900 shadow-[8px_8px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none cursor-default`}
+                >
+                  <div className="text-[10px] font-display font-bold text-zinc-500 mb-4 tracking-widest uppercase">{stat.label}</div>
+                  <div className="text-3xl font-display font-black uppercase text-white group-hover:text-white transition-colors flex items-end justify-between">
+                    {stat.value}
+                    <MoveUpRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity text-orange-400" />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
