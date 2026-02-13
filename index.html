@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sandeep Kumar | UI/UX Designer & Web Developer</title>
+    <title>Sandeep Kumar | 3D Artist & Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
@@ -13,40 +13,10 @@
       }
       .font-display {
         font-family: 'Syncopate', sans-serif;
-        text-transform: uppercase;
       }
-      .outlined-text {
-        -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+      .outlined-text-black {
+        -webkit-text-stroke: 1.5px #000;
         color: transparent;
-      }
-      .double-border {
-        position: relative;
-        border: 1px solid white;
-      }
-      .double-border::after {
-        content: '';
-        position: absolute;
-        inset: -4px;
-        border: 1px solid rgba(255,255,255,0.2);
-        pointer-events: none;
-        border-radius: inherit;
-      }
-      .brutalist-card {
-        border: 3px solid #000;
-        box-shadow: 8px 8px 0px #000;
-        transition: all 0.2s ease-out;
-      }
-      .brutalist-card:hover {
-        transform: translate(-2px, -2px);
-        box-shadow: 12px 12px 0px #000;
-      }
-      .hero-gradient-text {
-        background: linear-gradient(to right, #fff 20%, #888 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-      .contact-shapes div {
-        border-radius: 40px;
       }
       @keyframes float {
         0%, 100% { transform: translateY(0); }
@@ -54,6 +24,12 @@
       }
       .animate-float {
         animation: float 6s ease-in-out infinite;
+      }
+      /* Ensure text is selectable even with transparent color */
+      .outlined-text-black::selection {
+        background: #fb923c;
+        color: white;
+        -webkit-text-stroke: 0;
       }
     </style>
   <script type="importmap">
@@ -69,9 +45,8 @@
 }
 </script>
 </head>
-  <body class="bg-black text-white overflow-x-hidden selection:bg-indigo-500 selection:text-white">
+  <body class="bg-white text-black overflow-x-hidden">
     <div id="root"></div>
-    <!-- The index.tsx is usually automatically injected, but adding an explicit module script ensures it loads -->
     <script type="module" src="index.tsx"></script>
   </body>
 </html>

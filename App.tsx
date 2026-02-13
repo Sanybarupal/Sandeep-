@@ -5,68 +5,57 @@ import {
   X, 
   ArrowUpRight, 
   ArrowRight,
-  Mail, 
-  Phone, 
-  MapPin, 
-  Github, 
-  Linkedin, 
-  Twitter, 
-  Instagram,
-  ChevronRight,
-  Cpu,
-  Palette,
-  Code2,
-  Wrench,
-  Layers,
-  CheckCircle2
+  ExternalLink,
+  Github,
+  Twitter,
+  Linkedin
 } from 'lucide-react';
 import { SERVICES, SKILLS } from './constants';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const navLinks = [
-    { name: 'ABOUT', href: '#about' },
-    { name: 'SKILLS', href: '#skills' },
-    { name: 'SERVICES', href: '#services' },
-    { name: 'PROJECTS', href: '#portfolio' },
-    { name: 'CONTACT', href: '#contact' }
-  ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 py-6 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-zinc-800' : 'bg-transparent'}`}>
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-        <a href="#home" className="text-2xl font-display font-bold tracking-tighter">SK.</a>
-        
-        <div className="hidden md:flex items-center space-x-12">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              className="text-xs font-display font-bold text-zinc-400 hover:text-white transition-colors tracking-[0.2em]"
-            >
-              {link.name}
-            </a>
-          ))}
+    <nav className="fixed top-0 left-0 right-0 z-50 py-6 px-6 md:px-12 flex justify-between items-center bg-white/80 backdrop-blur-md">
+      <div className="flex items-center gap-2">
+        <div className="flex -space-x-1">
+          <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent"></div>
+          <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent"></div>
         </div>
-
-        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-white">
-          {isOpen ? <X /> : <Menu />}
-        </button>
+        <a href="#home" className="text-3xl font-display font-black tracking-tight text-black">Sandeep<span className="text-pink-500">.</span></a>
+      </div>
+      
+      <div className="hidden md:flex items-center space-x-10">
+        {['Work', 'Services', 'About', 'Contact'].map((item) => (
+          <a 
+            key={item} 
+            href={`#${item.toLowerCase()}`} 
+            className="text-sm font-medium text-zinc-600 hover:text-black transition-colors"
+          >
+            {item}
+          </a>
+        ))}
+        <div className="flex items-center gap-2 ml-4">
+          <span className="text-xs text-zinc-400">IN</span>
+          <span className="text-xs text-black border-b-2 border-black font-bold">EN</span>
+        </div>
+        <a 
+          href="mailto:hello@sandeep.com" 
+          className="bg-zinc-900 text-white px-8 py-3 rounded-lg text-sm font-bold hover:bg-black transition-all shadow-lg"
+        >
+          hello@sandeep.com
+        </a>
       </div>
 
+      <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-black">
+        {isOpen ? <X /> : <Menu />}
+      </button>
+
       {isOpen && (
-        <div className="md:hidden fixed inset-0 bg-black flex flex-col items-center justify-center space-y-8 z-[60]">
-          <button onClick={() => setIsOpen(false)} className="absolute top-8 right-8 text-white"><X size={32} /></button>
-          {navLinks.map((link) => (
-            <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="text-3xl font-display font-bold tracking-widest">{link.name}</a>
+        <div className="md:hidden fixed inset-0 bg-white flex flex-col items-center justify-center space-y-8 z-[60]">
+          <button onClick={() => setIsOpen(false)} className="absolute top-8 right-8 text-black"><X size={32} /></button>
+          {['Work', 'Services', 'About', 'Contact'].map((link) => (
+            <a key={link} href={`#${link.toLowerCase()}`} onClick={() => setIsOpen(false)} className="text-4xl font-display font-black text-black">{link}</a>
           ))}
         </div>
       )}
@@ -74,324 +63,111 @@ const Navbar = () => {
   );
 };
 
-const App: React.FC = () => {
-  const PROJECTS_3D = [
-    {
-      title: "G-FIELD COLLECTIBLE",
-      category: "3D AIGC / DESIGN",
-      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7uS3H7sH7S7S7S7S7S7S7S7S7S.png", // Garfield Style
-      description: "Custom 3D character design for a high-end digital toy collection."
-    },
-    {
-      title: "LUFFY GEAR VISTA",
-      category: "RENDER / UI",
-      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8uS8H8S8H8S8H8S8H8S8H8S8H.png", // Luffy Style
-      description: "Interactive 3D web experience with high-fidelity anime rendering."
-    },
-    {
-      title: "SPACE DORAEMON",
-      category: "CONCEPT / ANIMATION",
-      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9uS9H9S9H9S9H9S9H9S9H9S9H.png", // Doraemon Style
-      description: "A futuristic rethink of a classic character using modern shading."
-    },
-    {
-      title: "NEO TOY SERIES",
-      category: "PRODUCT DESIGN",
-      image: "https://picsum.photos/seed/neo3d/800/600",
-      description: "Packaging and digital assets for upcoming vinyl toy releases."
-    }
-  ];
-
+const Hero = () => {
   return (
-    <div className="min-h-screen">
-      <Navbar />
+    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 bg-white overflow-hidden">
+      {/* Intro text */}
+      <div className="mb-8 flex items-center gap-2">
+        <span className="text-2xl">👋</span>
+        <p className="text-lg md:text-xl font-medium text-zinc-600">
+          , my name is Sandeep and I am a freelance
+        </p>
+      </div>
 
-      {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden px-4">
-        <div className="max-w-7xl mx-auto w-full relative">
-          <div className="text-center relative z-20">
-            <h1 className="text-[12vw] md:text-[10vw] font-display font-black leading-[0.8] mb-8 hero-gradient-text tracking-tighter">
-              HI, I'M <br /> SANDEEP
-            </h1>
-          </div>
-
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg pointer-events-none z-10 flex justify-center">
-            {/* Luffy Style Character for Hero */}
-            <img 
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8uS8H8S8H8S8H8S8H8S8H8S8H.png" 
-              alt="Luffy 3D Character" 
-              className="w-full max-w-sm md:max-w-md drop-shadow-[0_40px_100px_rgba(255,255,255,0.15)] animate-float"
-            />
-          </div>
-
-          <div className="flex flex-col md:flex-row justify-between items-end md:items-center mt-12 gap-8 relative z-30">
-            <div className="max-w-xs text-left">
-              <p className="text-xs font-display font-bold text-zinc-500 mb-4 tracking-widest uppercase leading-relaxed">
-                SPECIALIZING IN 3D AIGC, UI/UX, AND BOLD DIGITAL EXPERIENCES ⚡️
-              </p>
-            </div>
-            <div className="flex flex-col items-end">
-              <a href="#portfolio" className="group relative px-10 py-4 rounded-full border-2 border-zinc-700 bg-zinc-900/50 backdrop-blur-sm overflow-hidden transition-all hover:scale-105 hover:border-indigo-500">
-                <span className="relative z-10 text-xs font-display font-bold tracking-widest group-hover:text-white transition-colors uppercase">VIEW 3D PROJECTS</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-40 relative bg-zinc-950 overflow-hidden px-4">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap opacity-[0.03] pointer-events-none">
-          <span className="text-[30vw] font-display font-black tracking-widest uppercase">CREATIVE</span>
-        </div>
-        
-        {/* Doraemon Floating Element */}
-        <div className="absolute right-0 top-1/4 w-64 opacity-20 pointer-events-none hidden lg:block">
-           <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9uS9H9S9H9S9H9S9H9S9H9S9H.png" alt="3D Toy" className="w-full animate-float" style={{ animationDelay: '2s' }} />
-        </div>
-
-        <div className="max-w-5xl mx-auto relative z-10">
-          <div className="grid md:grid-cols-2 gap-20 items-center">
-            <div>
-              <h2 className="text-5xl md:text-7xl font-display font-black mb-10 leading-none">
-                CRAFTING <br /> <span className="text-indigo-500 italic">3D VISUALS</span> <br /> & CODE.
-              </h2>
-              <div className="flex flex-wrap gap-3 mb-12">
-                {['3D AIGC', 'BRUTALIST', 'FAST', 'LUXURY'].map(tag => (
-                  <span key={tag} className="px-4 py-1 border border-zinc-800 rounded-full text-[10px] font-display font-bold tracking-widest">{tag}</span>
-                ))}
-              </div>
-            </div>
-            <div className="space-y-8">
-              <p className="text-xl md:text-2xl text-zinc-400 font-medium leading-relaxed">
-                I help brands stand out with futuristic 3D renders and high-performance development. From character design to complete web ecosystems.
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { label: 'EXPERIENCE', value: '4+ YEARS' },
-                  { label: '3D PROJECTS', value: '25+' },
-                  { label: 'TECH STACK', value: 'MODERN' },
-                  { label: 'CREATIVITY', value: '100%' }
-                ].map((stat, i) => (
-                  <div key={i} className="p-6 border border-zinc-800 rounded-2xl bg-black/40 backdrop-blur-sm">
-                    <div className="text-[10px] font-display font-bold text-zinc-500 mb-2 tracking-widest">{stat.label}</div>
-                    <div className="text-2xl font-display font-black uppercase">{stat.value}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="py-32 px-6 bg-white text-black relative">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-24 flex flex-col md:flex-row justify-between items-end gap-10">
-            <h2 className="text-7xl md:text-9xl font-display font-black tracking-tighter uppercase italic leading-none border-b-8 border-black inline-block">
-              SKILLS
-            </h2>
-            <div className="max-w-sm">
-              <p className="text-zinc-600 font-bold text-sm tracking-wider uppercase leading-relaxed">
-                Blending 3D modeling expertise with world-class frontend engineering to create the future of the web.
-              </p>
-            </div>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-10">
-            {[
-              { 
-                category: 'design', 
-                icon: <Palette size={40} />, 
-                title: '3D & UI/UX',
-                color: 'bg-orange-100',
-                accent: 'text-orange-600'
-              },
-              { 
-                category: 'development', 
-                icon: <Code2 size={40} />, 
-                title: 'FRONT-END',
-                color: 'bg-indigo-100',
-                accent: 'text-indigo-600'
-              },
-              { 
-                category: 'tools', 
-                icon: <Wrench size={40} />, 
-                title: 'AIGC TOOLS',
-                color: 'bg-zinc-100',
-                accent: 'text-zinc-600'
-              }
-            ].map((group) => (
-              <div key={group.category} className={`brutalist-card p-10 ${group.color} flex flex-col h-full`}>
-                <div className="flex items-center justify-between mb-10">
-                  <div className={`p-4 bg-black text-white rounded-2xl ${group.accent}`}>
-                    {group.icon}
-                  </div>
-                  <div className="text-[10px] font-display font-black tracking-widest text-black/40 uppercase">EXPERT</div>
-                </div>
-                
-                <h3 className="text-3xl font-display font-black text-black mb-8 leading-tight tracking-tight uppercase">
-                  {group.title}
-                </h3>
-                
-                <div className="flex flex-wrap gap-2 mt-auto">
-                  {SKILLS.filter(s => s.category === group.category).map((skill, idx) => (
-                    <div 
-                      key={idx} 
-                      className="px-4 py-2 border-2 border-black bg-white text-[10px] font-display font-black tracking-widest uppercase hover:bg-black hover:text-white transition-all cursor-default shadow-[2px_2px_0px_#000]"
-                    >
-                      {skill.name}
-                    </div>
-                  ))}
-                  {group.category === 'design' && (
-                    <div className="px-4 py-2 border-2 border-black bg-black text-white text-[10px] font-display font-black tracking-widest uppercase">3D RENDERING</div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section id="services" className="py-32 bg-black px-6">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-5xl md:text-8xl font-display font-black mb-20 tracking-tighter uppercase italic leading-none text-white">
-            SERVICES
+      <div className="relative w-full max-w-7xl">
+        {/* Large Typography Layout */}
+        <div className="relative z-0 text-center select-none">
+          <h1 className="text-[14vw] md:text-[11vw] font-display font-black leading-[0.85] tracking-tighter text-zinc-900 mb-2">
+            3D Artist
+          </h1>
+          <h2 className="text-[14vw] md:text-[11vw] font-display font-bold leading-[0.85] tracking-tighter outlined-text-black">
+            & Developer
           </h2>
-          <div className="space-y-0">
-            {SERVICES.map((service, idx) => (
-              <div key={idx} className="group border-b border-zinc-800 py-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-10 hover:bg-zinc-900/40 px-6 transition-all duration-300 first:border-t">
-                <div className="flex items-start gap-12">
-                  <span className="text-5xl font-display font-black text-zinc-800 group-hover:text-orange-500 transition-colors">0{idx + 1}</span>
-                  <div>
-                    <h3 className="text-3xl md:text-4xl font-display font-black mb-4 uppercase text-white group-hover:translate-x-2 transition-transform">{service.title}</h3>
-                    <p className="text-zinc-500 max-w-xl text-lg font-medium">{service.description}</p>
-                  </div>
-                </div>
-                <div className="p-5 border border-zinc-700 rounded-full text-white group-hover:bg-white group-hover:text-black transition-all group-hover:rotate-45">
-                  <ArrowUpRight size={32} />
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
-      </section>
 
-      {/* Projects Section - Using 3D Style */}
-      <section id="portfolio" className="py-32 px-6 bg-zinc-950">
+        {/* Central Character Image */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] w-full max-w-2xl pointer-events-none z-10 flex justify-center">
+          <img 
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8uS8H8S8H8S8H8S8H8S8H8S8H.png" 
+            alt="Central character" 
+            className="w-full max-w-md md:max-w-lg drop-shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 animate-float"
+          />
+        </div>
+      </div>
+
+      {/* Bottom Row: Location, Buttons, and Logos */}
+      <div className="w-full max-w-7xl mt-12 grid grid-cols-1 md:grid-cols-3 gap-12 items-end">
+        {/* Location */}
+        <div className="text-left">
+          <p className="text-xl md:text-2xl font-medium text-zinc-500">
+            based in India.
+          </p>
+        </div>
+
+        {/* CTAs */}
+        <div className="flex flex-col md:flex-row gap-4 justify-center items-center z-20">
+          <button className="bg-zinc-900 text-white px-8 py-4 rounded-xl font-bold text-sm tracking-tight hover:bg-black transition-all w-full md:w-auto">
+            You need a 3D artist
+          </button>
+          <button className="bg-white text-zinc-900 border-2 border-zinc-900 px-8 py-4 rounded-xl font-bold text-sm tracking-tight hover:bg-zinc-100 transition-all w-full md:w-auto">
+            You need a developer
+          </button>
+        </div>
+
+        {/* Tool Logos / Trust Badges */}
+        <div className="flex flex-wrap justify-center md:justify-end items-center gap-8 opacity-40 grayscale pointer-events-none">
+          <span className="font-bold text-lg tracking-tighter">React</span>
+          <span className="font-bold text-lg tracking-tighter">Three.js</span>
+          <span className="font-bold text-lg tracking-tighter">Blender</span>
+          <span className="font-bold text-lg tracking-tighter">Figma</span>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <div className="min-h-screen bg-white text-black selection:bg-orange-400 selection:text-white">
+      <Navbar />
+      <Hero />
+
+      {/* Projects Section - Clean Grid */}
+      <section id="work" className="py-32 px-6 md:px-12 bg-zinc-50 border-t border-zinc-100">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-10">
-            <h2 className="text-7xl md:text-9xl font-display font-black tracking-tighter uppercase italic leading-none">WORKS</h2>
-            <div className="flex items-center gap-4 text-xs font-display font-black tracking-widest text-zinc-500 uppercase">
-              <div className="w-12 h-1 bg-zinc-800"></div>
-              AIGC & 3D GALLERY
-            </div>
+          <div className="flex justify-between items-end mb-20">
+            <h2 className="text-6xl font-display font-black tracking-tighter italic">LATEST WORK</h2>
+            <a href="#" className="font-bold text-sm border-b-2 border-black pb-1 hover:text-zinc-600 hover:border-zinc-400 transition-all">SEE ALL PROJECTS</a>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-16">
-            {PROJECTS_3D.map((project, idx) => (
-              <div key={idx} className="group flex flex-col gap-8 cursor-pointer">
-                <div className="relative aspect-square rounded-[2.5rem] overflow-hidden bg-white/5 border border-zinc-800/50 shadow-2xl group-hover:border-indigo-500 transition-colors">
-                  <img src={project.image} alt={project.title} className="w-full h-full object-contain p-8 group-hover:scale-110 transition-transform duration-1000 opacity-90 group-hover:opacity-100" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  <div className="absolute top-10 right-10">
-                    <span className="text-[10px] font-display font-black tracking-widest uppercase bg-black text-white px-4 py-2 rounded-full border border-zinc-800">2025 DESIGN</span>
-                  </div>
+          <div className="grid md:grid-cols-2 gap-10">
+            {[
+              { title: "Neo Toys", category: "3D Design", img: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7uS3H7sH7S7S7S7S7S7S7S7S7S.png" },
+              { title: "Space Explorer", category: "AIGC Animation", img: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9uS9H9S9H9S9H9S9H9S9H9S9H.png" }
+            ].map((project, i) => (
+              <div key={i} className="group cursor-pointer">
+                <div className="aspect-[4/3] bg-white rounded-3xl overflow-hidden mb-6 border border-zinc-200">
+                  <img src={project.img} alt={project.title} className="w-full h-full object-contain p-10 group-hover:scale-105 transition-transform duration-700" />
                 </div>
-                <div className="flex justify-between items-start px-4">
-                  <div>
-                    <h3 className="text-3xl font-display font-black uppercase mb-2 text-white">{project.title}</h3>
-                    <p className="text-zinc-500 text-xs font-display tracking-widest uppercase">{project.category}</p>
-                  </div>
-                  <div className="w-12 h-12 flex items-center justify-center border border-zinc-800 rounded-full text-zinc-500 group-hover:text-white group-hover:border-white transition-all">
-                    <ArrowUpRight />
-                  </div>
-                </div>
+                <h3 className="text-2xl font-display font-black tracking-tight">{project.title}</h3>
+                <p className="text-zinc-400 font-bold text-sm uppercase tracking-widest">{project.category}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-40 bg-white text-black px-6 relative overflow-hidden">
-        {/* Garfield Style Floating Element */}
-        <div className="absolute -left-20 bottom-1/4 w-72 opacity-20 pointer-events-none hidden lg:block rotate-12">
-           <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7uS3H7sH7S7S7S7S7S7S7S7S7S.png" alt="3D Toy" className="w-full animate-float" />
-        </div>
-
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-20">
-          <div className="flex-1 w-full relative z-10">
-            <div className="inline-block px-4 py-1 bg-black text-white text-[10px] font-display font-black tracking-widest uppercase mb-10">GET IN TOUCH</div>
-            <h2 className="text-8xl md:text-[12vw] font-display font-black tracking-tighter mb-12 leading-[0.8]">
-              LET'S <br /> TALK
-            </h2>
-            <div className="space-y-12">
-              <a href="mailto:sandeep@email.com" className="text-2xl md:text-5xl font-display font-black border-b-4 border-black hover:text-orange-600 transition-colors break-all leading-tight">
-                SANDEEP@PORTFOLIO.COM
-              </a>
-              
-              <div className="grid grid-cols-2 gap-12 pt-10">
-                 <div>
-                    <div className="text-[10px] font-display font-black text-zinc-400 tracking-widest uppercase mb-6">SOCIAL CHANNELS</div>
-                    <ul className="space-y-4 font-display font-bold text-xs tracking-[0.2em]">
-                       <li><a href="#" className="hover:text-orange-600 transition-colors">INSTAGRAM</a></li>
-                       <li><a href="#" className="hover:text-orange-600 transition-colors">LINKEDIN</a></li>
-                       <li><a href="#" className="hover:text-orange-600 transition-colors">DRIBBBLE</a></li>
-                       <li><a href="#" className="hover:text-orange-600 transition-colors">GITHUB</a></li>
-                    </ul>
-                 </div>
-                 <div>
-                    <div className="text-[10px] font-display font-black text-zinc-400 tracking-widest uppercase mb-6">LOCATION</div>
-                    <div className="font-display font-bold text-xs tracking-[0.2em] uppercase leading-relaxed">
-                       REMOTE WORK / INDIA <br /> GMT +5:30
-                    </div>
-                 </div>
-              </div>
-            </div>
+      {/* Simple Footer */}
+      <footer className="py-20 px-6 md:px-12 bg-white border-t border-zinc-100 text-center">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter mb-12">LET'S BUILD SOMETHING GREAT</h2>
+          <div className="flex justify-center gap-10 mb-12">
+            <a href="#" className="p-3 bg-zinc-100 rounded-full hover:bg-zinc-200 transition-all"><Github /></a>
+            <a href="#" className="p-3 bg-zinc-100 rounded-full hover:bg-zinc-200 transition-all"><Twitter /></a>
+            <a href="#" className="p-3 bg-zinc-100 rounded-full hover:bg-zinc-200 transition-all"><Linkedin /></a>
           </div>
-          
-          <div className="flex-1 w-full max-w-lg relative z-10">
-             <div className="p-1 brutalist-card bg-black rounded-[2.5rem]">
-                <div className="bg-white p-10 md:p-14 rounded-[2.3rem]">
-                   <form className="space-y-8" onSubmit={e => e.preventDefault()}>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-display font-black tracking-widest uppercase text-zinc-400">YOUR FULL NAME</label>
-                        <input placeholder="JOHN DOE" className="w-full bg-transparent border-b-2 border-zinc-200 pb-4 focus:border-black focus:outline-none text-black font-display font-bold text-xs tracking-widest transition-colors" />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-display font-black tracking-widest uppercase text-zinc-400">EMAIL ADDRESS</label>
-                        <input placeholder="HELLO@WORK.COM" className="w-full bg-transparent border-b-2 border-zinc-200 pb-4 focus:border-black focus:outline-none text-black font-display font-bold text-xs tracking-widest transition-colors" />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-display font-black tracking-widest uppercase text-zinc-400">PROJECT DESCRIPTION</label>
-                        <textarea placeholder="TELL ME ABOUT YOUR 3D VISION" className="w-full bg-transparent border-b-2 border-zinc-200 pb-4 focus:border-black focus:outline-none text-black font-display font-bold text-xs tracking-widest min-h-[120px] resize-none transition-colors" />
-                      </div>
-                      <button className="w-full bg-black text-white font-display font-black py-6 rounded-2xl hover:bg-zinc-800 transition-colors flex items-center justify-center gap-3 tracking-[0.3em] text-[10px] uppercase group">
-                         SEND MESSAGE <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
-                      </button>
-                   </form>
-                </div>
-             </div>
-          </div>
+          <p className="text-zinc-400 text-sm font-medium">© {new Date().getFullYear()} SANDEEP KUMAR STUDIO. ALL RIGHTS RESERVED.</p>
         </div>
-
-        <div className="mt-40 flex justify-center gap-4 contact-shapes h-24 md:h-40 pointer-events-none">
-           <div className="w-24 md:w-40 bg-orange-500 rounded-[20%] rotate-12 transition-transform hover:rotate-45"></div>
-           <div className="w-24 md:w-40 bg-pink-500 rounded-full scale-110"></div>
-           <div className="w-24 md:w-40 bg-purple-600 -rotate-12"></div>
-           <div className="w-24 md:w-40 bg-indigo-600 rounded-full"></div>
-           <div className="w-24 md:w-40 bg-teal-500 rotate-45"></div>
-        </div>
-      </section>
-
-      <footer className="py-16 px-6 md:px-12 bg-black border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-display font-bold tracking-[0.3em] text-zinc-500 uppercase">
-         <div className="text-zinc-400">© {new Date().getFullYear()} SANDEEP KUMAR DESIGN PORTFOLIO</div>
-         <div className="flex gap-10">
-            <a href="#" className="hover:text-white transition-colors">PRIVACY POLICY</a>
-            <a href="#" className="hover:text-white transition-colors">TERMS & COND</a>
-         </div>
       </footer>
     </div>
   );
