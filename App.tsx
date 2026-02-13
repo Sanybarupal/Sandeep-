@@ -29,7 +29,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 py-6 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md border-b border-zinc-100' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 py-6 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md border-b border-zinc-100' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <div className="flex -space-x-1">
@@ -51,9 +51,9 @@ const Navbar = () => {
           ))}
           <a 
             href="mailto:hello@sandeep.com" 
-            className="bg-black text-white px-6 py-2 rounded-lg text-xs font-display font-bold hover:bg-zinc-800 transition-all"
+            className="bg-black text-white px-6 py-2 rounded-lg text-xs font-display font-bold hover:bg-zinc-800 transition-all shadow-[4px_4px_0px_#fb923c]"
           >
-            hello@sandeep.com
+            GET IN TOUCH
           </a>
         </div>
 
@@ -121,7 +121,7 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-white">
       <Navbar />
 
-      {/* Hero Section - Bazil Style */}
+      {/* Hero Section - Bazil Style (Heading size reduced) */}
       <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 bg-white overflow-hidden">
         <div className="mb-8 flex items-center gap-2">
           <span className="text-2xl">👋</span>
@@ -132,10 +132,10 @@ const App: React.FC = () => {
 
         <div className="relative w-full max-w-7xl">
           <div className="relative z-0 text-center select-none">
-            <h1 className="text-[14vw] md:text-[11vw] font-display font-black leading-[0.85] tracking-tighter text-black mb-2">
+            <h1 className="text-[10vw] md:text-[8vw] font-display font-black leading-[0.85] tracking-tighter text-black mb-2">
               3D Artist
             </h1>
-            <h2 className="text-[14vw] md:text-[11vw] font-display font-bold leading-[0.85] tracking-tighter outlined-text-black">
+            <h2 className="text-[10vw] md:text-[8vw] font-display font-bold leading-[0.85] tracking-tighter outlined-text-black">
               & Developer
             </h2>
           </div>
@@ -156,10 +156,10 @@ const App: React.FC = () => {
             </p>
           </div>
           <div className="flex flex-col md:flex-row gap-4 justify-center items-center z-20">
-            <button className="bg-black text-white px-8 py-4 rounded-xl font-bold text-sm tracking-tight hover:bg-zinc-800 transition-all w-full md:w-auto">
+            <button className="bg-black text-white px-8 py-4 rounded-xl font-bold text-sm tracking-tight hover:bg-zinc-800 transition-all w-full md:w-auto shadow-[4px_4px_0px_#C1FF72]">
               You need a 3D artist
             </button>
-            <button className="bg-white text-black border-2 border-black px-8 py-4 rounded-xl font-bold text-sm tracking-tight hover:bg-zinc-50 transition-all w-full md:w-auto">
+            <button className="bg-white text-black border-2 border-black px-8 py-4 rounded-xl font-bold text-sm tracking-tight hover:bg-zinc-50 transition-all w-full md:w-auto shadow-[4px_4px_0px_#fb923c]">
               You need a developer
             </button>
           </div>
@@ -172,27 +172,27 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* About Section - Brutalist style from turn 1 */}
+      {/* About Section - Restored Brutalist style */}
       <section id="about" className="py-40 relative bg-black text-white overflow-hidden px-4">
-        <div className="max-w-5xl mx-auto relative z-10">
-          <div className="grid md:grid-cols-2 gap-20 items-start">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid md:grid-cols-2 gap-20 items-center">
             <div>
-              <h2 className="text-6xl md:text-8xl font-display font-black mb-10 leading-none tracking-tighter">
-                CRAFTING <br /> <span className="text-indigo-500 italic">DIGITAL</span> <br /> REALMS.
+              <h2 className="text-6xl md:text-[8vw] font-display font-black mb-10 leading-[0.8] tracking-tighter">
+                CRAFTING <br /> <span className="text-orange-400 italic">DIGITAL</span> <br /> REALMS.
               </h2>
             </div>
-            <div className="space-y-8">
-              <p className="text-xl md:text-2xl text-zinc-400 font-medium leading-relaxed">
-                I specialize in bridging the gap between high-fidelity 3D modeling and cutting-edge web development. My work focuses on creating bold, memorable digital experiences.
+            <div className="space-y-10">
+              <p className="text-2xl md:text-3xl text-zinc-400 font-medium leading-relaxed">
+                I specialize in bridging the gap between high-fidelity 3D modeling and cutting-edge web development.
               </p>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-6">
                 {[
-                  { label: 'EXPERIENCE', value: '4+ YEARS' },
-                  { label: '3D PROJECTS', value: '25+' },
-                  { label: 'TOOLS', value: 'MODERN' },
-                  { label: 'PASSION', value: 'INFINITE' }
+                  { label: 'EXPERIENCE', value: '4+ YEARS', color: 'border-orange-400' },
+                  { label: '3D PROJECTS', value: '25+', color: 'border-purple-400' },
+                  { label: 'SATISFACTION', value: '100%', color: 'border-[#C1FF72]' },
+                  { label: 'PASSION', value: 'INFINITE', color: 'border-blue-400' }
                 ].map((stat, i) => (
-                  <div key={i} className="p-6 border border-zinc-800 rounded-2xl bg-zinc-900/40">
+                  <div key={i} className={`p-8 border-2 ${stat.color} bg-zinc-900 shadow-[8px_8px_0px_rgba(255,255,255,0.1)]`}>
                     <div className="text-[10px] font-display font-bold text-zinc-500 mb-2 tracking-widest uppercase">{stat.label}</div>
                     <div className="text-2xl font-display font-black uppercase text-white">{stat.value}</div>
                   </div>
@@ -203,59 +203,68 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Services & Skills Section - Brutalist style from turn 1 */}
-      <section id="services" className="py-32 bg-white text-black px-6">
+      {/* Skills Section - Restored Grid Style */}
+      <section id="skills" className="py-40 bg-white text-black px-6 border-y border-zinc-200">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-20">
-            <div>
-              <h2 className="text-6xl md:text-8xl font-display font-black mb-12 tracking-tighter uppercase italic leading-none border-b-8 border-black inline-block">
-                OFFERINGS
-              </h2>
-              <div className="space-y-6 mt-12">
-                {SERVICES.slice(0, 3).map((service, idx) => (
-                  <div key={idx} className="group border-b border-zinc-200 py-8 flex justify-between items-center transition-all hover:pl-4">
-                    <h3 className="text-2xl font-display font-black uppercase">{service.title}</h3>
-                    <ArrowUpRight className="group-hover:rotate-45 transition-transform" />
-                  </div>
-                ))}
+          <h2 className="text-7xl md:text-[10vw] font-display font-black tracking-tighter uppercase italic leading-none mb-24 border-b-8 border-black inline-block">SKILLS</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            {SKILLS.map((skill, idx) => (
+              <div 
+                key={idx} 
+                className="group p-6 border-2 border-black bg-white aspect-square flex flex-col justify-between hover:bg-black hover:text-white transition-all cursor-default shadow-[6px_6px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px]"
+              >
+                <span className="text-[10px] font-display font-black tracking-widest uppercase opacity-40 group-hover:opacity-100">0{idx + 1}</span>
+                <h3 className="text-xl font-display font-black tracking-tighter leading-none break-words uppercase">{skill.name}</h3>
               </div>
-            </div>
-            <div>
-              <h2 className="text-6xl md:text-8xl font-display font-black mb-12 tracking-tighter uppercase italic leading-none border-b-8 border-black inline-block">
-                TOOLS
-              </h2>
-              <div className="flex flex-wrap gap-3 mt-12">
-                {SKILLS.map((skill, idx) => (
-                  <div 
-                    key={idx} 
-                    className="px-5 py-3 border-2 border-black bg-white text-[10px] font-display font-black tracking-widest uppercase hover:bg-black hover:text-white transition-all cursor-default shadow-[4px_4px_0px_#000]"
-                  >
-                    {skill.name}
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Projects Section - Brutalist style from turn 1 */}
+      {/* Services Section - Restored Brutalist List */}
+      <section id="services" className="py-32 bg-black text-white px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+            <h2 className="text-7xl md:text-[8vw] font-display font-black tracking-tighter uppercase leading-none">OFFERINGS</h2>
+            <p className="max-w-sm text-zinc-500 font-bold uppercase tracking-widest text-xs">High performance design and development solutions for modern brands.</p>
+          </div>
+          <div className="space-y-0">
+            {SERVICES.map((service, idx) => (
+              <div key={idx} className="group border-t border-zinc-800 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white hover:text-black transition-all px-6">
+                <div className="flex items-center gap-10">
+                  <span className="text-2xl font-display font-black opacity-20 group-hover:opacity-100">0{idx + 1}</span>
+                  <h3 className="text-3xl md:text-5xl font-display font-black uppercase tracking-tighter">{service.title}</h3>
+                </div>
+                <div className="mt-4 md:mt-0 flex items-center gap-4">
+                   <p className="hidden md:block max-w-xs text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-60 transition-opacity">{service.description}</p>
+                   <div className="w-16 h-16 rounded-full border-2 border-current flex items-center justify-center rotate-45 group-hover:rotate-0 transition-transform">
+                      <ArrowUpRight size={32} />
+                   </div>
+                </div>
+              </div>
+            ))}
+            <div className="border-t border-zinc-800"></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Section - Restored Brutalist style */}
       <section id="portfolio" className="py-32 px-6 bg-zinc-950 text-white">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-7xl md:text-[10vw] font-display font-black tracking-tighter uppercase italic leading-none mb-24">WORKS</h2>
           <div className="grid md:grid-cols-2 gap-16">
             {PROJECTS_3D.map((project, idx) => (
               <div key={idx} className="group flex flex-col gap-8 cursor-pointer">
-                <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden bg-white/5 border border-zinc-800/50 shadow-2xl transition-colors">
-                  <img src={project.image} alt={project.title} className="w-full h-full object-contain p-8 group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center text-black">
-                       <ExternalLink size={32} />
+                <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden bg-white/5 border border-zinc-800/50 shadow-2xl transition-all duration-500 hover:shadow-orange-400/10">
+                  <img src={project.image} alt={project.title} className="w-full h-full object-contain p-8 group-hover:scale-110 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                    <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center text-black shadow-2xl">
+                       <ExternalLink size={40} />
                     </div>
                   </div>
                 </div>
                 <div className="px-4">
-                  <h3 className="text-3xl font-display font-black uppercase text-white">{project.title}</h3>
+                  <h3 className="text-3xl font-display font-black uppercase text-white group-hover:text-orange-400 transition-colors">{project.title}</h3>
                   <p className="text-zinc-500 text-xs font-display tracking-widest uppercase mt-2">{project.category}</p>
                 </div>
               </div>
@@ -264,8 +273,8 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Contact Section - Brutalist style from turn 1 */}
-      <section id="contact" className="py-32 bg-white text-black px-6 md:px-12">
+      {/* Contact Section - Restored Brutalist style */}
+      <section id="contact" className="py-40 bg-white text-black px-6 md:px-12 border-t-8 border-black">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
             <div>
@@ -275,17 +284,17 @@ const App: React.FC = () => {
             </div>
             <div className="flex flex-col items-start md:items-end justify-center h-full">
               <a 
-                href="mailto:sandeep@3dturner.com" 
-                className="text-2xl md:text-4xl font-display font-black border-b-4 border-black hover:text-indigo-600 transition-colors break-all leading-tight uppercase underline decoration-2 underline-offset-8"
+                href="mailto:hello@sandeep.com" 
+                className="text-2xl md:text-5xl font-display font-black border-b-8 border-black hover:text-orange-400 hover:border-orange-400 transition-all break-all leading-tight uppercase underline decoration-4 underline-offset-12"
               >
-                sandeep@3dturner.com
+                hello@sandeep.com
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Signature Brutalist Footer from turn 1 */}
+      {/* Signature Brutalist Footer */}
       <footer className="bg-black text-white py-24 px-6 md:px-12 border-t border-zinc-900">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between gap-20">
@@ -300,10 +309,10 @@ const App: React.FC = () => {
               <div>
                 <h3 className="text-[10px] font-display font-black text-zinc-500 tracking-widest uppercase mb-10">SOCIAL</h3>
                 <ul className="space-y-4 font-display font-bold text-sm tracking-[0.1em] uppercase">
-                  <li><a href="#" className="hover:text-indigo-400 transition-colors">Instagram</a></li>
-                  <li><a href="#" className="hover:text-indigo-400 transition-colors">Artstation</a></li>
-                  <li><a href="#" className="hover:text-indigo-400 transition-colors">Twitter</a></li>
-                  <li><a href="#" className="hover:text-indigo-400 transition-colors">LinkedIn</a></li>
+                  <li><a href="#" className="hover:text-orange-400 transition-colors">Instagram</a></li>
+                  <li><a href="#" className="hover:text-orange-400 transition-colors">Artstation</a></li>
+                  <li><a href="#" className="hover:text-orange-400 transition-colors">Twitter</a></li>
+                  <li><a href="#" className="hover:text-orange-400 transition-colors">LinkedIn</a></li>
                 </ul>
               </div>
               <div>
