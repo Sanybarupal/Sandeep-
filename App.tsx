@@ -4,58 +4,69 @@ import {
   Menu, 
   X, 
   ArrowUpRight, 
-  ArrowRight,
   ExternalLink,
-  Github,
-  Twitter,
-  Linkedin
+  Github, 
+  Linkedin, 
+  Twitter
 } from 'lucide-react';
 import { SERVICES, SKILLS } from './constants';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: 'WORK', href: '#portfolio' },
+    { name: 'ABOUT', href: '#about' },
+    { name: 'SERVICES', href: '#services' },
+    { name: 'CONTACT', href: '#contact' }
+  ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 py-6 px-6 md:px-12 flex justify-between items-center bg-white/80 backdrop-blur-md">
-      <div className="flex items-center gap-2">
-        <div className="flex -space-x-1">
-          <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent"></div>
-          <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent"></div>
+    <nav className={`fixed top-0 left-0 right-0 z-50 py-6 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md border-b border-zinc-100' : 'bg-transparent'}`}>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <div className="flex -space-x-1">
+            <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent"></div>
+            <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent"></div>
+          </div>
+          <a href="#home" className="text-2xl font-display font-black tracking-tighter text-black">SK.</a>
         </div>
-        <a href="#home" className="text-3xl font-display font-black tracking-tight text-black">Sandeep<span className="text-pink-500">.</span></a>
-      </div>
-      
-      <div className="hidden md:flex items-center space-x-10">
-        {['Work', 'Services', 'About', 'Contact'].map((item) => (
+        
+        <div className="hidden md:flex items-center space-x-12">
+          {navLinks.map((link) => (
+            <a 
+              key={link.name} 
+              href={link.href} 
+              className="text-xs font-display font-bold text-zinc-500 hover:text-black transition-colors tracking-[0.2em]"
+            >
+              {link.name}
+            </a>
+          ))}
           <a 
-            key={item} 
-            href={`#${item.toLowerCase()}`} 
-            className="text-sm font-medium text-zinc-600 hover:text-black transition-colors"
+            href="mailto:hello@sandeep.com" 
+            className="bg-black text-white px-6 py-2 rounded-lg text-xs font-display font-bold hover:bg-zinc-800 transition-all"
           >
-            {item}
+            hello@sandeep.com
           </a>
-        ))}
-        <div className="flex items-center gap-2 ml-4">
-          <span className="text-xs text-zinc-400">IN</span>
-          <span className="text-xs text-black border-b-2 border-black font-bold">EN</span>
         </div>
-        <a 
-          href="mailto:hello@sandeep.com" 
-          className="bg-zinc-900 text-white px-8 py-3 rounded-lg text-sm font-bold hover:bg-black transition-all shadow-lg"
-        >
-          hello@sandeep.com
-        </a>
-      </div>
 
-      <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-black">
-        {isOpen ? <X /> : <Menu />}
-      </button>
+        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-black">
+          {isOpen ? <X /> : <Menu />}
+        </button>
+      </div>
 
       {isOpen && (
         <div className="md:hidden fixed inset-0 bg-white flex flex-col items-center justify-center space-y-8 z-[60]">
           <button onClick={() => setIsOpen(false)} className="absolute top-8 right-8 text-black"><X size={32} /></button>
-          {['Work', 'Services', 'About', 'Contact'].map((link) => (
-            <a key={link} href={`#${link.toLowerCase()}`} onClick={() => setIsOpen(false)} className="text-4xl font-display font-black text-black">{link}</a>
+          {navLinks.map((link) => (
+            <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="text-3xl font-display font-black text-black tracking-widest">{link.name}</a>
           ))}
         </div>
       )}
@@ -63,110 +74,259 @@ const Navbar = () => {
   );
 };
 
-const Hero = () => {
+const FooterShapes = () => (
+  <div className="flex flex-wrap gap-4 mt-8">
+    <div className="w-16 h-16 bg-[#8A5CF6] flex items-center justify-center rounded-2xl rotate-12">
+      <div className="relative w-10 h-10">
+        <div className="absolute top-1/2 left-0 w-full h-2 bg-black -translate-y-1/2 rotate-45"></div>
+        <div className="absolute top-1/2 left-0 w-full h-2 bg-black -translate-y-1/2 -rotate-45"></div>
+      </div>
+    </div>
+    <div className="w-16 h-16 bg-[#C1FF72] grid grid-cols-3 gap-1 p-3 rounded-2xl">
+      {[...Array(9)].map((_, i) => (
+        <div key={i} className="w-2 h-2 bg-black rounded-full"></div>
+      ))}
+    </div>
+    <div className="w-32 h-16 bg-[#8A5CF6] rounded-full"></div>
+    <div className="w-16 h-16 bg-[#3B82F6] rounded-t-full mt-auto"></div>
+    <div className="w-16 h-16 bg-[#FFDD00] rounded-full"></div>
+  </div>
+);
+
+const App: React.FC = () => {
+  const PROJECTS_3D = [
+    {
+      title: "G-FIELD COLLECTIBLE",
+      category: "3D AIGC / DESIGN",
+      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7uS3H7sH7S7S7S7S7S7S7S7S7S.png"
+    },
+    {
+      title: "LUFFY GEAR VISTA",
+      category: "RENDER / UI",
+      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8uS8H8S8H8S8H8S8H8S8H8S8H.png"
+    },
+    {
+      title: "SPACE DORAEMON",
+      category: "CONCEPT / ANIMATION",
+      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9uS9H9S9H9S9H9S9H9S9H9S9H.png"
+    },
+    {
+      title: "NEO TOY SERIES",
+      category: "PRODUCT DESIGN",
+      image: "https://picsum.photos/seed/neo3d/800/600"
+    }
+  ];
+
   return (
-    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 bg-white overflow-hidden">
-      {/* Intro text */}
-      <div className="mb-8 flex items-center gap-2">
-        <span className="text-2xl">👋</span>
-        <p className="text-lg md:text-xl font-medium text-zinc-600">
-          , my name is Sandeep and I am a freelance
-        </p>
-      </div>
+    <div className="min-h-screen bg-white">
+      <Navbar />
 
-      <div className="relative w-full max-w-7xl">
-        {/* Large Typography Layout */}
-        <div className="relative z-0 text-center select-none">
-          <h1 className="text-[14vw] md:text-[11vw] font-display font-black leading-[0.85] tracking-tighter text-zinc-900 mb-2">
-            3D Artist
-          </h1>
-          <h2 className="text-[14vw] md:text-[11vw] font-display font-bold leading-[0.85] tracking-tighter outlined-text-black">
-            & Developer
-          </h2>
-        </div>
-
-        {/* Central Character Image */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] w-full max-w-2xl pointer-events-none z-10 flex justify-center">
-          <img 
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8uS8H8S8H8S8H8S8H8S8H8S8H.png" 
-            alt="Central character" 
-            className="w-full max-w-md md:max-w-lg drop-shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 animate-float"
-          />
-        </div>
-      </div>
-
-      {/* Bottom Row: Location, Buttons, and Logos */}
-      <div className="w-full max-w-7xl mt-12 grid grid-cols-1 md:grid-cols-3 gap-12 items-end">
-        {/* Location */}
-        <div className="text-left">
-          <p className="text-xl md:text-2xl font-medium text-zinc-500">
-            based in India.
+      {/* Hero Section - Bazil Style */}
+      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 bg-white overflow-hidden">
+        <div className="mb-8 flex items-center gap-2">
+          <span className="text-2xl">👋</span>
+          <p className="text-lg md:text-xl font-medium text-zinc-600">
+            , my name is Sandeep and I am a freelance
           </p>
         </div>
 
-        {/* CTAs */}
-        <div className="flex flex-col md:flex-row gap-4 justify-center items-center z-20">
-          <button className="bg-zinc-900 text-white px-8 py-4 rounded-xl font-bold text-sm tracking-tight hover:bg-black transition-all w-full md:w-auto">
-            You need a 3D artist
-          </button>
-          <button className="bg-white text-zinc-900 border-2 border-zinc-900 px-8 py-4 rounded-xl font-bold text-sm tracking-tight hover:bg-zinc-100 transition-all w-full md:w-auto">
-            You need a developer
-          </button>
-        </div>
-
-        {/* Tool Logos / Trust Badges */}
-        <div className="flex flex-wrap justify-center md:justify-end items-center gap-8 opacity-40 grayscale pointer-events-none">
-          <span className="font-bold text-lg tracking-tighter">React</span>
-          <span className="font-bold text-lg tracking-tighter">Three.js</span>
-          <span className="font-bold text-lg tracking-tighter">Blender</span>
-          <span className="font-bold text-lg tracking-tighter">Figma</span>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const App: React.FC = () => {
-  return (
-    <div className="min-h-screen bg-white text-black selection:bg-orange-400 selection:text-white">
-      <Navbar />
-      <Hero />
-
-      {/* Projects Section - Clean Grid */}
-      <section id="work" className="py-32 px-6 md:px-12 bg-zinc-50 border-t border-zinc-100">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-end mb-20">
-            <h2 className="text-6xl font-display font-black tracking-tighter italic">LATEST WORK</h2>
-            <a href="#" className="font-bold text-sm border-b-2 border-black pb-1 hover:text-zinc-600 hover:border-zinc-400 transition-all">SEE ALL PROJECTS</a>
+        <div className="relative w-full max-w-7xl">
+          <div className="relative z-0 text-center select-none">
+            <h1 className="text-[14vw] md:text-[11vw] font-display font-black leading-[0.85] tracking-tighter text-black mb-2">
+              3D Artist
+            </h1>
+            <h2 className="text-[14vw] md:text-[11vw] font-display font-bold leading-[0.85] tracking-tighter outlined-text-black">
+              & Developer
+            </h2>
           </div>
-          
-          <div className="grid md:grid-cols-2 gap-10">
-            {[
-              { title: "Neo Toys", category: "3D Design", img: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7uS3H7sH7S7S7S7S7S7S7S7S7S.png" },
-              { title: "Space Explorer", category: "AIGC Animation", img: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9uS9H9S9H9S9H9S9H9S9H9S9H.png" }
-            ].map((project, i) => (
-              <div key={i} className="group cursor-pointer">
-                <div className="aspect-[4/3] bg-white rounded-3xl overflow-hidden mb-6 border border-zinc-200">
-                  <img src={project.img} alt={project.title} className="w-full h-full object-contain p-10 group-hover:scale-105 transition-transform duration-700" />
+
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] w-full max-w-2xl pointer-events-none z-10 flex justify-center">
+            <img 
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8uS8H8S8H8S8H8S8H8S8H8S8H.png" 
+              alt="Central character" 
+              className="w-full max-w-md md:max-w-lg drop-shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 animate-float"
+            />
+          </div>
+        </div>
+
+        <div className="w-full max-w-7xl mt-12 grid grid-cols-1 md:grid-cols-3 gap-12 items-end">
+          <div className="text-left">
+            <p className="text-xl md:text-2xl font-medium text-zinc-500">
+              based in India.
+            </p>
+          </div>
+          <div className="flex flex-col md:flex-row gap-4 justify-center items-center z-20">
+            <button className="bg-black text-white px-8 py-4 rounded-xl font-bold text-sm tracking-tight hover:bg-zinc-800 transition-all w-full md:w-auto">
+              You need a 3D artist
+            </button>
+            <button className="bg-white text-black border-2 border-black px-8 py-4 rounded-xl font-bold text-sm tracking-tight hover:bg-zinc-50 transition-all w-full md:w-auto">
+              You need a developer
+            </button>
+          </div>
+          <div className="flex flex-wrap justify-center md:justify-end items-center gap-8 opacity-40 grayscale pointer-events-none">
+            <span className="font-bold text-lg tracking-tighter">React</span>
+            <span className="font-bold text-lg tracking-tighter">Three.js</span>
+            <span className="font-bold text-lg tracking-tighter">Blender</span>
+            <span className="font-bold text-lg tracking-tighter">Figma</span>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section - Brutalist style from turn 1 */}
+      <section id="about" className="py-40 relative bg-black text-white overflow-hidden px-4">
+        <div className="max-w-5xl mx-auto relative z-10">
+          <div className="grid md:grid-cols-2 gap-20 items-start">
+            <div>
+              <h2 className="text-6xl md:text-8xl font-display font-black mb-10 leading-none tracking-tighter">
+                CRAFTING <br /> <span className="text-indigo-500 italic">DIGITAL</span> <br /> REALMS.
+              </h2>
+            </div>
+            <div className="space-y-8">
+              <p className="text-xl md:text-2xl text-zinc-400 font-medium leading-relaxed">
+                I specialize in bridging the gap between high-fidelity 3D modeling and cutting-edge web development. My work focuses on creating bold, memorable digital experiences.
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { label: 'EXPERIENCE', value: '4+ YEARS' },
+                  { label: '3D PROJECTS', value: '25+' },
+                  { label: 'TOOLS', value: 'MODERN' },
+                  { label: 'PASSION', value: 'INFINITE' }
+                ].map((stat, i) => (
+                  <div key={i} className="p-6 border border-zinc-800 rounded-2xl bg-zinc-900/40">
+                    <div className="text-[10px] font-display font-bold text-zinc-500 mb-2 tracking-widest uppercase">{stat.label}</div>
+                    <div className="text-2xl font-display font-black uppercase text-white">{stat.value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services & Skills Section - Brutalist style from turn 1 */}
+      <section id="services" className="py-32 bg-white text-black px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-20">
+            <div>
+              <h2 className="text-6xl md:text-8xl font-display font-black mb-12 tracking-tighter uppercase italic leading-none border-b-8 border-black inline-block">
+                OFFERINGS
+              </h2>
+              <div className="space-y-6 mt-12">
+                {SERVICES.slice(0, 3).map((service, idx) => (
+                  <div key={idx} className="group border-b border-zinc-200 py-8 flex justify-between items-center transition-all hover:pl-4">
+                    <h3 className="text-2xl font-display font-black uppercase">{service.title}</h3>
+                    <ArrowUpRight className="group-hover:rotate-45 transition-transform" />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h2 className="text-6xl md:text-8xl font-display font-black mb-12 tracking-tighter uppercase italic leading-none border-b-8 border-black inline-block">
+                TOOLS
+              </h2>
+              <div className="flex flex-wrap gap-3 mt-12">
+                {SKILLS.map((skill, idx) => (
+                  <div 
+                    key={idx} 
+                    className="px-5 py-3 border-2 border-black bg-white text-[10px] font-display font-black tracking-widest uppercase hover:bg-black hover:text-white transition-all cursor-default shadow-[4px_4px_0px_#000]"
+                  >
+                    {skill.name}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Section - Brutalist style from turn 1 */}
+      <section id="portfolio" className="py-32 px-6 bg-zinc-950 text-white">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-7xl md:text-[10vw] font-display font-black tracking-tighter uppercase italic leading-none mb-24">WORKS</h2>
+          <div className="grid md:grid-cols-2 gap-16">
+            {PROJECTS_3D.map((project, idx) => (
+              <div key={idx} className="group flex flex-col gap-8 cursor-pointer">
+                <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden bg-white/5 border border-zinc-800/50 shadow-2xl transition-colors">
+                  <img src={project.image} alt={project.title} className="w-full h-full object-contain p-8 group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center text-black">
+                       <ExternalLink size={32} />
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-display font-black tracking-tight">{project.title}</h3>
-                <p className="text-zinc-400 font-bold text-sm uppercase tracking-widest">{project.category}</p>
+                <div className="px-4">
+                  <h3 className="text-3xl font-display font-black uppercase text-white">{project.title}</h3>
+                  <p className="text-zinc-500 text-xs font-display tracking-widest uppercase mt-2">{project.category}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Simple Footer */}
-      <footer className="py-20 px-6 md:px-12 bg-white border-t border-zinc-100 text-center">
+      {/* Contact Section - Brutalist style from turn 1 */}
+      <section id="contact" className="py-32 bg-white text-black px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter mb-12">LET'S BUILD SOMETHING GREAT</h2>
-          <div className="flex justify-center gap-10 mb-12">
-            <a href="#" className="p-3 bg-zinc-100 rounded-full hover:bg-zinc-200 transition-all"><Github /></a>
-            <a href="#" className="p-3 bg-zinc-100 rounded-full hover:bg-zinc-200 transition-all"><Twitter /></a>
-            <a href="#" className="p-3 bg-zinc-100 rounded-full hover:bg-zinc-200 transition-all"><Linkedin /></a>
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
+            <div>
+              <h2 className="text-7xl md:text-[8vw] font-display font-black tracking-tighter leading-[0.8] uppercase">
+                LET'S <br /> GET IN <br /> TOUCH
+              </h2>
+            </div>
+            <div className="flex flex-col items-start md:items-end justify-center h-full">
+              <a 
+                href="mailto:sandeep@3dturner.com" 
+                className="text-2xl md:text-4xl font-display font-black border-b-4 border-black hover:text-indigo-600 transition-colors break-all leading-tight uppercase underline decoration-2 underline-offset-8"
+              >
+                sandeep@3dturner.com
+              </a>
+            </div>
           </div>
-          <p className="text-zinc-400 text-sm font-medium">© {new Date().getFullYear()} SANDEEP KUMAR STUDIO. ALL RIGHTS RESERVED.</p>
+        </div>
+      </section>
+
+      {/* Signature Brutalist Footer from turn 1 */}
+      <footer className="bg-black text-white py-24 px-6 md:px-12 border-t border-zinc-900">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between gap-20">
+            <div className="flex-1">
+              <h2 className="text-6xl md:text-8xl font-display font-black tracking-tighter uppercase leading-none mb-8">
+                SANDEEP <br /> KUMAR
+              </h2>
+              <FooterShapes />
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-20 md:gap-32">
+              <div>
+                <h3 className="text-[10px] font-display font-black text-zinc-500 tracking-widest uppercase mb-10">SOCIAL</h3>
+                <ul className="space-y-4 font-display font-bold text-sm tracking-[0.1em] uppercase">
+                  <li><a href="#" className="hover:text-indigo-400 transition-colors">Instagram</a></li>
+                  <li><a href="#" className="hover:text-indigo-400 transition-colors">Artstation</a></li>
+                  <li><a href="#" className="hover:text-indigo-400 transition-colors">Twitter</a></li>
+                  <li><a href="#" className="hover:text-indigo-400 transition-colors">LinkedIn</a></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-[10px] font-display font-black text-zinc-500 tracking-widest uppercase mb-10">CONTACT</h3>
+                <div className="space-y-4 font-display font-bold text-sm tracking-[0.1em] uppercase leading-loose">
+                  <p>hello@sandeep.com</p>
+                  <p>+91 (0) 000-000-0000</p>
+                  <p className="text-zinc-500">
+                    238 Creative Lane, Suite 4B<br />
+                    Orange City, IN 440210
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-40 pt-10 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-display font-bold tracking-[0.3em] text-zinc-600 uppercase">
+             <div>© {new Date().getFullYear()} SANDEEP KUMAR DESIGN STUDIO</div>
+             <div className="flex gap-10">
+                <a href="#" className="hover:text-white transition-colors">PRIVACY</a>
+                <a href="#" className="hover:text-white transition-colors">TERMS</a>
+             </div>
+          </div>
         </div>
       </footer>
     </div>
