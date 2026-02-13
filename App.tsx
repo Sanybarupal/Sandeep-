@@ -9,7 +9,9 @@ import {
   Linkedin,
   Phone,
   Mail,
-  ChevronUp
+  ChevronUp,
+  Globe,
+  MessageSquare
 } from 'lucide-react';
 import { SERVICES, SKILLS } from './constants';
 
@@ -60,7 +62,7 @@ const Navbar = () => {
             <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent animate-pulse"></div>
             <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent animate-pulse delay-75"></div>
           </div>
-          <a href="#home" className="text-2xl font-display font-black tracking-tighter text-black">SK.</a>
+          <a href="#home" className="text-2xl font-display font-black tracking-tighter text-black uppercase">S.K</a>
         </div>
         
         <div className="hidden md:flex items-center space-x-12">
@@ -115,24 +117,23 @@ const Marquee = () => (
 );
 
 const FooterShapes = () => (
-  <div className="flex flex-wrap gap-6 mt-12">
-    <div className="w-20 h-20 bg-[#8A5CF6] flex items-center justify-center rounded-2xl rotate-12 transition-transform hover:rotate-0 hover:scale-110 cursor-pointer">
-      <div className="relative w-12 h-12">
-        <div className="absolute top-1/2 left-0 w-full h-2 bg-black -translate-y-1/2 rotate-45"></div>
-        <div className="absolute top-1/2 left-0 w-full h-2 bg-black -translate-y-1/2 -rotate-45"></div>
+  <div className="flex flex-wrap gap-4 mt-12">
+    <div className="w-16 h-16 bg-[#8A5CF6] flex items-center justify-center rounded-2xl rotate-12 transition-transform hover:rotate-0 hover:scale-110 cursor-pointer">
+      <div className="relative w-10 h-10">
+        <div className="absolute top-1/2 left-0 w-full h-1.5 bg-black -translate-y-1/2 rotate-45"></div>
+        <div className="absolute top-1/2 left-0 w-full h-1.5 bg-black -translate-y-1/2 -rotate-45"></div>
       </div>
     </div>
-    <div className="w-20 h-20 bg-[#C1FF72] grid grid-cols-3 gap-1.5 p-4 rounded-2xl transition-transform hover:scale-110 cursor-pointer">
+    <div className="w-16 h-16 bg-[#C1FF72] grid grid-cols-3 gap-1 p-3 rounded-2xl transition-transform hover:scale-110 cursor-pointer">
       {[...Array(9)].map((_, i) => (
         <div key={i} className="w-full h-full bg-black rounded-full"></div>
       ))}
     </div>
-    <div className="w-36 h-20 bg-[#FFDD00] rounded-full flex items-center justify-center transition-transform hover:-rotate-6 hover:scale-105 cursor-pointer">
-      <div className="w-24 h-4 bg-black rounded-full"></div>
+    <div className="w-28 h-16 bg-[#FFDD00] rounded-full flex items-center justify-center transition-transform hover:-rotate-6 hover:scale-105 cursor-pointer">
+      <div className="w-20 h-3 bg-black rounded-full"></div>
     </div>
-    <div className="w-20 h-20 bg-[#3B82F6] rounded-t-full mt-auto transition-all hover:h-28 cursor-pointer"></div>
-    <div className="w-20 h-20 bg-white rounded-full border-4 border-black flex items-center justify-center group cursor-pointer transition-transform hover:rotate-180">
-      <div className="w-8 h-8 bg-orange-500 rounded-full group-hover:bg-purple-500 transition-colors"></div>
+    <div className="w-16 h-16 bg-white rounded-full border-4 border-black flex items-center justify-center group cursor-pointer transition-transform hover:rotate-180">
+      <div className="w-6 h-6 bg-orange-500 rounded-full group-hover:bg-purple-500 transition-colors"></div>
     </div>
   </div>
 );
@@ -282,11 +283,11 @@ const App: React.FC = () => {
               return (
                 <div 
                   key={idx} 
-                  className={`group relative p-6 border-4 border-black ${cardColor} transition-all hover:-translate-y-2 hover:-translate-x-1 hover:shadow-[10px_10px_0px_#000] cursor-default reveal-scroll min-h-[220px] flex flex-col justify-between overflow-hidden`}
+                  className={`group relative p-6 border-4 border-black ${cardColor} transition-all hover:-translate-y-2 hover:-translate-x-1 hover:shadow-[10px_10px_0px_#000] cursor-default reveal-scroll min-h-[200px] flex flex-col justify-between overflow-hidden shadow-[6px_6px_0px_#000]`}
                   style={{ transitionDelay: `${(idx % 5) * 50}ms` }}
                 >
-                  <div className="flex justify-between items-start mb-6">
-                     <div className="p-2 bg-white border-2 border-black rounded-xl group-hover:rotate-12 transition-transform">
+                  <div className="flex justify-between items-start mb-4">
+                     <div className="p-2 bg-white border-2 border-black rounded-xl group-hover:rotate-12 transition-transform shadow-sm">
                         {skill.icon}
                      </div>
                      <span className="text-[10px] font-display font-black tracking-widest uppercase opacity-30 group-hover:opacity-100">
@@ -294,10 +295,10 @@ const App: React.FC = () => {
                      </span>
                   </div>
                   <div>
-                    <h3 className="text-lg md:text-xl font-display font-black tracking-tighter leading-[1.1] uppercase break-words transition-all group-hover:scale-105 origin-left">
+                    <h3 className="text-sm md:text-base lg:text-lg font-display font-black tracking-tighter leading-tight uppercase break-words transition-all group-hover:scale-105 origin-left">
                       {skill.name}
                     </h3>
-                    <div className="w-full h-1 bg-black/10 group-hover:bg-black/100 transition-colors mt-4"></div>
+                    <div className="w-full h-1 bg-black/10 group-hover:bg-black/100 transition-colors mt-3"></div>
                   </div>
                 </div>
               );
@@ -392,72 +393,84 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Signature Brutalist Footer */}
-      <footer className="bg-black text-white pt-32 pb-16 px-6 md:px-12 border-t-8 border-black relative overflow-hidden">
+      {/* High-Impact Refined Footer */}
+      <footer className="bg-zinc-950 text-white pt-40 pb-20 px-6 md:px-12 border-t-8 border-black relative overflow-hidden">
+        {/* Background Decorative Large Text */}
+        <div className="absolute bottom-[-5vw] left-1/2 -translate-x-1/2 text-[30vw] font-display font-black text-white/[0.03] pointer-events-none select-none leading-none tracking-tighter whitespace-nowrap">
+          BARUPAL
+        </div>
+
         <div className="max-w-7xl mx-auto relative z-10 reveal-scroll">
-          <div className="flex flex-col lg:flex-row justify-between gap-24 lg:gap-12 mb-32">
-            <div className="flex-1 max-w-2xl">
-              <h2 className="text-[12vw] lg:text-[10vw] font-display font-black tracking-tighter uppercase leading-[0.8] mb-12 hover:outlined-text-black hover:text-white transition-all duration-700 cursor-default">
-                SANDEEP <br /> KUMAR
-              </h2>
-              <div className="max-w-md">
-                <p className="text-xl text-zinc-500 font-medium mb-12 leading-relaxed">
-                  Crafting high-end digital experiences through the lens of <span className="text-white">3D Art</span> and <span className="text-white">Modern Engineering</span>. Let's build something extraordinary.
-                </p>
+          <div className="flex flex-col lg:flex-row justify-between gap-24 mb-32">
+            <div className="flex-1">
+              <div className="flex items-center gap-4 mb-12">
+                <div className="w-12 h-12 bg-orange-500 rounded-full"></div>
+                <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter uppercase">SANDEEP KUMAR</h2>
+              </div>
+              <p className="text-2xl text-zinc-500 font-medium max-w-xl leading-snug mb-12">
+                Engineering digital marvels at the intersection of <span className="text-white italic">design precision</span> and <span className="text-white italic">computational power</span>.
+              </p>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                <a href="#contact" className="px-10 py-5 bg-white text-black font-display font-black text-sm uppercase tracking-widest hover:bg-orange-500 hover:text-white transition-all shadow-[8px_8px_0px_rgba(255,255,255,0.1)] active:translate-x-1 active:translate-y-1 active:shadow-none">
+                  START A PROJECT
+                </a>
                 <FooterShapes />
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-20 sm:gap-40 lg:mt-12">
-              <div className="flex flex-col gap-10">
-                <h3 className="text-[10px] font-display font-black text-zinc-500 tracking-[0.4em] uppercase">QUICK LINKS</h3>
-                <ul className="space-y-6 font-display font-black text-sm tracking-[0.1em] uppercase">
-                  <li><a href="#home" className="hover:text-orange-400 transition-colors flex items-center gap-2 group"><div className="w-0 group-hover:w-4 h-0.5 bg-orange-400 transition-all"></div> HOME</a></li>
-                  <li><a href="#about" className="hover:text-purple-400 transition-colors flex items-center gap-2 group"><div className="w-0 group-hover:w-4 h-0.5 bg-purple-400 transition-all"></div> ABOUT</a></li>
-                  <li><a href="#services" className="hover:text-[#C1FF72] transition-colors flex items-center gap-2 group"><div className="w-0 group-hover:w-4 h-0.5 bg-[#C1FF72] transition-all"></div> SERVICES</a></li>
-                  <li><a href="#contact" className="hover:text-blue-400 transition-colors flex items-center gap-2 group"><div className="w-0 group-hover:w-4 h-0.5 bg-blue-400 transition-all"></div> CONTACT</a></li>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-16 lg:gap-24">
+              <div className="flex flex-col gap-8">
+                <h3 className="text-[10px] font-display font-black text-zinc-600 tracking-[0.5em] uppercase">NAVIGATION</h3>
+                <ul className="space-y-5 font-display font-bold text-xs tracking-[0.2em] uppercase">
+                  <li><a href="#home" className="hover:text-orange-500 transition-colors flex items-center gap-3 group"><span className="w-0 group-hover:w-3 h-0.5 bg-orange-500 transition-all"></span> HOME</a></li>
+                  <li><a href="#about" className="hover:text-purple-500 transition-colors flex items-center gap-3 group"><span className="w-0 group-hover:w-3 h-0.5 bg-purple-500 transition-all"></span> ABOUT</a></li>
+                  <li><a href="#services" className="hover:text-[#C1FF72] transition-colors flex items-center gap-3 group"><span className="w-0 group-hover:w-3 h-0.5 bg-[#C1FF72] transition-all"></span> SERVICES</a></li>
+                  <li><a href="#skills" className="hover:text-blue-500 transition-colors flex items-center gap-3 group"><span className="w-0 group-hover:w-3 h-0.5 bg-blue-500 transition-all"></span> SKILLS</a></li>
                 </ul>
               </div>
 
-              <div className="flex flex-col gap-10">
-                <h3 className="text-[10px] font-display font-black text-zinc-500 tracking-[0.4em] uppercase">LOCATION</h3>
-                <div className="space-y-4 font-display font-bold text-sm tracking-[0.1em] uppercase leading-loose">
-                  <p className="text-zinc-400">RAJASTHAN, INDIA</p>
-                  <p className="text-zinc-500 italic max-w-[200px]">Remote collaborations worldwide.</p>
-                </div>
-                
-                <div className="mt-12">
-                   <h3 className="text-[10px] font-display font-black text-zinc-500 tracking-[0.4em] uppercase mb-8">STAY CONNECTED</h3>
-                   <div className="flex gap-4">
-                      <a href="https://instagram.com/itz_sandeep_97" className="w-12 h-12 bg-zinc-900 border-2 border-zinc-800 rounded-lg flex items-center justify-center hover:bg-[#8A5CF6] hover:border-black transition-all hover:-translate-y-1"><Instagram size={20} /></a>
-                      <a href="https://linkedin.com/in/Sandeep-Barupal" className="w-12 h-12 bg-zinc-900 border-2 border-zinc-800 rounded-lg flex items-center justify-center hover:bg-[#3B82F6] hover:border-black transition-all hover:-translate-y-1"><Linkedin size={20} /></a>
-                      <a href="mailto:hello@sandeep.com" className="w-12 h-12 bg-zinc-900 border-2 border-zinc-800 rounded-lg flex items-center justify-center hover:bg-[#fb923c] hover:border-black transition-all hover:-translate-y-1"><Mail size={20} /></a>
-                   </div>
+              <div className="flex flex-col gap-8">
+                <h3 className="text-[10px] font-display font-black text-zinc-600 tracking-[0.5em] uppercase">SOCIALS</h3>
+                <ul className="space-y-5 font-display font-bold text-xs tracking-[0.2em] uppercase">
+                  <li><a href="https://instagram.com/itz_sandeep_97" target="_blank" className="hover:text-orange-500 transition-colors flex items-center gap-3 group"><Instagram size={14} className="group-hover:rotate-12 transition-transform" /> INSTAGRAM</a></li>
+                  <li><a href="https://linkedin.com/in/Sandeep-Barupal" target="_blank" className="hover:text-blue-500 transition-colors flex items-center gap-3 group"><Linkedin size={14} className="group-hover:rotate-12 transition-transform" /> LINKEDIN</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors flex items-center gap-3 group"><Globe size={14} className="group-hover:rotate-12 transition-transform" /> ARTSTATION</a></li>
+                  <li><a href="mailto:hello@sandeep.com" className="hover:text-purple-500 transition-colors flex items-center gap-3 group"><Mail size={14} className="group-hover:rotate-12 transition-transform" /> EMAIL ME</a></li>
+                </ul>
+              </div>
+
+              <div className="flex flex-col gap-8 col-span-2 md:col-span-1">
+                <h3 className="text-[10px] font-display font-black text-zinc-600 tracking-[0.5em] uppercase">OFFICE</h3>
+                <div className="font-display font-bold text-[10px] tracking-[0.2em] uppercase leading-relaxed text-zinc-500">
+                  <p className="mb-4">RAJASTHAN, IN<br />PIN: 335512</p>
+                  <p className="flex items-center gap-2 mb-2 text-white"><Phone size={10} /> +91 7878142323</p>
+                  <p className="flex items-center gap-2 text-white"><MessageSquare size={10} /> @itz_sandeep_97</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="pt-16 border-t-2 border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-12">
-            <div className="text-[10px] font-display font-bold tracking-[0.4em] text-zinc-700 uppercase">
-               © {new Date().getFullYear()} SANDEEP KUMAR DESIGN STUDIO. ALL RIGHTS RESERVED.
+          <div className="pt-16 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-12 relative z-10">
+            <div className="text-[9px] font-display font-bold tracking-[0.5em] text-zinc-700 uppercase">
+               © {new Date().getFullYear()} SANDEEP KUMAR DESIGN STUDIO. BUILT WITH PASSION.
             </div>
             
-            <button 
-              onClick={scrollToTop}
-              className="group w-16 h-16 bg-white rounded-full flex flex-col items-center justify-center overflow-hidden border-2 border-black hover:bg-orange-500 transition-all active:scale-95"
-            >
-              <div className="group-hover:-translate-y-20 transition-transform duration-500 flex flex-col items-center gap-20">
-                <ChevronUp className="text-black" size={24} />
-                <ChevronUp className="text-white" size={24} />
-              </div>
-            </button>
+            <div className="flex items-center gap-12">
+               <div className="hidden lg:flex gap-8 text-[9px] font-display font-bold text-zinc-700 tracking-[0.3em] uppercase">
+                  <a href="#" className="hover:text-white transition-colors">PRIVACY POLICY</a>
+                  <a href="#" className="hover:text-white transition-colors">TERMS OF SERVICE</a>
+               </div>
+               <button 
+                onClick={scrollToTop}
+                className="group w-14 h-14 bg-white rounded-full flex flex-col items-center justify-center overflow-hidden border-2 border-black hover:bg-orange-500 transition-all active:scale-95 shadow-[4px_4px_0px_rgba(255,255,255,0.05)]"
+              >
+                <div className="group-hover:-translate-y-20 transition-transform duration-500 flex flex-col items-center gap-20">
+                  <ChevronUp className="text-black" size={20} />
+                  <ChevronUp className="text-white" size={20} />
+                </div>
+              </button>
+            </div>
           </div>
-        </div>
-        
-        {/* Background Accent Text */}
-        <div className="absolute bottom-[-10vw] left-[-5vw] text-[40vw] font-display font-black text-white/[0.02] pointer-events-none select-none leading-none">
-          SK
         </div>
       </footer>
     </div>
