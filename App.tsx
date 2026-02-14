@@ -27,7 +27,14 @@ import {
   Cpu,
   ShieldCheck,
   Layers,
-  Settings
+  Settings,
+  Terminal,
+  Database,
+  Search,
+  Box,
+  Smartphone,
+  Figma,
+  Github
 } from 'lucide-react';
 import { SERVICES, SKILLS } from './constants';
 
@@ -205,6 +212,77 @@ const Marquee = () => (
     </div>
   </div>
 );
+
+const SkillsShowcase = () => {
+  const [index, setIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+
+  // Highlighting key skills to match the hero-style presentation
+  const coreSkills = [
+    { name: "React JS", icon: <Globe className="text-blue-400 w-16 h-16 md:w-32 md:h-32" /> },
+    { name: "Three.js & 3D", icon: <Cpu className="text-purple-400 w-16 h-16 md:w-32 md:h-32" /> },
+    { name: "Tailwind CSS", icon: <Palette className="text-pink-400 w-16 h-16 md:w-32 md:h-32" /> },
+    { name: "UI/UX Design", icon: <Layout className="text-teal-400 w-16 h-16 md:w-32 md:h-32" /> },
+    { name: "Figma Mastery", icon: <Figma className="text-orange-400 w-16 h-16 md:w-32 md:h-32" /> },
+    { name: "Cyber Security", icon: <ShieldCheck className="text-green-400 w-16 h-16 md:w-32 md:h-32" /> },
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIsVisible(false);
+      setTimeout(() => {
+        setIndex((prev) => (prev + 1) % coreSkills.length);
+        setIsVisible(true);
+      }, 700);
+    }, 3800);
+    return () => clearInterval(timer);
+  }, [coreSkills.length]);
+
+  return (
+    <section id="skills" className="py-40 bg-black text-white relative overflow-hidden flex flex-col items-center justify-center min-h-[85vh] border-y border-zinc-900">
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 opacity-20 reveal-scroll">
+        <span className="text-[10px] font-display font-bold tracking-[0.5em] uppercase text-zinc-500">TECHNICAL ARSENAL</span>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 relative z-10">
+        {/* Large Skill Icon */}
+        <div 
+          className={`flex items-center justify-center transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
+            isVisible ? 'opacity-100 translate-y-0 scale-100 rotate-0' : 'opacity-0 translate-y-12 scale-75 rotate-12'
+          }`}
+        >
+          {coreSkills[index].icon}
+        </div>
+
+        {/* Large Skill Title */}
+        <div className="text-center md:text-left h-[100px] md:h-[200px] flex items-center">
+          <h2 
+            className={`text-4xl md:text-[9vw] font-display font-bold text-white tracking-tighter leading-none transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
+              isVisible ? 'opacity-100 translate-x-0 blur-0' : 'opacity-0 translate-x-20 blur-xl'
+            }`}
+          >
+            {coreSkills[index].name}
+          </h2>
+        </div>
+      </div>
+
+      {/* Navigation Indicators */}
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-4">
+        {coreSkills.map((_, i) => (
+          <div 
+            key={i} 
+            className={`h-1.5 transition-all duration-1000 rounded-full ${i === index ? 'w-16 bg-white' : 'w-4 bg-zinc-800'}`}
+          />
+        ))}
+      </div>
+
+      {/* Background Decorative Element */}
+      <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-[0.02] text-[20vw] font-display font-black tracking-tighter select-none pointer-events-none uppercase">
+        SKILLS
+      </div>
+    </section>
+  );
+};
 
 const ServicesShowcase = () => {
   const [index, setIndex] = useState(0);
@@ -446,45 +524,10 @@ const App: React.FC = () => {
 
       <Marquee />
 
-      {/* Skills Section */}
-      <section id="skills" className="py-40 bg-white text-black px-6 border-y-4 border-black overflow-hidden relative">
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-32 gap-12 reveal-scroll">
-            <div>
-              <span className="text-[#E11D48] font-display font-bold text-sm tracking-[0.4em] uppercase block mb-4">My Arsenal</span>
-              <h2 className="text-7xl md:text-[9vw] font-display font-bold tracking-tighter uppercase italic leading-[0.8]">
-                SKILLS <br /> <span className="text-zinc-200">& TOOLS</span>
-              </h2>
-            </div>
-          </div>
+      {/* Hero-style Skills Section */}
+      <SkillsShowcase />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-            {SKILLS.map((skill, idx) => (
-              <div 
-                key={idx} 
-                className={`group relative p-6 border-4 border-black bg-white transition-all hover:-translate-y-2 hover:-translate-x-1 hover:shadow-[10px_10px_0px_#000] cursor-default reveal-scroll min-h-[200px] flex flex-col justify-between overflow-hidden shadow-[6px_6px_0px_#000]`}
-                style={{ transitionDelay: `${(idx % 5) * 50}ms` }}
-              >
-                <div className="flex justify-between items-start mb-4">
-                   <div className="p-3 bg-zinc-50 border-2 border-black rounded-xl group-hover:rotate-12 group-hover:bg-zinc-100 transition-all shadow-sm">
-                      <div className="text-black group-hover:scale-110 transition-transform">
-                        {skill.icon}
-                      </div>
-                   </div>
-                </div>
-                <div>
-                  <h3 className="text-sm md:text-base lg:text-lg font-display font-bold tracking-tighter leading-tight uppercase break-words transition-all group-hover:scale-105 origin-left">
-                    {skill.name}
-                  </h3>
-                  <div className="w-full h-1 bg-zinc-100 group-hover:bg-[#E11D48] transition-colors mt-3"></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Updated Hero-style Services Section */}
+      {/* Hero-style Services Section */}
       <ServicesShowcase />
 
       {/* Updated Bento Footer */}
