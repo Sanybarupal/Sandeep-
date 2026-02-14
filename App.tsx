@@ -26,7 +26,8 @@ import {
   PenTool,
   Cpu,
   ShieldCheck,
-  Layers
+  Layers,
+  Settings
 } from 'lucide-react';
 import { SERVICES, SKILLS } from './constants';
 
@@ -146,8 +147,8 @@ const Hero = () => {
       setTimeout(() => {
         setIndex((prev) => (prev + 1) % rotatingContent.length);
         setIsVisible(true); // Trigger fade in after content swap
-      }, 600); // Wait for fade out to complete (increased for smoothness)
-    }, 4000); // Slightly slower rotation for readability
+      }, 600);
+    }, 4000);
     return () => clearInterval(timer);
   }, [rotatingContent.length]);
 
@@ -204,6 +205,70 @@ const Marquee = () => (
     </div>
   </div>
 );
+
+const ServicesShowcase = () => {
+  const [index, setIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+
+  const services = [
+    { title: "Website Design", icon: <Palette className="text-pink-500 w-16 h-16 md:w-32 md:h-32" /> },
+    { title: "Web Development", icon: <Code2 className="text-blue-500 w-16 h-16 md:w-32 md:h-32" /> },
+    { title: "UI/UX Design", icon: <Layout className="text-indigo-500 w-16 h-16 md:w-32 md:h-32" /> },
+    { title: "Portfolio & Business", icon: <Globe className="text-teal-500 w-16 h-16 md:w-32 md:h-32" /> },
+    { title: "Custom Web Solutions", icon: <Settings className="text-orange-500 w-16 h-16 md:w-32 md:h-32" /> },
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIsVisible(false);
+      setTimeout(() => {
+        setIndex((prev) => (prev + 1) % services.length);
+        setIsVisible(true);
+      }, 700);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [services.length]);
+
+  return (
+    <section id="services" className="py-40 bg-black text-white relative overflow-hidden flex flex-col items-center justify-center min-h-[80vh]">
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 opacity-20 reveal-scroll">
+        <span className="text-[10px] font-display font-bold tracking-[0.5em] uppercase text-zinc-500">EXCEPTIONAL OFFERINGS</span>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 relative z-10">
+        {/* Large Service Icon */}
+        <div 
+          className={`flex items-center justify-center transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
+            isVisible ? 'opacity-100 translate-x-0 scale-100 rotate-0' : 'opacity-0 -translate-x-12 scale-90 -rotate-12'
+          }`}
+        >
+          {services[index].icon}
+        </div>
+
+        {/* Large Service Title */}
+        <div className="text-center md:text-left h-[100px] md:h-[200px] flex items-center">
+          <h2 
+            className={`text-5xl md:text-[8vw] font-display font-bold text-white tracking-tighter leading-none transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
+              isVisible ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-lg'
+            }`}
+          >
+            {services[index].title}
+          </h2>
+        </div>
+      </div>
+
+      {/* Navigation Indicators */}
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-4">
+        {services.map((_, i) => (
+          <div 
+            key={i} 
+            className={`h-1 transition-all duration-1000 ${i === index ? 'w-12 bg-white' : 'w-4 bg-zinc-800'}`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+};
 
 const BentoFooter = () => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -419,35 +484,8 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="py-32 bg-black text-white px-6 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 reveal-scroll">
-            <h2 className="text-7xl md:text-[8vw] font-display font-bold tracking-tighter uppercase leading-none">OFFERINGS</h2>
-            <p className="max-w-sm text-zinc-500 font-bold uppercase tracking-widest text-xs">High performance design and development solutions for modern brands.</p>
-          </div>
-          <div className="space-y-0">
-            {SERVICES.map((service, idx) => (
-              <div 
-                key={idx} 
-                className="group border-t border-zinc-800 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white hover:text-black transition-all px-6 reveal-scroll"
-              >
-                <div className="flex items-center gap-10">
-                  <span className="text-2xl font-display font-bold opacity-20 group-hover:opacity-100">0{idx + 1}</span>
-                  <h3 className="text-3xl md:text-5xl font-display font-bold uppercase tracking-tighter">{service.title}</h3>
-                </div>
-                <div className="mt-4 md:mt-0 flex items-center gap-4">
-                   <p className="hidden md:block max-w-xs text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-60 transition-opacity">{service.description}</p>
-                   <div className="w-16 h-16 rounded-full border-2 border-current flex items-center justify-center rotate-45 group-hover:rotate-0 transition-transform">
-                      <ArrowUpRight size={32} />
-                   </div>
-                </div>
-              </div>
-            ))}
-            <div className="border-t border-zinc-800"></div>
-          </div>
-        </div>
-      </section>
+      {/* Updated Hero-style Services Section */}
+      <ServicesShowcase />
 
       {/* Updated Bento Footer */}
       <BentoFooter />
