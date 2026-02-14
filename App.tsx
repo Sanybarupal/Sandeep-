@@ -1,22 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { 
-  Menu, 
   X, 
   ArrowUpRight, 
-  MoveUpRight,
   Instagram,
   Linkedin,
   Phone,
-  Mail,
   ChevronUp,
   Globe,
-  MessageSquare,
-  ArrowRight,
-  QrCode,
   Smile,
-  Bitcoin,
-  ExternalLink,
   MapPin,
   Share2,
   Grid,
@@ -28,20 +20,14 @@ import {
   ShieldCheck,
   Layers,
   Settings,
-  Terminal,
-  Database,
-  Search,
-  Box,
-  Smartphone,
-  Figma,
-  Github
+  QrCode,
+  Figma
 } from 'lucide-react';
-import { SERVICES, SKILLS } from './constants';
 
 const useIntersectionObserver = () => {
   useEffect(() => {
     const observerOptions = {
-      threshold: 0.15,
+      threshold: 0.1,
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -72,31 +58,32 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'SERVICES', href: '#services' },
+    { name: 'HOME', href: '#home' },
     { name: 'SKILLS', href: '#skills' },
+    { name: 'SERVICES', href: '#services' },
     { name: 'CONTACT', href: '#contact' }
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-[100] py-6 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-zinc-900 shadow-sm' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-[100] py-6 transition-all duration-300 ${scrolled ? 'bg-black/80 backdrop-blur-xl border-b border-white/5 shadow-2xl' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
         <div className="flex items-center">
-          <div className="w-10 h-10 border border-zinc-800 flex items-center justify-center rounded-lg group cursor-pointer hover:border-[#E11D48] transition-all bg-zinc-950">
-            <Smile className="text-[#E11D48]" size={20} />
+          <div className="w-10 h-10 border border-zinc-800 flex items-center justify-center rounded-lg group cursor-pointer hover:border-[#E11D48] transition-all bg-black">
+            <Smile className="text-[#E11D48] group-hover:scale-110 transition-transform" size={20} />
           </div>
         </div>
         
-        <div className="hidden md:flex items-center space-x-10">
+        <div className="hidden md:flex items-center space-x-12">
           {navLinks.map((link) => (
             <a 
               key={link.name} 
               href={link.href} 
-              className="text-[11px] font-display font-medium text-zinc-400 hover:text-white transition-colors tracking-[0.15em]"
+              className="text-[10px] font-display font-bold text-zinc-400 hover:text-white transition-colors tracking-[0.3em] uppercase"
             >
               {link.name}
             </a>
           ))}
-          <button className="text-zinc-500 hover:text-white transition-colors ml-4">
+          <button className="text-zinc-500 hover:text-white transition-colors">
             <Share2 size={18} />
           </button>
         </div>
@@ -110,7 +97,7 @@ const Navbar = () => {
         <div className="md:hidden fixed inset-0 bg-black flex flex-col items-center justify-center space-y-8 z-[60]">
           <button onClick={() => setIsOpen(false)} className="absolute top-8 right-8 text-white"><X size={32} /></button>
           {navLinks.map((link) => (
-            <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="text-4xl font-display font-bold text-white tracking-widest uppercase">{link.name}</a>
+            <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="text-4xl font-display font-bold text-white tracking-widest uppercase italic">{link.name}</a>
           ))}
         </div>
       )}
@@ -121,26 +108,42 @@ const Navbar = () => {
 const RotatingBadge = () => (
   <div className="absolute top-32 right-12 md:right-32 z-20 hidden sm:block">
     <div className="relative w-44 h-44 flex items-center justify-center">
-      <svg className="absolute inset-0 w-full h-full animate-[spin_15s_linear_infinite]" viewBox="0 0 100 100">
+      <svg className="absolute inset-0 w-full h-full animate-[spin_20s_linear_infinite]" viewBox="0 0 100 100">
         <path id="badgePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
-        <text className="text-[7px] font-display font-bold uppercase tracking-[0.35em] fill-zinc-500">
-          <textPath xlinkHref="#badgePath">EXPERIENCE • CREATIVE ARTIST • 4 YEARS • </textPath>
+        <text className="text-[6px] font-display font-bold uppercase tracking-[0.4em] fill-zinc-600">
+          <textPath xlinkHref="#badgePath">DESIGN • DEVELOP • SECURE • REPEAT • 2025 • </textPath>
         </text>
       </svg>
-      <div className="text-center">
-        <p className="text-[9px] font-display font-black text-white tracking-widest leading-none border-b border-white/20 pb-1 mb-1 uppercase">Sandeep</p>
+      <div className="text-center group cursor-default">
+        <p className="text-[10px] font-display font-black text-white tracking-widest leading-none border-b border-[#E11D48] pb-1 mb-1 uppercase group-hover:text-[#E11D48] transition-colors">SANDEEP</p>
       </div>
+    </div>
+  </div>
+);
+
+const SectionSidebar = ({ label }: { label: string }) => (
+  <div className="absolute left-6 md:left-12 bottom-24 md:bottom-32 z-20 flex flex-col gap-4">
+    {[...Array(5)].map((_, i) => (
+      <div 
+        key={i} 
+        className={`w-1 h-10 md:h-16 rounded-full transition-all duration-1000 ${i === 2 ? 'bg-[#E11D48] shadow-[0_0_20px_rgba(225,29,72,0.6)] h-16 md:h-24' : 'bg-zinc-900'}`}
+      />
+    ))}
+    <div className="mt-8 origin-left -rotate-90 translate-x-3">
+      <span className="text-[10px] md:text-xs font-display font-black tracking-[0.6em] text-zinc-400 uppercase whitespace-nowrap">
+        {label}
+      </span>
     </div>
   </div>
 );
 
 const Hero = () => {
   const rotatingContent = [
-    { text: "Web Designer", icon: <Globe className="text-teal-400 w-12 h-12 md:w-20 md:h-20" /> },
-    { text: "Web Developer", icon: <Code2 className="text-blue-400 w-12 h-12 md:w-20 md:h-20" /> },
-    { text: "UI Component Engineer", icon: <Layers className="text-pink-400 w-12 h-12 md:w-20 md:h-20" /> },
-    { text: "Content Writer", icon: <PenTool className="text-orange-400 w-12 h-12 md:w-20 md:h-20" /> },
-    { text: "Cyber Security Learner", icon: <ShieldCheck className="text-green-400 w-12 h-12 md:w-20 md:h-20" /> },
+    { text: "Web Designer", icon: <Globe className="text-teal-400 w-16 h-16 md:w-28 md:h-28" /> },
+    { text: "Web Developer", icon: <Code2 className="text-blue-400 w-16 h-16 md:w-28 md:h-28" /> },
+    { text: "UI Component Engineer", icon: <Layers className="text-pink-400 w-16 h-16 md:w-28 md:h-28" /> },
+    { text: "Content Writer", icon: <PenTool className="text-orange-400 w-16 h-16 md:w-28 md:h-28" /> },
+    { text: "Security Learner", icon: <ShieldCheck className="text-green-400 w-16 h-16 md:w-28 md:h-28" /> },
   ];
 
   const [index, setIndex] = useState(0);
@@ -152,26 +155,26 @@ const Hero = () => {
       setTimeout(() => {
         setIndex((prev) => (prev + 1) % rotatingContent.length);
         setIsVisible(true);
-      }, 600);
-    }, 4000);
+      }, 700);
+    }, 4500);
     return () => clearInterval(timer);
   }, [rotatingContent.length]);
 
   return (
     <section id="home" className="relative h-screen bg-black overflow-hidden flex items-center justify-center">
-      <div className="relative flex flex-col md:flex-row items-center gap-6 md:gap-14 px-6 z-10 w-full max-w-7xl justify-center">
+      <div className="relative flex flex-col md:flex-row items-center gap-8 md:gap-16 px-6 z-10 w-full max-w-7xl justify-center">
         <div 
           className={`flex items-center justify-center transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
-            isVisible ? 'opacity-100 translate-y-0 scale-100 rotate-0' : 'opacity-0 translate-y-8 scale-75 rotate-[30deg]'
+            isVisible ? 'opacity-100 translate-y-0 scale-100 rotate-0' : 'opacity-0 translate-y-12 scale-50 rotate-[45deg]'
           }`}
         >
           {rotatingContent[index].icon}
         </div>
 
-        <div className="text-center md:text-left h-[80px] md:h-[120px] flex items-center min-w-[300px] md:min-w-[700px]">
+        <div className="text-center md:text-left min-h-[100px] md:min-h-[150px] flex items-center min-w-[320px] md:min-w-[800px]">
           <h1 
-            className={`text-4xl md:text-[100px] font-display font-bold text-white tracking-tight leading-none transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
-              isVisible ? 'opacity-100 translate-x-0 blur-0' : 'opacity-0 translate-x-12 blur-md'
+            className={`text-5xl md:text-[11vw] font-display font-bold text-white tracking-tighter leading-none transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
+              isVisible ? 'opacity-100 translate-x-0 blur-0' : 'opacity-0 translate-x-20 blur-xl'
             }`}
           >
             {rotatingContent[index].text}
@@ -179,14 +182,14 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="absolute left-10 md:left-24 bottom-16 md:bottom-24 z-20 opacity-0 animate-[revealUp_1s_ease_forwards_0.5s]">
-        <h2 className="text-5xl md:text-8xl font-display font-bold text-white tracking-tighter leading-[0.85] select-none">
+      <div className="absolute left-10 md:left-24 bottom-16 md:bottom-24 z-20 opacity-0 animate-[revealUp_1.5s_ease_forwards_0.5s]">
+        <h2 className="text-5xl md:text-[7vw] font-display font-bold text-white tracking-tighter leading-[0.8] select-none italic">
           Sandeep<br/>Barupal
         </h2>
-        {/* User Slogan Highlight */}
-        <div className="mt-6 inline-block bg-white/10 backdrop-blur-md px-4 py-2 border-l-2 border-[#E11D48]">
-          <p className="text-[9px] md:text-[11px] font-display font-bold text-white uppercase tracking-[0.2em] leading-relaxed">
-            UI/UX Designer | Web Developer |<br className="md:hidden" /> Creative Problem Solver | Human-Centered Thinker
+        <div className="mt-8 flex items-center gap-4">
+          <div className="w-12 h-[1px] bg-[#E11D48]"></div>
+          <p className="text-[10px] md:text-xs font-display font-bold text-zinc-500 uppercase tracking-[0.4em]">
+            RAJASTHAN BASED • AVAILABLE FOR PROJECTS
           </p>
         </div>
       </div>
@@ -196,200 +199,60 @@ const Hero = () => {
   );
 };
 
-const SectionSidebar = ({ label }: { label: string }) => (
-  <div className="absolute left-4 md:left-12 bottom-24 md:bottom-40 z-20 flex flex-col gap-3">
-    {[...Array(6)].map((_, i) => (
-      <div 
-        key={i} 
-        className={`w-1 md:w-1.5 h-8 md:h-12 rounded-full transition-all duration-700 ${i === 3 ? 'bg-[#E11D48] h-12 md:h-16 shadow-[0_0_15px_rgba(225,29,72,0.5)]' : 'bg-zinc-800'}`}
-      />
-    ))}
-    <div className="mt-6 origin-left -rotate-90 translate-x-2">
-      <span className="text-[10px] md:text-xs font-display font-black tracking-[0.5em] text-white uppercase whitespace-nowrap opacity-80">
-        {label}
-      </span>
-    </div>
-  </div>
-);
-
-const DotsIndicator = ({ count, activeIndex }: { count: number, activeIndex: number }) => (
-  <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-3 md:gap-4">
-    {[...Array(count)].map((_, i) => (
-      <div 
-        key={i} 
-        className={`transition-all duration-700 rounded-full ${i === activeIndex ? 'w-10 md:w-14 h-2 bg-[#E11D48] shadow-[0_0_10px_rgba(225,29,72,0.4)]' : 'w-2 h-2 bg-zinc-800'}`}
-      />
-    ))}
-  </div>
-);
-
-const SkillsShowcase = () => {
+const ShowcaseSection = ({ id, label, items, interval = 5000 }: { id: string, label: string, items: any[], interval?: number }) => {
   const [index, setIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-
-  const coreSkills = [
-    { 
-      name: "React JS", 
-      icon: <Globe className="text-blue-400 w-16 h-16 md:w-32 md:h-32" />,
-      description: "Building high-performance, interactive user interfaces with scalable component architecture."
-    },
-    { 
-      name: "Three.js & 3D", 
-      icon: <Cpu className="text-purple-400 w-16 h-16 md:w-32 md:h-32" />,
-      description: "Creating immersive 3D web experiences using WebGL for next-gen digital storytelling."
-    },
-    { 
-      name: "Tailwind CSS", 
-      icon: <Palette className="text-pink-400 w-16 h-16 md:w-32 md:h-32" />,
-      description: "Designing modern, responsive layouts with utility-first precision and rapid development cycles."
-    },
-    { 
-      name: "UI/UX Design", 
-      icon: <Layout className="text-teal-400 w-16 h-16 md:w-32 md:h-32" />,
-      description: "Crafting intuitive user journeys and pixel-perfect interfaces that prioritize the end-user."
-    },
-    { 
-      name: "Figma Mastery", 
-      icon: <Figma className="text-orange-400 w-16 h-16 md:w-32 md:h-32" />,
-      description: "Translating complex visions into high-fidelity prototypes and professional design systems."
-    },
-    { 
-      name: "Cyber Security", 
-      icon: <ShieldCheck className="text-green-400 w-16 h-16 md:w-32 md:h-32" />,
-      description: "Understanding core security protocols to ensure digital assets are protected and robust."
-    },
-  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setIsVisible(false);
       setTimeout(() => {
-        setIndex((prev) => (prev + 1) % coreSkills.length);
+        setIndex((prev) => (prev + 1) % items.length);
         setIsVisible(true);
       }, 700);
-    }, 4500);
+    }, interval);
     return () => clearInterval(timer);
-  }, [coreSkills.length]);
+  }, [items.length, interval]);
 
   return (
-    <section id="skills" className="py-20 md:py-40 bg-black text-white relative overflow-hidden flex flex-col items-center justify-center min-h-screen border-y border-zinc-900">
-      <SectionSidebar label="TECHNICAL STACK" />
+    <section id={id} className="py-20 md:py-40 bg-black text-white relative overflow-hidden flex flex-col items-center justify-center min-h-screen border-y border-zinc-900">
+      <SectionSidebar label={label} />
       
-      <div className="absolute top-10 right-10 opacity-20 hidden md:block">
-        <span className="text-[10px] font-display font-bold tracking-[0.5em] uppercase text-zinc-500">EXPERT ARSENAL</span>
-      </div>
-
       <div className="max-w-7xl mx-auto px-10 md:px-6 w-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 relative z-10">
         <div 
           className={`flex items-center justify-center transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
-            isVisible ? 'opacity-100 translate-y-0 scale-100 rotate-0' : 'opacity-0 translate-y-12 scale-75 rotate-12'
+            isVisible ? 'opacity-100 translate-y-0 scale-100 rotate-0' : 'opacity-0 translate-y-16 scale-75 rotate-12'
           }`}
         >
-          {coreSkills[index].icon}
+          {items[index].icon}
         </div>
 
-        <div className="text-left min-h-[250px] md:min-h-[400px] flex flex-col justify-center max-w-2xl">
+        <div className="text-left min-h-[300px] md:min-h-[450px] flex flex-col justify-center max-w-3xl">
           <h2 
-            className={`text-5xl md:text-[9vw] font-display font-bold text-white tracking-tighter leading-none transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
-              isVisible ? 'opacity-100 translate-x-0 blur-0' : 'opacity-0 translate-x-20 blur-xl'
+            className={`text-5xl md:text-[9.5vw] font-display font-bold text-white tracking-tighter leading-none transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
+              isVisible ? 'opacity-100 translate-x-0 blur-0' : 'opacity-0 translate-x-24 blur-2xl'
             }`}
           >
-            {coreSkills[index].name}
+            {items[index].name || items[index].title}
           </h2>
           <p 
-            className={`text-zinc-500 text-lg md:text-2xl mt-8 font-medium leading-relaxed transition-all duration-1000 delay-100 transform ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 blur-sm'
+            className={`text-zinc-500 text-lg md:text-3xl mt-10 font-medium leading-relaxed transition-all duration-1000 delay-150 transform ${
+              isVisible ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-10 blur-md'
             }`}
           >
-            {coreSkills[index].description}
+            {items[index].description}
           </p>
         </div>
       </div>
 
-      <DotsIndicator count={coreSkills.length} activeIndex={index} />
-    </section>
-  );
-};
-
-const ServicesShowcase = () => {
-  const [index, setIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
-
-  const services = [
-    { 
-      title: "Website Design", 
-      icon: <Palette className="text-pink-500 w-16 h-16 md:w-32 md:h-32" />,
-      description: "Crafting beautiful, high-impact designs that reflect your brand identity and engage users."
-    },
-    { 
-      title: "Web Development", 
-      icon: <Code2 className="text-blue-500 w-16 h-16 md:w-32 md:h-32" />,
-      description: "Building lightning-fast, secure, and fully responsive web applications using modern tech stacks."
-    },
-    { 
-      title: "UI/UX Design", 
-      icon: <Layout className="text-indigo-500 w-16 h-16 md:w-32 md:h-32" />,
-      description: "Optimizing user experience through deep analysis, intuitive flow, and seamless interface design."
-    },
-    { 
-      title: "Portfolio & Business", 
-      icon: <Globe className="text-teal-500 w-16 h-16 md:w-32 md:h-32" />,
-      description: "Professional digital solutions tailored for creative agencies, startups, and established enterprises."
-    },
-    { 
-      title: "Custom Web Solutions", 
-      icon: <Settings className="text-orange-500 w-16 h-16 md:w-32 md:h-32" />,
-      description: "Engineering specialized features and complex integrations to solve your unique business challenges."
-    },
-  ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIsVisible(false);
-      setTimeout(() => {
-        setIndex((prev) => (prev + 1) % services.length);
-        setIsVisible(true);
-      }, 700);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [services.length]);
-
-  return (
-    <section id="services" className="py-20 md:py-40 bg-black text-white relative overflow-hidden flex flex-col items-center justify-center min-h-screen">
-      <SectionSidebar label="SERVICES" />
-      
-      <div className="absolute top-10 right-10 opacity-20 hidden md:block">
-        <span className="text-[10px] font-display font-bold tracking-[0.5em] uppercase text-zinc-500">OFFERINGS</span>
+      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex items-center gap-4">
+        {items.map((_, i) => (
+          <div 
+            key={i} 
+            className={`h-1.5 transition-all duration-1000 rounded-full ${i === index ? 'w-16 bg-[#E11D48]' : 'w-4 bg-zinc-900'}`}
+          />
+        ))}
       </div>
-
-      <div className="max-w-7xl mx-auto px-10 md:px-6 w-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 relative z-10">
-        <div 
-          className={`flex items-center justify-center transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
-            isVisible ? 'opacity-100 translate-x-0 scale-100 rotate-0' : 'opacity-0 -translate-x-12 scale-90 -rotate-12'
-          }`}
-        >
-          {services[index].icon}
-        </div>
-
-        <div className="text-left min-h-[250px] md:min-h-[400px] flex flex-col justify-center max-w-2xl">
-          <h2 
-            className={`text-5xl md:text-[8vw] font-display font-bold text-white tracking-tighter leading-none transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
-              isVisible ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-lg'
-            }`}
-          >
-            {services[index].title}
-          </h2>
-          <p 
-            className={`text-zinc-500 text-lg md:text-2xl mt-8 font-medium leading-relaxed transition-all duration-1000 delay-100 transform ${
-              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10 blur-sm'
-            }`}
-          >
-            {services[index].description}
-          </p>
-        </div>
-      </div>
-
-      <DotsIndicator count={services.length} activeIndex={index} />
     </section>
   );
 };
@@ -398,149 +261,110 @@ const BentoFooter = () => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer id="contact" className="bg-white py-20 px-4 md:px-12">
-      <div className="max-w-[1400px] mx-auto bg-zinc-950 rounded-[3rem] md:rounded-[5rem] p-6 md:p-14 text-white overflow-hidden shadow-2xl relative">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[45vw] font-display font-bold text-white/[0.012] pointer-events-none select-none tracking-tighter whitespace-nowrap uppercase">
-          SANDEEP
-        </div>
+    <footer id="contact" className="bg-black py-20 px-4 md:px-12 relative overflow-hidden">
+      <div className="absolute -top-40 -left-40 w-96 h-96 bg-blue-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+      
+      <div className="max-w-7xl mx-auto flex flex-col items-center text-center mb-40 reveal-scroll">
+        <h2 className="text-6xl md:text-[14vw] font-display font-bold text-white/5 tracking-tighter leading-none uppercase italic hover:text-white/10 transition-colors duration-1000 select-none">
+          LET'S CREATE
+        </h2>
+        <h3 className="text-5xl md:text-[9vw] font-display font-bold text-white tracking-tighter leading-none uppercase mt-[-4vw]">
+          SOMETHING <span className="text-[#E11D48]">BOLD</span>
+        </h3>
+        <p className="max-w-3xl text-zinc-500 font-medium text-xl md:text-3xl mt-16 leading-relaxed">
+          I bridge the gap between aesthetics and functionality. Based in Rajasthan, working with visionaries worldwide.
+        </p>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 relative z-10">
-          <div className="md:col-span-7 bg-zinc-900/80 backdrop-blur-sm rounded-[3rem] p-10 flex flex-col justify-between group overflow-hidden border border-white/5">
-            <div className="absolute -right-20 -top-20 w-80 h-80 bg-[#C1FF72]/10 rounded-full blur-[100px] group-hover:bg-[#C1FF72]/20 transition-all duration-1000"></div>
-            
-            <div>
-              <div className="flex items-center gap-4 mb-10">
-                <div className="w-3 h-3 rounded-full bg-[#E11D48] animate-pulse"></div>
-                <h3 className="text-xs font-display font-bold tracking-[0.3em] text-zinc-500 uppercase">CONTACT ME</h3>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
+        
+        {/* Contact Bento */}
+        <div className="md:col-span-8 bg-zinc-900/50 border border-zinc-800 rounded-[4rem] p-12 md:p-20 group transition-all hover:bg-zinc-800/60 overflow-hidden relative">
+           <div className="absolute -right-10 -bottom-10 opacity-[0.03] text-[200px] font-black group-hover:opacity-[0.07] transition-opacity">HI</div>
+           <div>
+              <div className="flex items-center gap-4 mb-16">
+                 <div className="w-3 h-3 rounded-full bg-[#E11D48] animate-pulse"></div>
+                 <span className="text-xs font-display font-black text-zinc-600 tracking-[0.5em] uppercase">HIRE ME</span>
               </div>
               
-              <div className="grid grid-cols-1 gap-8">
-                <a href="tel:+917878142323" className="flex items-center gap-6 group/item max-w-fit">
-                  <div className="w-14 h-14 bg-zinc-800 rounded-2xl flex items-center justify-center group-hover/item:bg-[#C1FF72] group-hover/item:text-black group-hover/item:-rotate-6 transition-all duration-500 shadow-lg">
-                    <Phone size={24} />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-display font-bold text-zinc-500 uppercase tracking-widest mb-1">CALL / WHATSAPP</p>
-                    <p className="text-xl md:text-3xl font-display font-bold tracking-tighter group-hover/item:text-[#C1FF72] transition-colors">7878142323</p>
-                  </div>
-                </a>
+              <div className="space-y-16">
+                 <a href="tel:+917878142323" className="block group/link">
+                    <p className="text-zinc-600 text-[10px] font-bold tracking-[0.4em] uppercase mb-4">DIRECT ACCESS</p>
+                    <div className="flex items-center gap-6">
+                       <span className="text-4xl md:text-7xl font-display font-bold text-white tracking-tighter group-hover/link:text-[#C1FF72] transition-all">
+                         +91 7878142323
+                       </span>
+                       <ArrowUpRight className="text-[#E11D48] opacity-0 group-hover/link:opacity-100 transition-all translate-y-4 group-hover/link:translate-y-0" size={56} />
+                    </div>
+                 </a>
 
-                <a href="https://instagram.com/itz_sandeep_97" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group/item max-w-fit">
-                  <div className="w-14 h-14 bg-zinc-800 rounded-2xl flex items-center justify-center group-hover/item:bg-[#E4405F] group-hover/item:-rotate-6 transition-all duration-500 shadow-lg">
-                    <Instagram size={24} />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-display font-bold text-zinc-500 uppercase tracking-widest mb-1">INSTAGRAM</p>
-                    <p className="text-xl md:text-3xl font-display font-bold tracking-tighter group-hover/item:text-[#E4405F] transition-colors">itz_sandeep_97</p>
-                  </div>
-                </a>
-
-                <a href="https://linkedin.com/in/sandeep-barupal" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group/item max-w-fit">
-                  <div className="w-14 h-14 bg-zinc-800 rounded-2xl flex items-center justify-center group-hover/item:bg-[#0077B5] group-hover/item:-rotate-6 transition-all duration-500 shadow-lg">
-                    <Linkedin size={24} />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-display font-bold text-zinc-500 uppercase tracking-widest mb-1">LINKEDIN</p>
-                    <p className="text-xl md:text-3xl font-display font-bold tracking-tighter group-hover/item:text-[#0077B5] transition-colors">SANDEEP BARUPAL</p>
-                  </div>
-                </a>
+                 <div className="flex flex-wrap gap-10">
+                    <a href="https://instagram.com/itz_sandeep_97" target="_blank" className="flex items-center gap-5 group/social">
+                       <div className="w-14 h-14 rounded-2xl bg-zinc-800 flex items-center justify-center group-hover/social:bg-[#E4405F] group-hover/social:rotate-[-8deg] transition-all">
+                          <Instagram className="text-white" size={24} />
+                       </div>
+                       <span className="text-zinc-400 font-bold tracking-tighter group-hover/social:text-white transition-colors text-lg">ITZ_SANDEEP_97</span>
+                    </a>
+                    <a href="https://linkedin.com/in/sandeep-barupal" target="_blank" className="flex items-center gap-5 group/social">
+                       <div className="w-14 h-14 rounded-2xl bg-zinc-800 flex items-center justify-center group-hover/social:bg-[#0077B5] group-hover/social:rotate-[8deg] transition-all">
+                          <Linkedin className="text-white" size={24} />
+                       </div>
+                       <span className="text-zinc-400 font-bold tracking-tighter group-hover/social:text-white transition-colors text-lg">SANDEEP BARUPAL</span>
+                    </a>
+                 </div>
               </div>
-            </div>
-
-            <div className="mt-14 flex items-center justify-between">
-               <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <div key={i} className="w-1 h-1 rounded-full bg-[#E11D48]/40"></div>
-                  ))}
-               </div>
-               <p className="text-[8px] font-display text-zinc-600 tracking-[0.4em] uppercase">VERIFIED DIGITAL CREATOR</p>
-            </div>
-          </div>
-
-          <div className="md:col-span-5 h-full min-h-[450px] bg-[#8A5CF6] rounded-[3rem] overflow-hidden flex items-end justify-center group relative shadow-2xl transition-transform hover:scale-[0.99] duration-500">
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10"></div>
-            <img 
-              src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Sandeep&backgroundColor=8A5CF6" 
-              alt="Avatar" 
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
-            />
-            <div className="absolute top-8 left-8 z-20 flex flex-col gap-2">
-               <div className="bg-white text-black px-4 py-2 rounded-full font-display font-bold text-[10px] tracking-widest uppercase shadow-xl">
-                 HEY THERE!
-               </div>
-            </div>
-            <div className="absolute bottom-8 right-8 z-20 w-16 h-16 bg-[#C1FF72] rounded-full flex items-center justify-center text-black shadow-2xl transform group-hover:rotate-12 transition-all">
-              <Smile size={32} />
-            </div>
-          </div>
-
-          <div className="md:col-span-3 bg-zinc-900 rounded-[3rem] p-10 border border-white/5 hover:border-[#C1FF72]/30 transition-all">
-             <p className="text-[10px] font-display font-bold text-zinc-600 uppercase tracking-[0.3em] mb-10">MENU</p>
-             <ul className="space-y-5">
-              {['HOME', 'SERVICES', 'SKILLS'].map((item) => (
-                <li key={item}>
-                  <a href={`#${item.toLowerCase() === 'home' ? 'home' : item.toLowerCase()}`} className="group flex items-center justify-between">
-                    <span className="text-xl font-display font-bold tracking-tighter text-zinc-500 group-hover:text-white transition-colors">{item}</span>
-                    <ArrowUpRight size={18} className="text-zinc-700 group-hover:text-[#C1FF72] transition-all transform group-hover:-translate-y-1 group-hover:translate-x-1" />
-                  </a>
-                </li>
-              ))}
-             </ul>
-          </div>
-
-          <div className="md:col-span-6 bg-white rounded-[3rem] p-10 flex flex-col md:flex-row items-center justify-between group overflow-hidden relative shadow-lg">
-             <div className="relative z-10 mb-8 md:mb-0">
-                <h4 className="text-black text-4xl font-display font-bold tracking-tighter uppercase leading-none mb-4">PREMIUM<br/>EXPERIENCE</h4>
-                <div className="flex gap-2">
-                   <div className="px-3 py-1 bg-zinc-100 rounded-lg text-[10px] font-display font-bold text-black">DESIGN</div>
-                   <div className="px-3 py-1 bg-zinc-100 rounded-lg text-[10px] font-display font-bold text-black">3D</div>
-                   <div className="px-3 py-1 bg-zinc-100 rounded-lg text-[10px] font-display font-bold text-black">CODE</div>
-                </div>
-             </div>
-             <div className="relative z-10 text-center md:text-right">
-                <div className="flex items-center justify-center md:justify-end gap-2 text-black mb-1">
-                   <span className="text-7xl font-display font-bold tracking-tighter">04</span>
-                   <span className="text-2xl font-display font-bold text-[#8A5CF6] self-start mt-2">+</span>
-                </div>
-                <p className="text-zinc-400 text-[10px] font-display font-bold uppercase tracking-widest">YEARS OF JOURNEY</p>
-             </div>
-             <div className="absolute top-[-50%] left-[-20%] w-80 h-80 bg-zinc-50 rounded-full group-hover:scale-125 transition-transform duration-1000"></div>
-          </div>
-
-          <div className="md:col-span-3 bg-[#C1FF72] rounded-[3rem] p-10 flex flex-col justify-between group transition-all hover:shadow-[0_0_50px_rgba(193,255,114,0.3)] cursor-default">
-            <div className="flex justify-between items-start">
-              <MapPin className="text-black" size={28} />
-              <div className="w-3 h-3 rounded-full bg-black animate-pulse"></div>
-            </div>
-            <div>
-               <h4 className="text-black font-display font-bold tracking-tighter text-2xl uppercase leading-none">RAJASTHAN</h4>
-               <p className="text-black/50 font-display font-bold text-[10px] uppercase tracking-widest mt-2">Available Globally</p>
-            </div>
-          </div>
+           </div>
         </div>
 
-        <div className="mt-20 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10 relative z-10">
-          <div className="flex gap-12 text-zinc-600 font-display font-bold text-[10px] tracking-widest uppercase">
-            <a href="#" className="hover:text-white transition-colors">Privacy</a>
-            <a href="#" className="hover:text-white transition-colors">Copyright</a>
-            <a href="#" className="hover:text-white transition-colors">Terms</a>
-          </div>
-          
-          <div className="flex items-center gap-6">
-             <div className="h-[1px] w-12 bg-zinc-800 hidden md:block"></div>
-             <p className="text-zinc-500 font-display font-bold text-[10px] tracking-widest uppercase text-center md:text-left">
-               MADE BY SANDEEP BARUPAL • © {new Date().getFullYear()}
-             </p>
-             <div className="h-[1px] w-12 bg-zinc-800 hidden md:block"></div>
-          </div>
-
-          <button 
-            onClick={scrollToTop}
-            className="group w-16 h-16 bg-zinc-900 border border-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#C1FF72] hover:text-black transition-all shadow-2xl active:scale-90"
-          >
-            <ChevronUp size={28} className="group-hover:-translate-y-1 transition-transform duration-300" />
-          </button>
+        {/* Status Bento */}
+        <div className="md:col-span-4 bg-[#C1FF72] rounded-[4rem] p-12 flex flex-col justify-between group overflow-hidden relative transition-transform hover:scale-[1.02]">
+           <div className="flex justify-between items-start">
+              <Smile size={60} className="text-black group-hover:rotate-12 transition-transform duration-500" />
+              <div className="bg-black text-[#C1FF72] px-5 py-2 rounded-full text-[10px] font-black tracking-widest uppercase">
+                 ONLINE NOW
+              </div>
+           </div>
+           <div>
+              <p className="text-black/40 text-[10px] font-black tracking-[0.3em] uppercase mb-4">PORTFOLIO V2.5</p>
+              <div className="bg-black/10 backdrop-blur-sm p-8 rounded-3xl border border-black/5 flex items-center justify-center">
+                 <QrCode size={120} className="text-black" />
+              </div>
+           </div>
         </div>
+
+        {/* Action Bento */}
+        <div className="md:col-span-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+           <div className="md:col-span-2 bg-zinc-900/40 border border-zinc-800 rounded-[3rem] p-10 flex items-center justify-between group">
+              <div className="flex gap-4">
+                 {[...Array(3)].map((_, i) => (
+                    <div key={i} className="w-4 h-4 rounded-full bg-zinc-800 group-hover:bg-[#E11D48] transition-colors" style={{ transitionDelay: `${i * 100}ms` }}></div>
+                 ))}
+              </div>
+              <div className="text-right">
+                <p className="text-zinc-600 font-display font-bold text-[10px] tracking-[0.4em] uppercase">RAJASTHAN, INDIA</p>
+                <p className="text-white font-bold tracking-widest mt-1">GMT+5:30</p>
+              </div>
+           </div>
+           
+           <button 
+             onClick={scrollToTop}
+             className="md:col-span-2 bg-[#E11D48] rounded-[3rem] p-10 flex items-center justify-between group overflow-hidden relative hover:bg-white transition-colors duration-500"
+           >
+              <span className="text-white font-display font-bold text-3xl tracking-tighter group-hover:text-black transition-colors z-10">BACK TO TOP</span>
+              <div className="w-16 h-16 bg-black/20 rounded-full flex items-center justify-center z-10 group-hover:bg-[#E11D48] transition-all group-hover:-translate-y-3">
+                 <ChevronUp size={36} className="text-white" />
+              </div>
+           </button>
+        </div>
+
+      </div>
+
+      <div className="max-w-7xl mx-auto mt-40 pt-16 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-10 text-zinc-700 font-display font-black text-[9px] tracking-[0.5em] uppercase">
+         <div className="flex gap-16">
+            <a href="#" className="hover:text-white transition-colors">© {new Date().getFullYear()} SANDEEP</a>
+            <a href="#" className="hover:text-white transition-colors">TERMS</a>
+         </div>
+         <p className="text-center md:text-right">DESIGNED & ENGINEERED FOR IMPACT</p>
       </div>
     </footer>
   );
@@ -549,12 +373,63 @@ const BentoFooter = () => {
 const App: React.FC = () => {
   useIntersectionObserver();
 
+  const coreSkills = [
+    { 
+      name: "React JS", 
+      icon: <Globe className="text-blue-400 w-20 h-20 md:w-32 md:h-32" />,
+      description: "Architecting complex, responsive web applications with state-of-the-art React patterns and hooks."
+    },
+    { 
+      name: "Three.js", 
+      icon: <Cpu className="text-purple-400 w-20 h-20 md:w-32 md:h-32" />,
+      description: "Pushing the boundaries of the web with immersive 3D environments and interactive WebGL experiences."
+    },
+    { 
+      name: "Tailwind", 
+      icon: <Palette className="text-pink-400 w-20 h-20 md:w-32 md:h-32" />,
+      description: "Crafting pixel-perfect, scalable design systems using a utility-first approach for maximum performance."
+    },
+    { 
+      name: "UI/UX", 
+      icon: <Layout className="text-teal-400 w-20 h-20 md:w-32 md:h-32" />,
+      description: "Designing data-driven user journeys that balance stunning aesthetics with intuitive user interfaces."
+    },
+    { 
+      name: "Figma", 
+      icon: <Figma className="text-orange-400 w-20 h-20 md:w-32 md:h-32" />,
+      description: "Mastering the industry-standard design tool to create collaborative, high-fidelity prototypes and systems."
+    }
+  ];
+
+  const services = [
+    { 
+      title: "Web Design", 
+      icon: <Palette className="text-pink-500 w-20 h-20 md:w-32 md:h-32" />,
+      description: "High-impact visual narratives that transform your brand's digital presence into an unforgettable experience."
+    },
+    { 
+      title: "Web Dev", 
+      icon: <Code2 className="text-blue-500 w-20 h-20 md:w-32 md:h-32" />,
+      description: "Custom-coded solutions optimized for speed, SEO, and global scalability using the latest modern tech stack."
+    },
+    { 
+      title: "UX Strategy", 
+      icon: <Layout className="text-indigo-500 w-20 h-20 md:w-32 md:h-32" />,
+      description: "Comprehensive user research and flow optimization to ensure your product converts and delights every user."
+    },
+    { 
+      title: "Scalable Apps", 
+      icon: <Settings className="text-orange-500 w-20 h-20 md:w-32 md:h-32" />,
+      description: "Engineering specialized features and robust infrastructures that grow seamlessly with your business demands."
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-black">
       <Navbar />
       <Hero />
-      <SkillsShowcase />
-      <ServicesShowcase />
+      <ShowcaseSection id="skills" label="TECHNICAL ARSENAL" items={coreSkills} />
+      <ShowcaseSection id="services" label="SERVICE OFFERINGS" items={services} interval={6000} />
       <BentoFooter />
     </div>
   );

@@ -4,32 +4,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sandeep Barupal | 3D Artist & Developer</title>
+    <title>Sandeep Barupal | Digital Architect</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
       body {
         font-family: 'Comfortaa', cursive;
-        background-color: #f8f8f8;
+        background-color: #000;
         background-image: 
-          linear-gradient(#e5e5e5 1px, transparent 1px),
-          linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
-        background-size: 40px 40px;
+          linear-gradient(#111 1px, transparent 1px),
+          linear-gradient(90deg, #111 1px, transparent 1px);
+        background-size: 60px 60px;
       }
       .font-display {
         font-family: 'Comfortaa', cursive;
       }
-      .outlined-text-black {
-        -webkit-text-stroke: 1.5px #000;
-        color: transparent;
-      }
       @keyframes float {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-20px); }
-      }
-      @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
       }
       @keyframes revealUp {
         0% { transform: translateY(100%); opacity: 0; }
@@ -38,57 +30,34 @@
       .animate-float {
         animation: float 6s ease-in-out infinite;
       }
-      .animate-marquee {
-        animation: marquee 30s linear infinite;
-      }
       .animate-reveal {
         animation: revealUp 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
       }
-      .delay-200 { animation-delay: 0.2s; }
       
-      .reveal-container {
-        overflow: hidden;
-      }
-
       /* Scroll Reveal Classes */
       .reveal-scroll {
         opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateY(40px);
+        transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
       }
       .reveal-scroll.active {
         opacity: 1;
         transform: translateY(0);
       }
 
-      /* User Requested CSS Overrides */
-      .text-\[30vw\] {
-        font-size: 17vw !important;
+      /* Scrollbar Styling */
+      ::-webkit-scrollbar {
+        width: 8px;
       }
-
-      .bottom-\[-5vw\] {
-        bottom: -2vw !important;
+      ::-webkit-scrollbar-track {
+        background: #000;
       }
-
-      /* Custom Font Size Override for Name Section */
-      @media (min-width: 768px) {
-          .md\:text-8xl {
-              font-size: 3rem !important;
-              line-height: 1 !important;
-              letter-spacing: 1px !important;
-          }
+      ::-webkit-scrollbar-thumb {
+        background: #222;
+        border-radius: 10px;
       }
-
-      /* Ensure text is selectable even with transparent color */
-      .outlined-text-black::selection {
-        background: #fb923c;
-        color: white;
-        -webkit-text-stroke: 0;
-      }
-      
-      /* Refine Comfortaa Legibility at Small Scales */
-      p, span, li {
-        letter-spacing: -0.01em;
+      ::-webkit-scrollbar-thumb:hover {
+        background: #E11D48;
       }
     </style>
   <script type="importmap">
@@ -104,7 +73,7 @@
 }
 </script>
 </head>
-  <body class="text-black overflow-x-hidden">
+  <body class="text-white overflow-x-hidden">
     <div id="root"></div>
     <script type="module" src="index.tsx"></script>
   </body>
