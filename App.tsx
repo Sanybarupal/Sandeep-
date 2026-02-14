@@ -23,7 +23,11 @@ import {
   X,
   Phone,
   Mail,
-  ArrowRight
+  ArrowRight,
+  MapPin,
+  Bitcoin,
+  QrCode,
+  ExternalLink
 } from 'lucide-react';
 
 // --- Types ---
@@ -167,54 +171,147 @@ const App: React.FC = () => {
         </div>
       </main>
 
-      {/* Contact Section Modal */}
+      {/* Bento Contact Section Overlay */}
       {isContactOpen && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl animate-in fade-in duration-300">
-          <div className="relative w-full max-w-2xl bg-[#0a0a0a] border border-white/10 p-8 md:p-12 shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden">
-            {/* Background Accent */}
-            <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-500/10 blur-[80px] rounded-full"></div>
+        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-3xl overflow-y-auto p-4 md:p-12 animate-in fade-in zoom-in duration-500">
+          <button 
+            onClick={() => setIsContactOpen(false)}
+            className="fixed top-8 right-8 z-[210] w-12 h-12 bg-white/5 hover:bg-white/10 rounded-full flex items-center justify-center text-white/40 hover:text-white transition-all active:scale-90"
+          >
+            <X size={28} />
+          </button>
+
+          {/* Bento Grid Container */}
+          <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-4 grid-rows-none md:grid-rows-6 gap-3 md:h-[80vh]">
             
-            <button 
-              onClick={() => setIsContactOpen(false)}
-              className="absolute top-6 right-6 text-white/40 hover:text-white transition-colors"
-            >
-              <X size={24} />
-            </button>
-
-            <div className="relative z-10">
-              <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter text-white mb-2 uppercase">GET IN TOUCH</h2>
-              <p className="text-white/40 text-xs font-bold tracking-[0.3em] uppercase mb-12">AVAILABLE FOR WORLDWIDE COLLABORATION</p>
-              
-              <div className="space-y-8">
-                <a href="tel:+91XXXXXXXXXX" className="group flex items-center gap-6 p-4 -ml-4 hover:bg-white/5 transition-all rounded-lg">
-                  <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500 group-hover:text-black transition-all">
-                    <Phone size={20} className="text-blue-500 group-hover:text-black" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-bold text-white/30 tracking-widest uppercase mb-1">CALL DIRECT</p>
-                    <p className="text-2xl md:text-3xl font-bold text-white tracking-tight">+91 999 999 9999</p>
-                  </div>
-                  <ArrowRight className="ml-auto opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all text-blue-500" />
-                </a>
-
-                <a href="mailto:hello@sandeepbarupal.com" className="group flex items-center gap-6 p-4 -ml-4 hover:bg-white/5 transition-all rounded-lg">
-                  <div className="w-12 h-12 rounded-full bg-pink-500/10 flex items-center justify-center group-hover:bg-pink-500 group-hover:text-black transition-all">
-                    <Mail size={20} className="text-pink-500 group-hover:text-black" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-bold text-white/30 tracking-widest uppercase mb-1">EMAIL ADDRESS</p>
-                    <p className="text-2xl md:text-3xl font-bold text-white tracking-tight italic">hello@sandeepbarupal.com</p>
-                  </div>
-                  <ArrowRight className="ml-auto opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all text-pink-500" />
-                </a>
-              </div>
-
-              <div className="mt-16 pt-8 border-t border-white/5 flex flex-wrap gap-6 text-[10px] font-bold text-white/20 tracking-[0.2em] uppercase">
-                <span>INSTAGRAM / @SANDEEP</span>
-                <span>LINKEDIN / SANDEEPBARUPAL</span>
-                <span>TWITTER / @SANDEEP_DEV</span>
+            {/* 1. Avatar Card */}
+            <div className="md:col-span-1 md:row-span-3 bg-indigo-500 rounded-3xl p-6 flex items-center justify-center overflow-hidden group">
+              <div className="relative">
+                <div className="absolute inset-0 bg-black/20 rounded-full scale-110 group-hover:scale-125 transition-transform duration-700"></div>
+                <Smile size={120} className="text-white drop-shadow-2xl relative z-10 group-hover:rotate-12 transition-transform" />
               </div>
             </div>
+
+            {/* 2. Rotating Text Card */}
+            <div className="md:col-span-1 md:row-span-2 bg-[#141414] rounded-3xl p-6 flex flex-col items-center justify-center relative border border-white/5 overflow-hidden">
+               <div className="absolute inset-0 flex items-center justify-center">
+                 <svg className="w-40 h-40 animate-[spin_10s_linear_infinite]" viewBox="0 0 100 100">
+                   <path id="contactPath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
+                   <text className="text-[6px] font-bold uppercase tracking-[0.4em] fill-white/20">
+                     <textPath xlinkHref="#contactPath">HIRE ME NOW • CONTACT SANDEEP • </textPath>
+                   </text>
+                 </svg>
+               </div>
+               <Layers size={32} className="text-white/40 relative z-10" />
+            </div>
+
+            {/* 3. Menu/Links Card */}
+            <div className="md:col-span-1 md:row-span-4 bg-[#1a1a1a] rounded-3xl p-8 flex flex-col justify-between border border-white/10">
+              <div className="space-y-4">
+                <span className="text-[10px] font-bold tracking-[0.3em] text-white/40 uppercase">DIRECTORY</span>
+                <nav className="flex flex-col gap-4">
+                  {['PHONE', 'EMAIL', 'INSTAGRAM', 'LINKEDIN', 'TWITTER'].map(item => (
+                    <button key={item} className="text-left group flex items-center justify-between text-lg font-bold text-white/70 hover:text-white transition-all">
+                      <span>{item}</span>
+                      <div className="w-2 h-2 rounded-full bg-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </button>
+                  ))}
+                </nav>
+              </div>
+              <button className="mt-8 text-left group">
+                <span className="text-[10px] font-bold tracking-[0.3em] text-white/40 uppercase">STATUS</span>
+                <p className="text-white font-bold group-hover:text-indigo-400 transition-colors">AVAILABLE NOW</p>
+              </button>
+            </div>
+
+            {/* 4. Exclusive Badge Card */}
+            <div className="md:col-span-1 md:row-span-1 bg-purple-500 rounded-3xl p-4 flex items-center gap-4 group">
+               <div className="bg-white rounded-full p-2 text-black group-hover:scale-110 transition-transform">
+                 <Zap size={18} />
+               </div>
+               <div className="text-[9px] font-bold text-white uppercase leading-tight tracking-widest">
+                 HIGH END<br/>SOLUTIONS
+               </div>
+            </div>
+
+            {/* 5. Main Title Card */}
+            <div className="md:col-span-1 md:row-span-3 bg-white rounded-3xl p-8 flex flex-col justify-center border border-white/5 relative overflow-hidden group">
+               <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
+                 <ArrowRight size={24} className="text-black -rotate-45" />
+               </div>
+               <h3 className="text-6xl md:text-8xl font-black text-black italic tracking-tighter leading-none">ID</h3>
+               <p className="text-black/40 text-[10px] font-black uppercase mt-4 tracking-widest">hello@sandeep.com</p>
+            </div>
+
+            {/* 6. Location Card */}
+            <div className="md:col-span-1 md:row-span-2 bg-[#141414] rounded-3xl p-8 flex flex-col justify-between border border-white/5">
+              <div className="flex items-center gap-2 text-lime-400">
+                <MapPin size={16} />
+                <span className="text-[9px] font-bold tracking-widest uppercase">RAIASTHAN, IN</span>
+              </div>
+              <div>
+                <p className="text-white font-bold leading-tight uppercase text-lg tracking-tighter">WORKING<br/>REMOTE WORLDWIDE</p>
+                <p className="text-white/20 text-[9px] font-bold uppercase mt-2">UTC +5:30</p>
+              </div>
+            </div>
+
+            {/* 7. Large Illustration Card */}
+            <div className="md:col-span-1 md:row-span-4 bg-lime-400 rounded-3xl p-6 flex flex-col items-center justify-center overflow-hidden group relative">
+               <Smile size={160} className="text-black group-hover:scale-110 transition-transform duration-700" />
+               <div className="absolute bottom-6 right-6 opacity-40">
+                 <div className="flex gap-2">
+                   <div className="w-2 h-2 rounded-full bg-black"></div>
+                   <div className="w-2 h-2 rounded-full bg-black"></div>
+                 </div>
+               </div>
+            </div>
+
+            {/* 8. Bitcoin/Info Card */}
+            <div className="md:col-span-1 md:row-span-2 bg-[#0a0a0a] rounded-3xl p-8 border border-white/10 flex flex-col justify-between group">
+              <div className="bg-lime-400 w-10 h-10 rounded-full flex items-center justify-center text-black group-hover:rotate-12 transition-transform">
+                <Bitcoin size={20} />
+              </div>
+              <div>
+                <p className="text-white/40 text-[9px] font-bold uppercase tracking-widest mb-1">PAYMENT OPTIONS</p>
+                <p className="text-white text-xs font-bold leading-relaxed uppercase">WE ACCEPT CRYPTO & TRADITIONAL BANK TRANSFERS</p>
+              </div>
+            </div>
+
+            {/* 9. Walk Icons Card */}
+            <div className="md:col-span-1 md:row-span-1 bg-[#141414] rounded-3xl p-4 flex items-center justify-around border border-white/5">
+               <Users size={24} className="text-white/20" />
+               <Rocket size={24} className="text-white/40" />
+               <Code2 size={24} className="text-white/20" />
+            </div>
+
+            {/* 10. QR App Card */}
+            <div className="md:col-span-1 md:row-span-1 bg-lime-400 rounded-3xl p-4 flex items-center justify-between group cursor-pointer hover:bg-white transition-colors">
+               <div className="flex items-center gap-3">
+                 <QrCode size={24} className="text-black" />
+                 <div className="text-[8px] font-black text-black uppercase leading-none tracking-tighter">
+                   VCARD<br/>CONNECT
+                 </div>
+               </div>
+               <ExternalLink size={16} className="text-black" />
+            </div>
+
+            {/* 11. Final CTA Card */}
+            <div className="md:col-span-2 md:row-span-2 bg-white rounded-3xl p-8 flex flex-col justify-between group cursor-pointer hover:bg-indigo-500 transition-all duration-500">
+               <div className="flex justify-between items-start">
+                 <div>
+                   <h4 className="text-black group-hover:text-white text-3xl font-black italic tracking-tighter uppercase leading-none">BOOK A CALL</h4>
+                   <p className="text-black/40 group-hover:text-white/40 text-[10px] font-black uppercase mt-2 tracking-widest">+91 999 999 9999</p>
+                 </div>
+                 <div className="text-5xl md:text-7xl font-black text-black group-hover:text-white tracking-tighter italic">4.97</div>
+               </div>
+               <div className="flex items-center justify-between">
+                 <p className="text-black/40 group-hover:text-white/40 text-[10px] font-black uppercase tracking-widest">100+ CLIENTS SATISFIED</p>
+                 <button className="bg-indigo-500 group-hover:bg-white text-white group-hover:text-black px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl">
+                   SCHEDULE
+                 </button>
+               </div>
+            </div>
+
           </div>
         </div>
       )}
