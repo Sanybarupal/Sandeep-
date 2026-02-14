@@ -16,7 +16,8 @@ import {
   QrCode,
   Smile,
   Bitcoin,
-  ExternalLink
+  ExternalLink,
+  MapPin
 } from 'lucide-react';
 import { SERVICES, SKILLS } from './constants';
 
@@ -68,7 +69,7 @@ const Navbar = () => {
             <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent animate-pulse"></div>
             <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent animate-pulse delay-75"></div>
           </div>
-          <a href="#home" className="text-2xl font-display font-black tracking-tighter text-black uppercase">S.B</a>
+          <a href="#home" className="text-2xl font-display font-bold tracking-tighter text-black uppercase">S.B</a>
         </div>
         
         <div className="hidden md:flex items-center space-x-12">
@@ -76,7 +77,7 @@ const Navbar = () => {
             <a 
               key={link.name} 
               href={link.href} 
-              className="text-xs font-display font-bold text-zinc-500 hover:text-black transition-colors tracking-[0.2em]"
+              className="text-xs font-display font-bold text-zinc-500 hover:text-black transition-colors tracking-[0.1em]"
             >
               {link.name}
             </a>
@@ -98,7 +99,7 @@ const Navbar = () => {
         <div className="md:hidden fixed inset-0 bg-white flex flex-col items-center justify-center space-y-8 z-[60]">
           <button onClick={() => setIsOpen(false)} className="absolute top-8 right-8 text-black"><X size={32} /></button>
           {navLinks.map((link) => (
-            <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="text-4xl font-display font-black text-black tracking-widest">{link.name}</a>
+            <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="text-4xl font-display font-bold text-black tracking-widest">{link.name}</a>
           ))}
         </div>
       )}
@@ -111,7 +112,7 @@ const Marquee = () => (
     <div className="flex animate-marquee items-center">
       {[...Array(10)].map((_, i) => (
         <React.Fragment key={i}>
-          <span className="text-white font-display font-black text-3xl mx-12 flex items-center gap-6">
+          <span className="text-white font-display font-bold text-2xl mx-12 flex items-center gap-6">
             3D ARTIST <span className="w-3 h-3 bg-orange-500 rounded-full"></span> 
             DEVELOPER <span className="w-3 h-3 bg-white rounded-full"></span> 
             DESIGNER <span className="w-3 h-3 bg-purple-500 rounded-full"></span>
@@ -127,164 +128,159 @@ const BentoFooter = () => {
 
   return (
     <footer id="contact" className="bg-white py-20 px-4 md:px-12">
-      <div className="max-w-[1400px] mx-auto bg-zinc-950 rounded-[2.5rem] md:rounded-[4rem] p-4 md:p-12 text-white overflow-hidden shadow-2xl relative">
+      <div className="max-w-[1400px] mx-auto bg-zinc-950 rounded-[3rem] md:rounded-[5rem] p-6 md:p-14 text-white overflow-hidden shadow-2xl relative">
         
         {/* Decorative Background Text */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[45vw] font-display font-black text-white/[0.015] pointer-events-none select-none tracking-tighter whitespace-nowrap">
-          SB
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[45vw] font-display font-bold text-white/[0.012] pointer-events-none select-none tracking-tighter whitespace-nowrap">
+          SANDEEP
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 relative z-10">
           
-          {/* Card 1: Main Identity & Contact Info */}
-          <div className="md:col-span-5 bg-zinc-900 rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between group overflow-hidden relative">
-            <div className="absolute -right-20 -top-20 w-64 h-64 bg-[#C1FF72]/10 rounded-full blur-[80px] group-hover:bg-[#C1FF72]/20 transition-all duration-700"></div>
+          {/* Main Reach Card (Col 7) */}
+          <div className="md:col-span-7 bg-zinc-900/80 backdrop-blur-sm rounded-[3rem] p-10 flex flex-col justify-between group overflow-hidden border border-white/5">
+            <div className="absolute -right-20 -top-20 w-80 h-80 bg-[#C1FF72]/10 rounded-full blur-[100px] group-hover:bg-[#C1FF72]/20 transition-all duration-1000"></div>
             
             <div>
-              <div className="bg-white text-black px-6 py-3 rounded-2xl inline-block mb-8 transform group-hover:-rotate-2 transition-transform">
-                <h3 className="text-2xl md:text-3xl font-display font-black tracking-tighter uppercase">LET'S TALK</h3>
+              <div className="flex items-center gap-4 mb-10">
+                <div className="w-3 h-3 rounded-full bg-[#C1FF72] animate-pulse"></div>
+                <h3 className="text-xs font-display font-bold tracking-[0.3em] text-zinc-500 uppercase">CONTACT ME</h3>
               </div>
               
-              <div className="space-y-6">
-                <a href="tel:+919119119077" className="flex items-center gap-5 group/item">
-                  <div className="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center group-hover/item:bg-[#C1FF72] group-hover/item:text-black transition-all">
-                    <Phone size={20} />
+              <div className="grid grid-cols-1 gap-8">
+                {/* Phone */}
+                <a href="tel:+917878142323" className="flex items-center gap-6 group/item max-w-fit">
+                  <div className="w-14 h-14 bg-zinc-800 rounded-2xl flex items-center justify-center group-hover/item:bg-[#C1FF72] group-hover/item:text-black group-hover/item:-rotate-6 transition-all duration-500 shadow-lg">
+                    <Phone size={24} />
                   </div>
                   <div>
-                    <p className="text-[10px] font-display font-bold text-zinc-500 uppercase tracking-widest mb-0.5">Mobile</p>
-                    <p className="text-lg md:text-xl font-display font-black tracking-tighter">+91 91191 19077</p>
+                    <p className="text-[10px] font-display font-bold text-zinc-500 uppercase tracking-widest mb-1">CALL / WHATSAPP</p>
+                    <p className="text-xl md:text-3xl font-display font-bold tracking-tighter group-hover/item:text-[#C1FF72] transition-colors">7878142323</p>
                   </div>
                 </a>
 
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-5 group/item">
-                  <div className="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center group-hover/item:bg-[#E4405F] transition-all">
-                    <Instagram size={20} />
+                {/* Instagram */}
+                <a href="https://instagram.com/itz_sandeep_97" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group/item max-w-fit">
+                  <div className="w-14 h-14 bg-zinc-800 rounded-2xl flex items-center justify-center group-hover/item:bg-[#E4405F] group-hover/item:-rotate-6 transition-all duration-500 shadow-lg">
+                    <Instagram size={24} />
                   </div>
                   <div>
-                    <p className="text-[10px] font-display font-bold text-zinc-500 uppercase tracking-widest mb-0.5">Instagram</p>
-                    <p className="text-lg md:text-xl font-display font-black tracking-tighter">@sandeep.barupal</p>
+                    <p className="text-[10px] font-display font-bold text-zinc-500 uppercase tracking-widest mb-1">INSTAGRAM</p>
+                    <p className="text-xl md:text-3xl font-display font-bold tracking-tighter group-hover/item:text-[#E4405F] transition-colors">itz_sandeep_97</p>
                   </div>
                 </a>
 
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-5 group/item">
-                  <div className="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center group-hover/item:bg-[#0077B5] transition-all">
-                    <Linkedin size={20} />
+                {/* LinkedIn */}
+                <a href="https://linkedin.com/in/sandeep-barupal" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group/item max-w-fit">
+                  <div className="w-14 h-14 bg-zinc-800 rounded-2xl flex items-center justify-center group-hover/item:bg-[#0077B5] group-hover/item:-rotate-6 transition-all duration-500 shadow-lg">
+                    <Linkedin size={24} />
                   </div>
                   <div>
-                    <p className="text-[10px] font-display font-bold text-zinc-500 uppercase tracking-widest mb-0.5">LinkedIn</p>
-                    <p className="text-lg md:text-xl font-display font-black tracking-tighter">in/sandeepbarupal</p>
+                    <p className="text-[10px] font-display font-bold text-zinc-500 uppercase tracking-widest mb-1">LINKEDIN</p>
+                    <p className="text-xl md:text-3xl font-display font-bold tracking-tighter group-hover/item:text-[#0077B5] transition-colors">SANDEEP BARUPAL</p>
                   </div>
                 </a>
               </div>
             </div>
 
-            <div className="mt-12 pt-8 border-t border-white/5">
-               <div className="flex gap-[1px] h-8 opacity-40">
-                  {[...Array(40)].map((_, i) => (
-                    <div key={i} className={`bg-white h-full ${Math.random() > 0.6 ? 'w-[1px]' : 'w-[2px]'}`}></div>
+            <div className="mt-14 flex items-center justify-between">
+               <div className="flex gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <div key={i} className="w-1 h-1 rounded-full bg-[#C1FF72]/40"></div>
                   ))}
                </div>
-               <p className="text-[8px] font-display text-zinc-600 tracking-[0.6em] mt-3 uppercase">AUTHENTIC DIGITAL CRAFT</p>
+               <p className="text-[8px] font-display text-zinc-600 tracking-[0.4em] uppercase">VERIFIED DIGITAL CREATOR</p>
             </div>
           </div>
 
-          {/* Card 2: Avatar Visual */}
-          <div className="md:col-span-4 h-full min-h-[350px] bg-[#8A5CF6] rounded-[2.5rem] overflow-hidden flex items-end justify-center group relative shadow-2xl">
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10"></div>
+          {/* Avatar Visual (Col 5) */}
+          <div className="md:col-span-5 h-full min-h-[450px] bg-[#8A5CF6] rounded-[3rem] overflow-hidden flex items-end justify-center group relative shadow-2xl transition-transform hover:scale-[0.99] duration-500">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10"></div>
             <img 
               src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Sandeep&backgroundColor=8A5CF6" 
               alt="Avatar" 
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 relative z-0"
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
             />
-            <div className="absolute top-6 right-6 z-20 w-14 h-14 bg-white rounded-full flex items-center justify-center text-black group-hover:rotate-12 transition-all">
-              <Smile size={28} />
-            </div>
-          </div>
-
-          {/* Card 3: Quick Navigation */}
-          <div className="md:col-span-3 bg-zinc-900 rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between border border-white/5">
-             <div className="space-y-6">
-                <p className="text-[10px] font-display font-bold text-zinc-600 uppercase tracking-[0.4em] mb-8">Navigation</p>
-                <ul className="space-y-4">
-                  {['ABOUT', 'SERVICES', 'SKILLS', 'PROJECTS', 'CAREERS'].map((item) => (
-                    <li key={item} className="flex items-center gap-3 group cursor-pointer">
-                      <div className="w-1.5 h-1.5 rounded-full bg-zinc-800 group-hover:bg-[#C1FF72] group-hover:scale-150 transition-all"></div>
-                      <span className="text-lg md:text-xl font-display font-black tracking-tighter text-zinc-500 group-hover:text-white transition-colors">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-             </div>
-             <div className="mt-12">
-               <div className="p-4 bg-zinc-800/50 rounded-2xl border border-white/5 flex items-center gap-4">
-                 <div className="w-2 h-2 rounded-full bg-[#C1FF72] animate-pulse"></div>
-                 <span className="text-[9px] font-display font-bold text-zinc-400 uppercase tracking-widest">Available for projects</span>
+            <div className="absolute top-8 left-8 z-20 flex flex-col gap-2">
+               <div className="bg-white text-black px-4 py-2 rounded-full font-display font-bold text-[10px] tracking-widest uppercase shadow-xl">
+                 HEY THERE!
                </div>
-             </div>
-          </div>
-
-          {/* Card 4: Location & Status */}
-          <div className="md:col-span-3 h-48 bg-[#C1FF72] rounded-[2.5rem] p-8 flex flex-col justify-between group cursor-pointer hover:shadow-[0_0_30px_rgba(193,255,114,0.2)] transition-all">
-            <div className="flex justify-between items-start">
-              <Globe className="text-black" size={24} />
-              <ArrowUpRight className="text-black opacity-0 group-hover:opacity-100 transition-opacity" size={24} />
             </div>
-            <div>
-               <h4 className="text-black font-display font-black tracking-tighter text-xl leading-none">INDIA</h4>
-               <p className="text-black/60 font-display font-bold text-[10px] uppercase tracking-widest mt-1">Based in Rajasthan</p>
+            <div className="absolute bottom-8 right-8 z-20 w-16 h-16 bg-[#C1FF72] rounded-full flex items-center justify-center text-black shadow-2xl transform group-hover:rotate-12 transition-all">
+              <Smile size={32} />
             </div>
           </div>
 
-          {/* Card 5: Experience Stats */}
-          <div className="md:col-span-6 h-48 bg-white rounded-[2.5rem] p-8 flex items-center justify-between group relative overflow-hidden">
-             <div className="relative z-10">
-                <h4 className="text-black text-3xl font-display font-black tracking-tighter uppercase mb-1">CRAFTING MAGIC</h4>
-                <div className="flex items-center gap-2">
-                   {[...Array(5)].map((_, i) => (
-                     <div key={i} className="w-4 h-4 bg-[#8A5CF6] rounded-sm transform rotate-45"></div>
-                   ))}
-                   <span className="ml-2 text-zinc-400 text-[10px] font-display font-bold uppercase tracking-widest">Premium Quality</span>
+          {/* Navigation (Col 3) */}
+          <div className="md:col-span-3 bg-zinc-900 rounded-[3rem] p-10 border border-white/5 hover:border-[#C1FF72]/30 transition-all">
+             <p className="text-[10px] font-display font-bold text-zinc-600 uppercase tracking-[0.3em] mb-10">MENU</p>
+             <ul className="space-y-5">
+              {['HOME', 'ABOUT', 'SERVICES', 'SKILLS'].map((item) => (
+                <li key={item}>
+                  <a href={`#${item.toLowerCase()}`} className="group flex items-center justify-between">
+                    <span className="text-xl font-display font-bold tracking-tighter text-zinc-500 group-hover:text-white transition-colors">{item}</span>
+                    <ArrowUpRight size={18} className="text-zinc-700 group-hover:text-[#C1FF72] transition-all transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                  </a>
+                </li>
+              ))}
+             </ul>
+          </div>
+
+          {/* Stats & Quality (Col 6) */}
+          <div className="md:col-span-6 bg-white rounded-[3rem] p-10 flex flex-col md:flex-row items-center justify-between group overflow-hidden relative shadow-lg">
+             <div className="relative z-10 mb-8 md:mb-0">
+                <h4 className="text-black text-4xl font-display font-bold tracking-tighter uppercase leading-none mb-4">PREMIUM<br/>EXPERIENCE</h4>
+                <div className="flex gap-2">
+                   <div className="px-3 py-1 bg-zinc-100 rounded-lg text-[10px] font-display font-bold text-black">DESIGN</div>
+                   <div className="px-3 py-1 bg-zinc-100 rounded-lg text-[10px] font-display font-bold text-black">3D</div>
+                   <div className="px-3 py-1 bg-zinc-100 rounded-lg text-[10px] font-display font-bold text-black">CODE</div>
                 </div>
              </div>
-             <div className="relative z-10 text-right">
-                <span className="text-black text-6xl md:text-7xl font-display font-black tracking-tighter">04+</span>
-                <p className="text-zinc-400 text-[10px] font-display font-bold uppercase tracking-widest mt-[-8px]">Years Working</p>
+             <div className="relative z-10 text-center md:text-right">
+                <div className="flex items-center justify-center md:justify-end gap-2 text-black mb-1">
+                   <span className="text-7xl font-display font-bold tracking-tighter">04</span>
+                   <span className="text-2xl font-display font-bold text-[#8A5CF6] self-start mt-2">+</span>
+                </div>
+                <p className="text-zinc-400 text-[10px] font-display font-bold uppercase tracking-widest">YEARS OF JOURNEY</p>
              </div>
-             <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-zinc-50 rounded-full group-hover:scale-125 transition-transform duration-700"></div>
+             <div className="absolute top-[-50%] left-[-20%] w-80 h-80 bg-zinc-50 rounded-full group-hover:scale-125 transition-transform duration-1000"></div>
           </div>
 
-          {/* Card 6: QR Social Connect */}
-          <div className="md:col-span-3 h-48 bg-zinc-900 rounded-[2.5rem] p-6 flex flex-col justify-center items-center gap-4 group border border-white/5 hover:bg-zinc-800 transition-colors">
-            <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center p-2 group-hover:rotate-6 transition-transform">
-               <QrCode className="text-black w-full h-full" />
+          {/* Location / Availability (Col 3) */}
+          <div className="md:col-span-3 bg-[#C1FF72] rounded-[3rem] p-10 flex flex-col justify-between group transition-all hover:shadow-[0_0_50px_rgba(193,255,114,0.3)] cursor-default">
+            <div className="flex justify-between items-start">
+              <MapPin className="text-black" size={28} />
+              <div className="w-3 h-3 rounded-full bg-black animate-pulse"></div>
             </div>
-            <p className="text-[9px] font-display font-bold text-zinc-500 uppercase tracking-widest text-center leading-relaxed">
-              SCAN TO <br/> <span className="text-white">SAVE CONTACT</span>
-            </p>
+            <div>
+               <h4 className="text-black font-display font-bold tracking-tighter text-2xl uppercase leading-none">RAJASTHAN</h4>
+               <p className="text-black/50 font-display font-bold text-[10px] uppercase tracking-widest mt-2">Available Globally</p>
+            </div>
           </div>
 
         </div>
 
-        {/* Footer Bottom Bar */}
-        <div className="mt-16 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 relative z-10">
-          <div className="flex gap-10 text-zinc-600 font-display font-bold text-[10px] tracking-widest uppercase">
-            <a href="#" className="hover:text-[#C1FF72] transition-colors">Privacy</a>
-            <a href="#" className="hover:text-[#C1FF72] transition-colors">Copyright</a>
-            <a href="#" className="hover:text-[#C1FF72] transition-colors">Cookies</a>
+        {/* Footer Bottom */}
+        <div className="mt-20 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10 relative z-10">
+          <div className="flex gap-12 text-zinc-600 font-display font-bold text-[10px] tracking-widest uppercase">
+            <a href="#" className="hover:text-white transition-colors">Privacy</a>
+            <a href="#" className="hover:text-white transition-colors">Copyright</a>
+            <a href="#" className="hover:text-white transition-colors">Terms</a>
           </div>
           
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
              <div className="h-[1px] w-12 bg-zinc-800 hidden md:block"></div>
-             <p className="text-zinc-600 font-display font-bold text-[10px] tracking-widest uppercase text-center">
-               DESIGNED & DEVELOPED BY SANDEEP BARUPAL © {new Date().getFullYear()}
+             <p className="text-zinc-500 font-display font-bold text-[10px] tracking-widest uppercase text-center md:text-left">
+               MADE BY SANDEEP BARUPAL • © {new Date().getFullYear()}
              </p>
              <div className="h-[1px] w-12 bg-zinc-800 hidden md:block"></div>
           </div>
 
           <button 
             onClick={scrollToTop}
-            className="group w-14 h-14 bg-zinc-900 border border-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#C1FF72] hover:text-black transition-all shadow-xl active:scale-95"
+            className="group w-16 h-16 bg-zinc-900 border border-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#C1FF72] hover:text-black transition-all shadow-2xl active:scale-90"
           >
-            <ChevronUp size={24} className="group-hover:-translate-y-1 transition-transform" />
+            <ChevronUp size={28} className="group-hover:-translate-y-1 transition-transform duration-300" />
           </button>
         </div>
       </div>
@@ -311,7 +307,7 @@ const App: React.FC = () => {
         <div className="relative w-full max-w-7xl">
           <div className="relative z-0 text-center select-none flex flex-col items-center">
             <div className="reveal-container mb-2">
-              <h1 className="text-[10vw] md:text-[8vw] font-display font-black leading-[0.85] tracking-tighter text-black animate-reveal opacity-0">
+              <h1 className="text-[10vw] md:text-[8vw] font-display font-bold leading-[0.85] tracking-tighter text-black animate-reveal opacity-0">
                 Sandeep
               </h1>
             </div>
@@ -333,7 +329,7 @@ const App: React.FC = () => {
           <div className="opacity-0 animate-[revealUp_0.8s_ease_forwards_0.6s]">
             <a 
               href="#contact"
-              className="group relative bg-black text-white px-16 py-6 rounded-2xl font-display font-black text-xl tracking-tighter hover:bg-orange-500 transition-all shadow-[8px_8px_0px_#C1FF72] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none inline-block active:translate-x-2 active:translate-y-2 active:shadow-none"
+              className="group relative bg-black text-white px-16 py-6 rounded-2xl font-display font-bold text-xl tracking-tighter hover:bg-orange-500 transition-all shadow-[8px_8px_0px_#C1FF72] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none inline-block active:translate-x-2 active:translate-y-2 active:shadow-none"
             >
               HIRE ME
             </a>
@@ -352,7 +348,7 @@ const App: React.FC = () => {
 
       {/* About Section */}
       <section id="about" className="py-40 relative bg-black text-white overflow-hidden px-6">
-        <div className="absolute top-0 right-0 text-[30vw] font-display font-black text-white/5 leading-none select-none pointer-events-none uppercase">
+        <div className="absolute top-0 right-0 text-[30vw] font-display font-bold text-white/5 leading-none select-none pointer-events-none uppercase">
           ABOUT
         </div>
         
@@ -360,7 +356,7 @@ const App: React.FC = () => {
           <div className="grid lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-7">
               <span className="text-orange-400 font-display font-bold text-sm tracking-[0.3em] uppercase block mb-6">Discovery</span>
-              <h2 className="text-5xl md:text-[6vw] font-display font-black mb-8 leading-[0.85] tracking-tighter uppercase">
+              <h2 className="text-5xl md:text-[6vw] font-display font-bold mb-8 leading-[0.85] tracking-tighter uppercase">
                 CRAFTING THE <br /> 
                 <span className="text-white italic relative inline-block">
                   DIGITAL
@@ -396,7 +392,7 @@ const App: React.FC = () => {
                   style={{ transitionDelay: `${i * 100}ms` }}
                 >
                   <div className="text-[10px] font-display font-bold text-zinc-500 mb-4 tracking-widest uppercase">{stat.label}</div>
-                  <div className="text-3xl font-display font-black uppercase text-white transition-colors flex items-end justify-between">
+                  <div className="text-3xl font-display font-bold uppercase text-white transition-colors flex items-end justify-between">
                     {stat.value}
                     <MoveUpRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity text-orange-400" />
                   </div>
@@ -413,7 +409,7 @@ const App: React.FC = () => {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-32 gap-12 reveal-scroll">
             <div>
               <span className="text-orange-500 font-display font-bold text-sm tracking-[0.4em] uppercase block mb-4">My Arsenal</span>
-              <h2 className="text-7xl md:text-[9vw] font-display font-black tracking-tighter uppercase italic leading-[0.8]">
+              <h2 className="text-7xl md:text-[9vw] font-display font-bold tracking-tighter uppercase italic leading-[0.8]">
                 SKILLS <br /> <span className="text-zinc-200">& TOOLS</span>
               </h2>
             </div>
@@ -434,7 +430,7 @@ const App: React.FC = () => {
                    </div>
                 </div>
                 <div>
-                  <h3 className="text-sm md:text-base lg:text-lg font-display font-black tracking-tighter leading-tight uppercase break-words transition-all group-hover:scale-105 origin-left">
+                  <h3 className="text-sm md:text-base lg:text-lg font-display font-bold tracking-tighter leading-tight uppercase break-words transition-all group-hover:scale-105 origin-left">
                     {skill.name}
                   </h3>
                   <div className="w-full h-1 bg-zinc-100 group-hover:bg-orange-500 transition-colors mt-3"></div>
@@ -449,7 +445,7 @@ const App: React.FC = () => {
       <section id="services" className="py-32 bg-black text-white px-6 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 reveal-scroll">
-            <h2 className="text-7xl md:text-[8vw] font-display font-black tracking-tighter uppercase leading-none">OFFERINGS</h2>
+            <h2 className="text-7xl md:text-[8vw] font-display font-bold tracking-tighter uppercase leading-none">OFFERINGS</h2>
             <p className="max-w-sm text-zinc-500 font-bold uppercase tracking-widest text-xs">High performance design and development solutions for modern brands.</p>
           </div>
           <div className="space-y-0">
@@ -459,8 +455,8 @@ const App: React.FC = () => {
                 className="group border-t border-zinc-800 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white hover:text-black transition-all px-6 reveal-scroll"
               >
                 <div className="flex items-center gap-10">
-                  <span className="text-2xl font-display font-black opacity-20 group-hover:opacity-100">0{idx + 1}</span>
-                  <h3 className="text-3xl md:text-5xl font-display font-black uppercase tracking-tighter">{service.title}</h3>
+                  <span className="text-2xl font-display font-bold opacity-20 group-hover:opacity-100">0{idx + 1}</span>
+                  <h3 className="text-3xl md:text-5xl font-display font-bold uppercase tracking-tighter">{service.title}</h3>
                 </div>
                 <div className="mt-4 md:mt-0 flex items-center gap-4">
                    <p className="hidden md:block max-w-xs text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-60 transition-opacity">{service.description}</p>
@@ -475,7 +471,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* New Bento Footer replaces old contact and footer */}
+      {/* Updated Bento Footer */}
       <BentoFooter />
     </div>
   );
