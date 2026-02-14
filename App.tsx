@@ -24,7 +24,9 @@ import {
   Palette,
   Layout,
   PenTool,
-  Cpu
+  Cpu,
+  ShieldCheck,
+  Layers
 } from 'lucide-react';
 import { SERVICES, SKILLS } from './constants';
 
@@ -129,11 +131,11 @@ const RotatingBadge = () => (
 
 const Hero = () => {
   const rotatingContent = [
-    { text: "Developer", icon: <Code2 className="text-blue-400 w-12 h-12 md:w-20 md:h-20" /> },
-    { text: "UI Designer", icon: <Palette className="text-pink-400 w-12 h-12 md:w-20 md:h-20" /> },
-    { text: "UX Designer", icon: <Layout className="text-purple-400 w-12 h-12 md:w-20 md:h-20" /> },
     { text: "Web Designer", icon: <Globe className="text-teal-400 w-12 h-12 md:w-20 md:h-20" /> },
+    { text: "Web Developer", icon: <Code2 className="text-blue-400 w-12 h-12 md:w-20 md:h-20" /> },
+    { text: "UI Component Engineer", icon: <Layers className="text-pink-400 w-12 h-12 md:w-20 md:h-20" /> },
     { text: "Content Writer", icon: <PenTool className="text-orange-400 w-12 h-12 md:w-20 md:h-20" /> },
+    { text: "Cyber Security Learner", icon: <ShieldCheck className="text-green-400 w-12 h-12 md:w-20 md:h-20" /> },
   ];
 
   const [index, setIndex] = useState(0);
@@ -145,10 +147,10 @@ const Hero = () => {
       setTimeout(() => {
         setIndex((prev) => (prev + 1) % rotatingContent.length);
         setIsVisible(true); // Trigger fade in after content swap
-      }, 500); // Wait for fade out to complete
-    }, 3500);
+      }, 600); // Wait for fade out to complete (increased for smoothness)
+    }, 4000); // Slightly slower rotation for readability
     return () => clearInterval(timer);
-  }, []);
+  }, [rotatingContent.length]);
 
   return (
     <section id="home" className="relative h-screen bg-black overflow-hidden flex items-center justify-center">
@@ -157,18 +159,18 @@ const Hero = () => {
         
         {/* Dynamic Icon */}
         <div 
-          className={`flex items-center justify-center transition-all duration-700 ease-in-out transform ${
-            isVisible ? 'opacity-100 translate-y-0 scale-100 rotate-0' : 'opacity-0 translate-y-4 scale-90 rotate-12'
+          className={`flex items-center justify-center transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
+            isVisible ? 'opacity-100 translate-y-0 scale-100 rotate-0' : 'opacity-0 translate-y-8 scale-75 rotate-[30deg]'
           }`}
         >
           {rotatingContent[index].icon}
         </div>
 
         {/* Dynamic Rotating Title */}
-        <div className="text-center md:text-left h-[80px] md:h-[120px] flex items-center min-w-[300px] md:min-w-[600px]">
+        <div className="text-center md:text-left h-[80px] md:h-[120px] flex items-center min-w-[300px] md:min-w-[700px]">
           <h1 
-            className={`text-5xl md:text-[110px] font-display font-bold text-white tracking-tight leading-none transition-all duration-700 ease-in-out transform ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+            className={`text-4xl md:text-[100px] font-display font-bold text-white tracking-tight leading-none transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
+              isVisible ? 'opacity-100 translate-x-0 blur-0' : 'opacity-0 translate-x-12 blur-md'
             }`}
           >
             {rotatingContent[index].text}
