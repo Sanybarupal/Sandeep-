@@ -80,14 +80,12 @@ const Navbar = () => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-[100] py-6 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-zinc-900 shadow-sm' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-        {/* Top Left: Logo Icon */}
         <div className="flex items-center">
           <div className="w-10 h-10 border border-zinc-800 flex items-center justify-center rounded-lg group cursor-pointer hover:border-[#E11D48] transition-all bg-zinc-950">
             <Smile className="text-[#E11D48]" size={20} />
           </div>
         </div>
         
-        {/* Top Right: Links */}
         <div className="hidden md:flex items-center space-x-10">
           {navLinks.map((link) => (
             <a 
@@ -150,10 +148,10 @@ const Hero = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setIsVisible(false); // Trigger fade out
+      setIsVisible(false);
       setTimeout(() => {
         setIndex((prev) => (prev + 1) % rotatingContent.length);
-        setIsVisible(true); // Trigger fade in after content swap
+        setIsVisible(true);
       }, 600);
     }, 4000);
     return () => clearInterval(timer);
@@ -161,10 +159,7 @@ const Hero = () => {
 
   return (
     <section id="home" className="relative h-screen bg-black overflow-hidden flex items-center justify-center">
-      {/* Center Branding Block */}
       <div className="relative flex flex-col md:flex-row items-center gap-6 md:gap-14 px-6 z-10 w-full max-w-7xl justify-center">
-        
-        {/* Dynamic Icon */}
         <div 
           className={`flex items-center justify-center transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
             isVisible ? 'opacity-100 translate-y-0 scale-100 rotate-0' : 'opacity-0 translate-y-8 scale-75 rotate-[30deg]'
@@ -173,7 +168,6 @@ const Hero = () => {
           {rotatingContent[index].icon}
         </div>
 
-        {/* Dynamic Rotating Title */}
         <div className="text-center md:text-left h-[80px] md:h-[120px] flex items-center min-w-[300px] md:min-w-[700px]">
           <h1 
             className={`text-4xl md:text-[100px] font-display font-bold text-white tracking-tight leading-none transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
@@ -185,17 +179,49 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Bottom Left Name Placement */}
       <div className="absolute left-10 md:left-24 bottom-16 md:bottom-24 z-20 opacity-0 animate-[revealUp_1s_ease_forwards_0.5s]">
         <h2 className="text-5xl md:text-8xl font-display font-bold text-white tracking-tighter leading-[0.85] select-none">
           Sandeep<br/>Barupal
         </h2>
+        {/* User Slogan Highlight */}
+        <div className="mt-6 inline-block bg-white/10 backdrop-blur-md px-4 py-2 border-l-2 border-[#E11D48]">
+          <p className="text-[9px] md:text-[11px] font-display font-bold text-white uppercase tracking-[0.2em] leading-relaxed">
+            UI/UX Designer | Web Developer |<br className="md:hidden" /> Creative Problem Solver | Human-Centered Thinker
+          </p>
+        </div>
       </div>
 
       <RotatingBadge />
     </section>
   );
 };
+
+const SectionSidebar = ({ label }: { label: string }) => (
+  <div className="absolute left-4 md:left-12 bottom-24 md:bottom-40 z-20 flex flex-col gap-3">
+    {[...Array(6)].map((_, i) => (
+      <div 
+        key={i} 
+        className={`w-1 md:w-1.5 h-8 md:h-12 rounded-full transition-all duration-700 ${i === 3 ? 'bg-[#E11D48] h-12 md:h-16 shadow-[0_0_15px_rgba(225,29,72,0.5)]' : 'bg-zinc-800'}`}
+      />
+    ))}
+    <div className="mt-6 origin-left -rotate-90 translate-x-2">
+      <span className="text-[10px] md:text-xs font-display font-black tracking-[0.5em] text-white uppercase whitespace-nowrap opacity-80">
+        {label}
+      </span>
+    </div>
+  </div>
+);
+
+const DotsIndicator = ({ count, activeIndex }: { count: number, activeIndex: number }) => (
+  <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-3 md:gap-4">
+    {[...Array(count)].map((_, i) => (
+      <div 
+        key={i} 
+        className={`transition-all duration-700 rounded-full ${i === activeIndex ? 'w-10 md:w-14 h-2 bg-[#E11D48] shadow-[0_0_10px_rgba(225,29,72,0.4)]' : 'w-2 h-2 bg-zinc-800'}`}
+      />
+    ))}
+  </div>
+);
 
 const SkillsShowcase = () => {
   const [index, setIndex] = useState(0);
@@ -241,17 +267,19 @@ const SkillsShowcase = () => {
         setIndex((prev) => (prev + 1) % coreSkills.length);
         setIsVisible(true);
       }, 700);
-    }, 3800);
+    }, 4500);
     return () => clearInterval(timer);
   }, [coreSkills.length]);
 
   return (
-    <section id="skills" className="py-40 bg-black text-white relative overflow-hidden flex flex-col items-center justify-center min-h-[85vh] border-y border-zinc-900">
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 opacity-20 reveal-scroll">
-        <span className="text-[10px] font-display font-bold tracking-[0.5em] uppercase text-zinc-500">TECHNICAL ARSENAL</span>
+    <section id="skills" className="py-20 md:py-40 bg-black text-white relative overflow-hidden flex flex-col items-center justify-center min-h-screen border-y border-zinc-900">
+      <SectionSidebar label="TECHNICAL STACK" />
+      
+      <div className="absolute top-10 right-10 opacity-20 hidden md:block">
+        <span className="text-[10px] font-display font-bold tracking-[0.5em] uppercase text-zinc-500">EXPERT ARSENAL</span>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 relative z-10">
+      <div className="max-w-7xl mx-auto px-10 md:px-6 w-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 relative z-10">
         <div 
           className={`flex items-center justify-center transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
             isVisible ? 'opacity-100 translate-y-0 scale-100 rotate-0' : 'opacity-0 translate-y-12 scale-75 rotate-12'
@@ -260,16 +288,16 @@ const SkillsShowcase = () => {
           {coreSkills[index].icon}
         </div>
 
-        <div className="text-center md:text-left min-h-[220px] md:min-h-[350px] flex flex-col justify-center max-w-2xl">
+        <div className="text-left min-h-[250px] md:min-h-[400px] flex flex-col justify-center max-w-2xl">
           <h2 
-            className={`text-4xl md:text-[9vw] font-display font-bold text-white tracking-tighter leading-none transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
+            className={`text-5xl md:text-[9vw] font-display font-bold text-white tracking-tighter leading-none transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
               isVisible ? 'opacity-100 translate-x-0 blur-0' : 'opacity-0 translate-x-20 blur-xl'
             }`}
           >
             {coreSkills[index].name}
           </h2>
           <p 
-            className={`text-zinc-500 text-lg md:text-2xl mt-6 font-medium leading-relaxed transition-all duration-1000 delay-100 transform ${
+            className={`text-zinc-500 text-lg md:text-2xl mt-8 font-medium leading-relaxed transition-all duration-1000 delay-100 transform ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 blur-sm'
             }`}
           >
@@ -278,18 +306,7 @@ const SkillsShowcase = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-4">
-        {coreSkills.map((_, i) => (
-          <div 
-            key={i} 
-            className={`h-1.5 transition-all duration-1000 rounded-full ${i === index ? 'w-16 bg-white' : 'w-4 bg-zinc-800'}`}
-          />
-        ))}
-      </div>
-
-      <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-[0.02] text-[20vw] font-display font-black tracking-tighter select-none pointer-events-none uppercase">
-        SKILLS
-      </div>
+      <DotsIndicator count={coreSkills.length} activeIndex={index} />
     </section>
   );
 };
@@ -333,17 +350,19 @@ const ServicesShowcase = () => {
         setIndex((prev) => (prev + 1) % services.length);
         setIsVisible(true);
       }, 700);
-    }, 4500);
+    }, 5000);
     return () => clearInterval(timer);
   }, [services.length]);
 
   return (
-    <section id="services" className="py-40 bg-black text-white relative overflow-hidden flex flex-col items-center justify-center min-h-[85vh]">
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 opacity-20 reveal-scroll">
-        <span className="text-[10px] font-display font-bold tracking-[0.5em] uppercase text-zinc-500">EXCEPTIONAL OFFERINGS</span>
+    <section id="services" className="py-20 md:py-40 bg-black text-white relative overflow-hidden flex flex-col items-center justify-center min-h-screen">
+      <SectionSidebar label="SERVICES" />
+      
+      <div className="absolute top-10 right-10 opacity-20 hidden md:block">
+        <span className="text-[10px] font-display font-bold tracking-[0.5em] uppercase text-zinc-500">OFFERINGS</span>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 relative z-10">
+      <div className="max-w-7xl mx-auto px-10 md:px-6 w-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 relative z-10">
         <div 
           className={`flex items-center justify-center transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
             isVisible ? 'opacity-100 translate-x-0 scale-100 rotate-0' : 'opacity-0 -translate-x-12 scale-90 -rotate-12'
@@ -352,7 +371,7 @@ const ServicesShowcase = () => {
           {services[index].icon}
         </div>
 
-        <div className="text-center md:text-left min-h-[220px] md:min-h-[350px] flex flex-col justify-center max-w-2xl">
+        <div className="text-left min-h-[250px] md:min-h-[400px] flex flex-col justify-center max-w-2xl">
           <h2 
             className={`text-5xl md:text-[8vw] font-display font-bold text-white tracking-tighter leading-none transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
               isVisible ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-lg'
@@ -361,7 +380,7 @@ const ServicesShowcase = () => {
             {services[index].title}
           </h2>
           <p 
-            className={`text-zinc-500 text-lg md:text-2xl mt-6 font-medium leading-relaxed transition-all duration-1000 delay-100 transform ${
+            className={`text-zinc-500 text-lg md:text-2xl mt-8 font-medium leading-relaxed transition-all duration-1000 delay-100 transform ${
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10 blur-sm'
             }`}
           >
@@ -370,14 +389,7 @@ const ServicesShowcase = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-4">
-        {services.map((_, i) => (
-          <div 
-            key={i} 
-            className={`h-1 transition-all duration-1000 ${i === index ? 'w-12 bg-white' : 'w-4 bg-zinc-800'}`}
-          />
-        ))}
-      </div>
+      <DotsIndicator count={services.length} activeIndex={index} />
     </section>
   );
 };
@@ -388,15 +400,11 @@ const BentoFooter = () => {
   return (
     <footer id="contact" className="bg-white py-20 px-4 md:px-12">
       <div className="max-w-[1400px] mx-auto bg-zinc-950 rounded-[3rem] md:rounded-[5rem] p-6 md:p-14 text-white overflow-hidden shadow-2xl relative">
-        
-        {/* Decorative Background Text */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[45vw] font-display font-bold text-white/[0.012] pointer-events-none select-none tracking-tighter whitespace-nowrap uppercase">
           SANDEEP
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 relative z-10">
-          
-          {/* Main Reach Card (Col 7) */}
           <div className="md:col-span-7 bg-zinc-900/80 backdrop-blur-sm rounded-[3rem] p-10 flex flex-col justify-between group overflow-hidden border border-white/5">
             <div className="absolute -right-20 -top-20 w-80 h-80 bg-[#C1FF72]/10 rounded-full blur-[100px] group-hover:bg-[#C1FF72]/20 transition-all duration-1000"></div>
             
@@ -407,7 +415,6 @@ const BentoFooter = () => {
               </div>
               
               <div className="grid grid-cols-1 gap-8">
-                {/* Phone */}
                 <a href="tel:+917878142323" className="flex items-center gap-6 group/item max-w-fit">
                   <div className="w-14 h-14 bg-zinc-800 rounded-2xl flex items-center justify-center group-hover/item:bg-[#C1FF72] group-hover/item:text-black group-hover/item:-rotate-6 transition-all duration-500 shadow-lg">
                     <Phone size={24} />
@@ -418,7 +425,6 @@ const BentoFooter = () => {
                   </div>
                 </a>
 
-                {/* Instagram */}
                 <a href="https://instagram.com/itz_sandeep_97" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group/item max-w-fit">
                   <div className="w-14 h-14 bg-zinc-800 rounded-2xl flex items-center justify-center group-hover/item:bg-[#E4405F] group-hover/item:-rotate-6 transition-all duration-500 shadow-lg">
                     <Instagram size={24} />
@@ -429,7 +435,6 @@ const BentoFooter = () => {
                   </div>
                 </a>
 
-                {/* LinkedIn */}
                 <a href="https://linkedin.com/in/sandeep-barupal" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group/item max-w-fit">
                   <div className="w-14 h-14 bg-zinc-800 rounded-2xl flex items-center justify-center group-hover/item:bg-[#0077B5] group-hover/item:-rotate-6 transition-all duration-500 shadow-lg">
                     <Linkedin size={24} />
@@ -452,7 +457,6 @@ const BentoFooter = () => {
             </div>
           </div>
 
-          {/* Avatar Visual (Col 5) */}
           <div className="md:col-span-5 h-full min-h-[450px] bg-[#8A5CF6] rounded-[3rem] overflow-hidden flex items-end justify-center group relative shadow-2xl transition-transform hover:scale-[0.99] duration-500">
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10"></div>
             <img 
@@ -470,7 +474,6 @@ const BentoFooter = () => {
             </div>
           </div>
 
-          {/* Navigation (Col 3) */}
           <div className="md:col-span-3 bg-zinc-900 rounded-[3rem] p-10 border border-white/5 hover:border-[#C1FF72]/30 transition-all">
              <p className="text-[10px] font-display font-bold text-zinc-600 uppercase tracking-[0.3em] mb-10">MENU</p>
              <ul className="space-y-5">
@@ -485,7 +488,6 @@ const BentoFooter = () => {
              </ul>
           </div>
 
-          {/* Stats & Quality (Col 6) */}
           <div className="md:col-span-6 bg-white rounded-[3rem] p-10 flex flex-col md:flex-row items-center justify-between group overflow-hidden relative shadow-lg">
              <div className="relative z-10 mb-8 md:mb-0">
                 <h4 className="text-black text-4xl font-display font-bold tracking-tighter uppercase leading-none mb-4">PREMIUM<br/>EXPERIENCE</h4>
@@ -505,7 +507,6 @@ const BentoFooter = () => {
              <div className="absolute top-[-50%] left-[-20%] w-80 h-80 bg-zinc-50 rounded-full group-hover:scale-125 transition-transform duration-1000"></div>
           </div>
 
-          {/* Location / Availability (Col 3) */}
           <div className="md:col-span-3 bg-[#C1FF72] rounded-[3rem] p-10 flex flex-col justify-between group transition-all hover:shadow-[0_0_50px_rgba(193,255,114,0.3)] cursor-default">
             <div className="flex justify-between items-start">
               <MapPin className="text-black" size={28} />
@@ -516,10 +517,8 @@ const BentoFooter = () => {
                <p className="text-black/50 font-display font-bold text-[10px] uppercase tracking-widest mt-2">Available Globally</p>
             </div>
           </div>
-
         </div>
 
-        {/* Footer Bottom */}
         <div className="mt-20 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10 relative z-10">
           <div className="flex gap-12 text-zinc-600 font-display font-bold text-[10px] tracking-widest uppercase">
             <a href="#" className="hover:text-white transition-colors">Privacy</a>
@@ -553,16 +552,9 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-black">
       <Navbar />
-
       <Hero />
-
-      {/* Hero-style Skills Section */}
       <SkillsShowcase />
-
-      {/* Hero-style Services Section */}
       <ServicesShowcase />
-
-      {/* Updated Bento Footer */}
       <BentoFooter />
     </div>
   );
