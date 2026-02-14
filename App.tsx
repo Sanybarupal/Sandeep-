@@ -12,7 +12,10 @@ import {
   ChevronUp,
   Globe,
   MessageSquare,
-  ArrowRight
+  ArrowRight,
+  QrCode,
+  Smile,
+  Bitcoin
 } from 'lucide-react';
 import { SERVICES, SKILLS } from './constants';
 
@@ -52,6 +55,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'ABOUT', href: '#about' },
     { name: 'SERVICES', href: '#services' },
+    { name: 'SKILLS', href: '#skills' },
     { name: 'CONTACT', href: '#contact' }
   ];
 
@@ -117,34 +121,177 @@ const Marquee = () => (
   </div>
 );
 
-const FooterShapes = () => (
-  <div className="flex flex-wrap gap-4 mt-8">
-    <div className="w-14 h-14 bg-[#8A5CF6] flex items-center justify-center rounded-xl rotate-12 transition-transform hover:rotate-0 hover:scale-110 cursor-pointer">
-      <div className="relative w-8 h-8">
-        <div className="absolute top-1/2 left-0 w-full h-1 bg-black -translate-y-1/2 rotate-45"></div>
-        <div className="absolute top-1/2 left-0 w-full h-1 bg-black -translate-y-1/2 -rotate-45"></div>
+const BentoFooter = () => {
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  return (
+    <footer className="bg-white py-20 px-4 md:px-12">
+      <div className="max-w-[1400px] mx-auto bg-zinc-950 rounded-[2rem] md:rounded-[3.5rem] p-4 md:p-10 text-white overflow-hidden shadow-2xl relative">
+        
+        {/* Decorative Background Text */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[40vw] font-display font-black text-white/[0.02] pointer-events-none select-none tracking-tighter whitespace-nowrap">
+          BARUPAL
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 relative z-10">
+          
+          {/* Card 1: Avatar */}
+          <div className="md:col-span-3 h-64 bg-[#8A5CF6] rounded-[2.5rem] overflow-hidden flex items-center justify-center relative group">
+            <img 
+              src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Sandeep&backgroundColor=8A5CF6" 
+              alt="Avatar" 
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+          </div>
+
+          {/* Card 2: Circular Marquee */}
+          <div className="md:col-span-3 h-64 bg-zinc-900 rounded-[2.5rem] flex items-center justify-center relative group">
+             <div className="relative w-40 h-40">
+                <svg className="absolute inset-0 w-full h-full animate-[spin_10s_linear_infinite]" viewBox="0 0 100 100">
+                  <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+                  <text className="text-[12px] font-display font-black uppercase tracking-[0.2em] fill-white">
+                    <textPath xlinkHref="#circlePath">MORE PROJECTS • MORE PROJECTS • MORE PROJECTS • </textPath>
+                  </text>
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                   <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-black group-hover:rotate-45 transition-transform duration-500">
+                      <Smile size={24} />
+                   </div>
+                </div>
+             </div>
+          </div>
+
+          {/* Card 3: Menu */}
+          <div className="md:col-span-3 md:row-span-2 bg-zinc-900 rounded-[2.5rem] p-8 flex flex-col justify-between">
+            <ul className="space-y-6">
+              {['CATEGORIES', 'SKILLS', 'SERVICES', 'ARTICLES', 'CONTACTS'].map((item) => (
+                <li key={item} className="flex items-center gap-4 group cursor-pointer">
+                  <span className="text-xl md:text-2xl font-display font-black tracking-tighter text-zinc-600 group-hover:text-white transition-colors">{item}</span>
+                  {item === 'SERVICES' && <div className="w-2.5 h-2.5 rounded-full bg-[#8A5CF6] shadow-[0_0_10px_#8A5CF6]"></div>}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-12 text-zinc-500 text-xs font-display font-bold uppercase tracking-widest">
+              Available for hire 2024
+            </div>
+          </div>
+
+          {/* Card 4: Top Badges */}
+          <div className="md:col-span-3 flex flex-col gap-4">
+            <div className="flex-1 bg-[#8A5CF6] rounded-[2rem] p-6 flex flex-col justify-between">
+               <span className="text-[10px] font-display font-black tracking-widest leading-none">ONLY EXCLUSIVE<br/>DESIGNS</span>
+               <div className="flex justify-between items-center">
+                  <Smile size={32} />
+                  <span className="text-[10px] text-right text-white/60">WE CREATE<br/>ORIGINALS</span>
+               </div>
+            </div>
+            <div className="flex-[2] bg-[#C1FF72] rounded-[2.5rem] overflow-hidden group">
+               <img 
+                src="https://api.dicebear.com/7.x/avataaars/svg?seed=creative&backgroundColor=C1FF72" 
+                alt="3D Character" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+               />
+            </div>
+          </div>
+
+          {/* Card 5: Logo & Barcode */}
+          <div className="md:col-span-3 h-80 bg-zinc-900 rounded-[2.5rem] p-8 flex flex-col justify-between relative overflow-hidden group">
+            <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/5 rounded-full blur-2xl group-hover:bg-orange-500/20 transition-colors"></div>
+            <div className="bg-white text-black px-6 py-4 rounded-xl inline-block w-fit">
+              <h3 className="text-3xl font-display font-black tracking-tighter">BARUPAL</h3>
+            </div>
+            
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 bg-[#C1FF72] rounded-lg flex items-center justify-center text-black">
+                  <Bitcoin size={20} />
+                </div>
+                <p className="text-[10px] font-display font-bold text-zinc-500 leading-tight">
+                  WE ACCEPT<br/>FUTURE TECH
+                </p>
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="flex gap-[2px] h-10">
+                  {[...Array(30)].map((_, i) => (
+                    <div key={i} className={`bg-white h-full ${Math.random() > 0.5 ? 'w-[1px]' : 'w-[2px]'}`}></div>
+                  ))}
+                </div>
+                <div className="text-[8px] font-display text-zinc-500 text-center tracking-[0.5em] mt-2">SB-DESIGN-PORTFOLIO-2024</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 6: Exhibition/Location */}
+          <div className="md:col-span-3 h-80 bg-zinc-900 rounded-[2.5rem] p-8 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-2 h-2 rounded-full bg-[#C1FF72]"></div>
+                <span className="text-[10px] font-display font-bold text-zinc-500 uppercase tracking-widest">RAJASTHAN, INDIA</span>
+              </div>
+              <h4 className="text-2xl font-display font-black tracking-tighter leading-tight uppercase">
+                DIGITAL<br/>EXHIBITION<br/>OFFLINE
+              </h4>
+            </div>
+            <a href="#" className="text-xs font-display font-bold text-zinc-500 hover:text-white transition-colors underline underline-offset-4 uppercase tracking-widest">
+              barupal.dev/showcase
+            </a>
+          </div>
+
+          {/* Card 7: Bottom Features */}
+          <div className="md:col-span-6 h-40 bg-white rounded-[2.5rem] p-8 flex items-center justify-between group overflow-hidden relative">
+            <div className="relative z-10">
+              <h4 className="text-black text-3xl font-display font-black tracking-tighter uppercase mb-1">ONLY THE BEST DESIGN</h4>
+              <p className="text-zinc-400 text-xs font-display font-bold uppercase tracking-widest">High performance pixel perfection</p>
+            </div>
+            <div className="relative z-10 flex flex-col items-end gap-2">
+              <span className="text-black text-6xl font-display font-black tracking-tighter">4.97</span>
+              <button className="bg-[#8A5CF6] text-white px-6 py-2 rounded-full text-[10px] font-display font-black tracking-widest hover:scale-110 transition-transform">BEST REVIEWS</button>
+            </div>
+            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-zinc-100 rounded-full group-hover:scale-150 transition-transform duration-700"></div>
+          </div>
+
+          {/* Card 8: App/QR Card */}
+          <div className="md:col-span-3 h-40 bg-[#C1FF72] rounded-[2.5rem] p-6 flex items-center gap-6 group cursor-pointer hover:bg-white transition-colors">
+            <div className="w-20 h-20 bg-black rounded-2xl flex items-center justify-center p-2 group-hover:rotate-6 transition-transform">
+               <QrCode className="text-[#C1FF72] w-full h-full" />
+            </div>
+            <div className="flex flex-col flex-1">
+               <div className="flex justify-between items-start mb-1">
+                  <span className="text-[10px] font-display font-black text-black">CONNECT</span>
+                  <ArrowUpRight className="text-black" size={20} />
+               </div>
+               <p className="text-[9px] font-display font-bold text-black/60 leading-tight uppercase">
+                 Scan to chat or get a quote instantly
+               </p>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Footer Bottom Bar */}
+        <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
+          <div className="flex gap-8 text-zinc-600 font-display font-bold text-[9px] tracking-widest uppercase">
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-white transition-colors">Cookies</a>
+          </div>
+          <p className="text-zinc-600 font-display font-bold text-[9px] tracking-widest uppercase">
+            © {new Date().getFullYear()} SANDEEP BARUPAL • ALL RIGHTS RESERVED
+          </p>
+          <button 
+            onClick={scrollToTop}
+            className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-black hover:bg-orange-500 hover:text-white transition-all shadow-xl"
+          >
+            <ChevronUp size={24} />
+          </button>
+        </div>
       </div>
-    </div>
-    <div className="w-14 h-14 bg-[#C1FF72] grid grid-cols-3 gap-1 p-3 rounded-xl transition-transform hover:scale-110 cursor-pointer">
-      {[...Array(9)].map((_, i) => (
-        <div key={i} className="w-full h-full bg-black rounded-full"></div>
-      ))}
-    </div>
-    <div className="w-24 h-14 bg-[#FFDD00] rounded-full flex items-center justify-center transition-transform hover:-rotate-6 hover:scale-105 cursor-pointer">
-      <div className="w-16 h-2 bg-black rounded-full"></div>
-    </div>
-    <div className="w-14 h-14 bg-white rounded-full border-4 border-black flex items-center justify-center group cursor-pointer transition-transform hover:rotate-180">
-      <div className="w-5 h-5 bg-orange-500 rounded-full group-hover:bg-purple-500 transition-colors"></div>
-    </div>
-  </div>
-);
+    </footer>
+  );
+};
 
 const App: React.FC = () => {
   useIntersectionObserver();
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   return (
     <div className="min-h-screen">
@@ -176,7 +323,7 @@ const App: React.FC = () => {
 
         <div className="w-full max-w-7xl mt-16 flex flex-col items-center gap-12">
           <div className="opacity-0 animate-[revealUp_0.8s_ease_forwards_0.4s]">
-            <p className="text-xl md:text-2xl font-medium text-zinc-500 font-display text-center">
+            <p className="text-xl md:text-2xl font-medium text-zinc-500 font-display text-center uppercase tracking-widest">
               BASED IN INDIA.
             </p>
           </div>
@@ -201,9 +348,9 @@ const App: React.FC = () => {
 
       <Marquee />
 
-      {/* Improved About Section */}
+      {/* About Section */}
       <section id="about" className="py-40 relative bg-black text-white overflow-hidden px-6">
-        <div className="absolute top-0 right-0 text-[30vw] font-display font-black text-white/5 leading-none select-none pointer-events-none">
+        <div className="absolute top-0 right-0 text-[30vw] font-display font-black text-white/5 leading-none select-none pointer-events-none uppercase">
           ABOUT
         </div>
         
@@ -229,9 +376,6 @@ const App: React.FC = () => {
                   </p>
                   <p className="border-l-4 border-orange-400 pl-8 italic text-zinc-300">
                     "From sculpting the perfect 3D mesh in Blender to architecting robust React applications, I am committed to pushing the boundaries of what's possible on the web."
-                  </p>
-                  <p>
-                    Based in India, I collaborate with global brands to transform complex problems into intuitive, interactive realities that leave a lasting impression.
                   </p>
                 </div>
               </div>
@@ -261,7 +405,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Standardized Skills Section */}
+      {/* Skills Section */}
       <section id="skills" className="py-40 bg-white text-black px-6 border-y-4 border-black overflow-hidden relative">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-32 gap-12 reveal-scroll">
@@ -270,11 +414,6 @@ const App: React.FC = () => {
               <h2 className="text-7xl md:text-[9vw] font-display font-black tracking-tighter uppercase italic leading-[0.8]">
                 SKILLS <br /> <span className="text-zinc-200">& TOOLS</span>
               </h2>
-            </div>
-            <div className="max-w-xs">
-              <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs leading-loose">
-                Mastering the balance between aesthetics and functionality using industry-leading technologies.
-              </p>
             </div>
           </div>
 
@@ -291,9 +430,6 @@ const App: React.FC = () => {
                         {skill.icon}
                       </div>
                    </div>
-                   <span className="text-[10px] font-display font-black tracking-widest uppercase opacity-30 group-hover:opacity-100">
-                      {idx < 9 ? `0${idx + 1}` : idx + 1}
-                   </span>
                 </div>
                 <div>
                   <h3 className="text-sm md:text-base lg:text-lg font-display font-black tracking-tighter leading-tight uppercase break-words transition-all group-hover:scale-105 origin-left">
@@ -337,154 +473,8 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Redesigned Contact Section */}
-      <section id="contact" className="py-40 bg-[#FFDD00] text-black px-6 md:px-12 border-t-8 border-black relative overflow-hidden">
-        <div className="max-w-7xl mx-auto reveal-scroll relative z-10">
-          <div className="flex flex-col gap-12 mb-24">
-            <div className="relative">
-              <h2 className="text-[15vw] md:text-[12vw] font-display font-black tracking-tighter leading-[0.75] uppercase mb-4">
-                LET'S <br /> 
-                <span className="outlined-text-black">GET IN</span> <br /> 
-                TOUCH
-              </h2>
-              <div className="absolute top-1/2 right-0 hidden lg:block rotate-12 -translate-y-1/2">
-                <div className="w-72 h-72 bg-black rounded-full flex items-center justify-center text-[#FFDD00] font-display font-black text-center p-10 leading-tight text-2xl shadow-[20px_20px_0px_rgba(0,0,0,0.2)] animate-float">
-                  SAY HELLO!
-                </div>
-              </div>
-            </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-              <a 
-                href="https://instagram.com/itz_sandeep_97" 
-                target="_blank" 
-                rel="noreferrer"
-                className="group p-10 bg-black text-white border-4 border-black hover:bg-white hover:text-black transition-all shadow-[12px_12px_0px_#8A5CF6] flex flex-col gap-8 h-full active:shadow-none"
-              >
-                <Instagram size={48} className="group-hover:scale-125 transition-transform" />
-                <div>
-                  <div className="font-display font-black text-xs tracking-widest uppercase mb-4 opacity-50">Instagram</div>
-                  <div className="text-2xl font-display font-black tracking-tighter uppercase italic break-all">itz_sandeep_97</div>
-                </div>
-              </a>
-
-              <a 
-                href="https://linkedin.com/in/Sandeep-Barupal" 
-                target="_blank" 
-                rel="noreferrer"
-                className="group p-10 bg-white text-black border-4 border-black hover:bg-black hover:text-white transition-all shadow-[12px_12px_0px_#3B82F6] flex flex-col gap-8 h-full active:shadow-none"
-              >
-                <Linkedin size={48} className="group-hover:scale-125 transition-transform" />
-                <div>
-                  <div className="font-display font-black text-xs tracking-widest uppercase mb-4 opacity-50">LinkedIn</div>
-                  <div className="text-2xl font-display font-black tracking-tighter uppercase italic break-all">Sandeep Barupal</div>
-                </div>
-              </a>
-
-              <div className="group p-10 bg-black text-white border-4 border-black hover:bg-white hover:text-black transition-all shadow-[12px_12px_0px_#C1FF72] flex flex-col gap-8 h-full active:shadow-none">
-                <Phone size={48} className="group-hover:scale-125 transition-transform" />
-                <div>
-                  <div className="font-display font-black text-xs tracking-widest uppercase mb-4 opacity-50">Phone</div>
-                  <div className="text-2xl font-display font-black tracking-tighter uppercase italic">+91 7878142323</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* High-Impact Refined Footer */}
-      <footer className="bg-zinc-950 text-white pt-32 pb-16 px-6 md:px-12 border-t-8 border-black relative overflow-hidden">
-        {/* Decorative Watermark */}
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 text-[18vw] font-display font-black text-white/[0.02] pointer-events-none select-none leading-none tracking-tighter whitespace-nowrap z-0">
-          BARUPAL
-        </div>
-
-        <div className="max-w-7xl mx-auto relative z-10">
-          {/* Main Footer Content */}
-          <div className="grid lg:grid-cols-2 gap-20 mb-24">
-            <div className="reveal-scroll">
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 bg-orange-500 rounded-lg rotate-12"></div>
-                <h2 className="text-3xl md:text-5xl font-display font-black tracking-tighter uppercase">SANDEEP BARUPAL</h2>
-              </div>
-              <p className="text-xl md:text-2xl text-zinc-400 font-medium max-w-lg leading-relaxed mb-10">
-                Pioneering digital frontiers through <span className="text-white">creative engineering</span> and <span className="text-white">3D mastery</span>.
-              </p>
-              
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-4 text-zinc-500 text-sm font-display font-bold tracking-widest uppercase">
-                  <span className="w-8 h-[2px] bg-orange-500"></span>
-                  STAY IN THE LOOP
-                </div>
-                <div className="flex gap-2">
-                  <input 
-                    type="email" 
-                    placeholder="YOUR EMAIL" 
-                    className="bg-zinc-900 border-2 border-zinc-800 px-6 py-4 w-full max-w-xs font-display font-bold text-xs uppercase tracking-widest focus:outline-none focus:border-orange-500 transition-colors"
-                  />
-                  <button className="bg-orange-500 text-white px-6 py-4 hover:bg-white hover:text-black transition-all">
-                    <ArrowRight size={20} />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-12 reveal-scroll">
-              <div className="flex flex-col gap-6">
-                <h3 className="text-[10px] font-display font-black text-orange-500 tracking-[0.4em] uppercase">MENU</h3>
-                <ul className="space-y-4 font-display font-bold text-[11px] tracking-[0.15em] uppercase text-zinc-400">
-                  <li><a href="#home" className="hover:text-white transition-colors">HOME</a></li>
-                  <li><a href="#about" className="hover:text-white transition-colors">ABOUT</a></li>
-                  <li><a href="#services" className="hover:text-white transition-colors">SERVICES</a></li>
-                  <li><a href="#skills" className="hover:text-white transition-colors">SKILLS</a></li>
-                </ul>
-              </div>
-              <div className="flex flex-col gap-6">
-                <h3 className="text-[10px] font-display font-black text-orange-500 tracking-[0.4em] uppercase">SOCIAL</h3>
-                <ul className="space-y-4 font-display font-bold text-[11px] tracking-[0.15em] uppercase text-zinc-400">
-                  <li><a href="https://instagram.com/itz_sandeep_97" target="_blank" className="hover:text-white transition-colors">INSTAGRAM</a></li>
-                  <li><a href="https://linkedin.com/in/Sandeep-Barupal" target="_blank" className="hover:text-white transition-colors">LINKEDIN</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">ARTSTATION</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">TWITTER</a></li>
-                </ul>
-              </div>
-              <div className="flex flex-col gap-6 col-span-2 sm:col-span-1">
-                <h3 className="text-[10px] font-display font-black text-orange-500 tracking-[0.4em] uppercase">LOCATION</h3>
-                <div className="font-display font-bold text-[11px] tracking-[0.15em] uppercase text-zinc-400 leading-loose">
-                  RAJASTHAN, IN<br />
-                  335512<br />
-                  <span className="text-white mt-2 block">+91 7878142323</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Banner */}
-          <div className="pt-12 border-t border-zinc-900 flex flex-col lg:flex-row justify-between items-center gap-12 reveal-scroll">
-            <div className="flex flex-col gap-2">
-              <FooterShapes />
-              <div className="text-[10px] font-display font-black tracking-[0.3em] text-zinc-600 uppercase mt-4">
-                © {new Date().getFullYear()} SANDEEP BARUPAL STUDIO. NO PIXELS WERE HARMED.
-              </div>
-            </div>
-
-            <div className="flex items-center gap-8">
-              <div className="hidden lg:flex gap-8 text-[9px] font-display font-bold text-zinc-700 tracking-[0.2em] uppercase">
-                <a href="#" className="hover:text-white transition-colors">PRIVACY</a>
-                <a href="#" className="hover:text-white transition-colors">LEGAL</a>
-              </div>
-              <button 
-                onClick={scrollToTop}
-                className="group relative w-16 h-16 bg-white border-4 border-black flex items-center justify-center transition-all hover:bg-orange-500 hover:scale-110 active:scale-95 shadow-[6px_6px_0px_rgba(255,165,0,0.2)]"
-              >
-                <ChevronUp size={28} className="text-black group-hover:text-white transition-colors" />
-                <div className="absolute -top-12 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-[9px] font-display font-bold tracking-widest text-white uppercase">TOP</div>
-              </button>
-            </div>
-          </div>
-        </div>
-      </footer>
+      {/* New Bento Footer replaces old contact and footer */}
+      <BentoFooter />
     </div>
   );
 };
