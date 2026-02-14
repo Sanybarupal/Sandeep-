@@ -14,14 +14,16 @@ import {
   Figma,
   Globe,
   Smile,
-  Zap
+  Zap,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 
 // --- Types ---
 interface SlideContent {
   id: string;
   title: string;
-  subtitle?: string;
+  name: string;
   description: string;
   icon: React.ReactNode;
   color: string;
@@ -31,23 +33,23 @@ interface SlideContent {
 
 const RotatingCircularBadge = ({ text }: { text: string }) => (
   <div className="fixed top-12 right-12 z-50 pointer-events-none hidden md:block">
-    <div className="relative w-40 h-40 flex items-center justify-center">
+    <div className="relative w-44 h-44 flex items-center justify-center">
       <svg className="absolute inset-0 w-full h-full animate-[spin_20s_linear_infinite]" viewBox="0 0 100 100">
         <path id="badgePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
-        <text className="text-[5px] font-display font-bold uppercase tracking-[0.4em] fill-white/40">
+        <text className="text-[5px] font-display font-bold uppercase tracking-[0.4em] fill-white/30">
           <textPath xlinkHref="#badgePath">{text} • {text} • </textPath>
         </text>
       </svg>
-      <div className="bg-white/5 backdrop-blur-md rounded-full w-20 h-20 flex items-center justify-center border border-white/10">
-        <span className="text-[8px] font-display font-black text-white tracking-widest uppercase opacity-60">Sandeep</span>
+      <div className="bg-white/5 backdrop-blur-md rounded-full w-24 h-24 flex items-center justify-center border border-white/10">
+        <span className="text-[8px] font-display font-black text-white tracking-[0.4em] uppercase opacity-40">SANDEEP</span>
       </div>
     </div>
   </div>
 );
 
-const SidebarText = ({ side, text }: { side: 'left' | 'right', text: string }) => (
-  <div className={`fixed top-1/2 -translate-y-1/2 z-40 hidden lg:block ${side === 'left' ? 'left-8 origin-top-left -rotate-90' : 'right-8 origin-bottom-right rotate-90'}`}>
-    <span className="text-[10px] font-display font-bold tracking-[0.6em] text-white/30 uppercase whitespace-nowrap">
+const HUDInfo = ({ side, text }: { side: 'left' | 'right', text: string }) => (
+  <div className={`fixed top-1/2 -translate-y-1/2 z-40 hidden lg:block ${side === 'left' ? 'left-6 origin-top-left -rotate-90' : 'right-6 origin-bottom-right rotate-90'}`}>
+    <span className="text-[9px] font-display font-bold tracking-[0.6em] text-white/20 uppercase whitespace-nowrap">
       {text}
     </span>
   </div>
@@ -61,42 +63,26 @@ const App: React.FC = () => {
     {
       id: 'home',
       title: 'Developer',
-      subtitle: 'Sandeep Barupal',
-      description: 'Architecting high-performance digital experiences with precision and creativity.',
-      icon: <Code2 className="w-full h-full" />,
+      name: 'SANDEEP BARUPAL',
+      description: 'ARCHITECTING HIGH-PERFORMANCE DIGITAL EXPERIENCES WITH PRECISION AND CREATIVITY.',
+      icon: <div className="flex items-center text-blue-500"><span className="text-8xl md:text-[12rem] font-light">&lt;</span><span className="text-8xl md:text-[12rem] font-light -mx-2">/</span><span className="text-8xl md:text-[12rem] font-light">&gt;</span></div>,
       color: '#3B82F6'
     },
     {
       id: 'designer',
       title: 'Designer',
-      subtitle: 'UI/UX Specialist',
-      description: 'Creating intuitive user journeys and pixel-perfect interfaces that prioritize the end-user.',
-      icon: <Palette className="w-full h-full" />,
+      name: 'CREATIVE UI/UX',
+      description: 'CRAFTING INTUITIVE USER JOURNEYS AND PIXEL-PERFECT INTERFACES THAT PRIORITIZE THE END-USER.',
+      icon: <Palette className="w-32 h-32 md:w-48 md:h-48 text-pink-500" />,
       color: '#EC4899'
     },
     {
       id: 'creative',
-      title: 'Creative',
-      subtitle: 'Web Architect',
-      description: 'Pushing the boundaries of the web with immersive 3D environments and interactions.',
-      icon: <Zap className="w-full h-full" />,
-      color: '#F59E0B'
-    },
-    {
-      id: 'security',
-      title: 'Security',
-      subtitle: 'Safety Learner',
-      description: 'Understanding core security protocols to ensure digital assets are protected and robust.',
-      icon: <ShieldCheck className="w-full h-full" />,
-      color: '#10B981'
-    },
-    {
-      id: 'architect',
       title: 'Architect',
-      subtitle: 'System Design',
-      description: 'Engineering specialized features and robust infrastructures that grow seamlessly.',
-      icon: <Layers className="w-full h-full" />,
-      color: '#8B5CF6'
+      name: 'WEB ENGINEER',
+      description: 'PUSHING THE BOUNDARIES OF THE WEB WITH IMMERSIVE 3D ENVIRONMENTS AND INTERACTIONS.',
+      icon: <Zap className="w-32 h-32 md:w-48 md:h-48 text-yellow-500" />,
+      color: '#F59E0B'
     }
   ];
 
@@ -117,59 +103,61 @@ const App: React.FC = () => {
   const currentSlide = slides[activeIndex];
 
   return (
-    <div className="h-screen w-screen bg-black overflow-hidden flex flex-col font-display relative">
+    <div className="h-screen w-screen bg-black overflow-hidden flex flex-col font-display relative select-none">
       
-      {/* Top Header UI */}
-      <header className="fixed top-0 left-0 w-full p-8 flex justify-between items-start z-[100]">
-        <div className="flex items-center gap-6">
-          <button className="w-12 h-12 bg-white/5 hover:bg-white/10 rounded-xl flex items-center justify-center transition-all group">
-            <Grid className="text-white group-hover:scale-110" size={24} />
-          </button>
-          <div className="w-8 h-8 flex items-center justify-center bg-[#EC4899] rounded-lg">
-            <Smile className="text-black" size={18} />
-          </div>
-        </div>
-        <button className="w-12 h-12 bg-white/5 hover:bg-white/10 rounded-xl flex items-center justify-center transition-all">
-          <Share2 className="text-white" size={20} />
+      {/* HUD Lines Decoration */}
+      <div className="fixed inset-0 pointer-events-none border-[1px] border-white/5 m-8 z-0"></div>
+      
+      {/* Top Header */}
+      <header className="fixed top-12 left-12 flex items-center gap-4 z-[100]">
+        <button className="w-10 h-10 bg-white/5 hover:bg-white/10 rounded-lg flex items-center justify-center transition-all">
+          <Grid className="text-white/60" size={20} />
+        </button>
+        <button className="w-10 h-10 bg-[#EC4899] rounded-lg flex items-center justify-center transition-all shadow-[0_0_15px_rgba(236,72,153,0.3)]">
+          <Smile className="text-black" size={20} />
         </button>
       </header>
 
-      {/* Side HUD info */}
-      <SidebarText side="left" text={`© ${new Date().getFullYear()} SANDEEP BARUPAL • DIGITAL ARCHITECT`} />
-      <SidebarText side="right" text="VERSION 18.8.6.20.27.28" />
+      <div className="fixed top-12 right-12 z-[100]">
+        <button className="w-10 h-10 bg-white/5 hover:bg-white/10 rounded-lg flex items-center justify-center transition-all">
+          <Share2 className="text-white/60" size={18} />
+        </button>
+      </div>
+
+      {/* Side HUD */}
+      <HUDInfo side="left" text={`© ${new Date().getFullYear()} SANDEEP BARUPAL • DIGITAL ARCHITECT`} />
+      <HUDInfo side="right" text="VERSION 18.8.6.20.27.28" />
 
       {/* Circular Badge */}
-      <RotatingCircularBadge text="6 DAYS • 20 HOURS • 27 MINUTES • 28 SECONDS • " />
+      <RotatingCircularBadge text="66 DAYS • 20 HOURS • 27 MINUTES • 28 SECONDS • " />
 
-      {/* Main Content Area */}
+      {/* Main Content */}
       <main className="flex-1 relative flex items-center justify-center px-6">
         
-        {/* Decorative Background Accents */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/[0.02] rounded-full blur-[100px]"></div>
-          <div 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] transition-all duration-1000 blur-[150px] opacity-20"
-            style={{ backgroundColor: currentSlide.color }}
-          ></div>
-        </div>
+        {/* Glow */}
+        <div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] blur-[140px] opacity-10 transition-colors duration-1000"
+          style={{ backgroundColor: currentSlide.color }}
+        ></div>
 
-        {/* The Slide Content */}
-        <div className="relative z-10 flex flex-col items-center md:flex-row gap-8 md:gap-16 max-w-7xl w-full justify-center">
+        <div className="relative z-10 flex flex-col md:flex-row items-center gap-6 md:gap-12 max-w-7xl w-full justify-center">
           
-          {/* Main Icon - Styled after the screenshot logo */}
-          <div 
-            className={`w-32 h-32 md:w-64 md:h-64 flex-shrink-0 transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) transform ${
-              isAnimating ? 'opacity-0 scale-75 rotate-[30deg]' : 'opacity-100 scale-100 rotate-0'
-            }`}
-            style={{ color: currentSlide.color }}
-          >
-            {currentSlide.icon}
+          {/* Left Block: Icon + Name */}
+          <div className={`flex flex-col items-center md:items-start transition-all duration-700 transform ${isAnimating ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'}`}>
+            <div className="mb-4">
+              {currentSlide.icon}
+            </div>
+            <div className="text-center md:text-left">
+              {currentSlide.name.split(' ').map((line, i) => (
+                <div key={i} className="text-4xl md:text-6xl font-black italic tracking-tighter leading-[0.85] text-white uppercase">{line}</div>
+              ))}
+            </div>
           </div>
 
-          {/* Large Title Text */}
+          {/* Right Block: Main Title */}
           <div className="flex flex-col text-center md:text-left">
             <h1 
-              className={`text-6xl md:text-[14vw] font-bold text-white tracking-tighter leading-none transition-all duration-700 delay-100 transform ${
+              className={`text-6xl md:text-[11vw] font-bold text-white tracking-tighter leading-none transition-all duration-700 delay-100 transform ${
                 isAnimating ? 'opacity-0 translate-x-12 blur-xl' : 'opacity-100 translate-x-0 blur-0'
               }`}
             >
@@ -178,21 +166,20 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Subtitle & Description (Positioned Bottom Left like screenshot) */}
-        <div className="absolute bottom-24 left-10 md:left-24 z-30 max-w-sm md:max-w-md">
-           <h2 className="text-3xl md:text-6xl font-bold text-white tracking-tighter leading-tight italic uppercase opacity-90">
-             {currentSlide.subtitle}
-           </h2>
-           <div className="w-16 h-[2px] bg-white/20 my-4"></div>
-           <p className="text-[10px] md:text-xs font-bold text-white/40 tracking-[0.3em] uppercase leading-relaxed">
+        {/* Bottom Left Info */}
+        <div className="absolute bottom-32 left-16 z-30 max-w-xs hidden md:block">
+           <div className="w-full h-[1px] bg-white/10 mb-6"></div>
+           <p className="text-[10px] font-bold text-white/30 tracking-[0.25em] uppercase leading-relaxed font-mono">
              {currentSlide.description}
            </p>
         </div>
       </main>
 
-      {/* Pagination HUD (Bottom) */}
-      <footer className="fixed bottom-12 left-0 w-full px-8 flex flex-col md:flex-row justify-between items-center gap-6 z-50">
-        <div className="flex items-center gap-1 md:gap-2">
+      {/* Bottom Bar Controls */}
+      <footer className="fixed bottom-12 left-12 right-12 flex justify-between items-center z-50">
+        
+        {/* Pagination (Bottom Left) */}
+        <div className="flex items-center gap-3">
           {slides.map((_, i) => (
             <button
               key={i}
@@ -203,33 +190,36 @@ const App: React.FC = () => {
                   setTimeout(() => setIsAnimating(false), 800);
                 }
               }}
-              className={`h-2 md:h-3 rounded-full transition-all duration-500 ${
-                i === activeIndex ? 'w-8 md:w-16 bg-white' : 'w-2 md:w-3 bg-white/10 hover:bg-white/30'
+              className={`h-2 rounded-full transition-all duration-500 ${
+                i === activeIndex ? 'w-12 bg-white' : 'w-2 bg-white/10'
               }`}
             />
           ))}
         </div>
 
-        <div className="flex gap-4">
+        {/* Start Button (Centered) */}
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-0">
+          <button className="bg-white text-black text-[10px] font-bold px-6 py-2 rounded uppercase tracking-widest hover:bg-white/90 transition-all">
+            Start
+          </button>
+        </div>
+
+        {/* Navigation (Bottom Right) */}
+        <div className="flex gap-3">
            <button 
              onClick={handlePrev}
-             className="w-12 h-12 bg-white/5 hover:bg-white/10 rounded-full flex items-center justify-center border border-white/5 transition-all active:scale-90"
+             className="bg-white/5 hover:bg-white/10 px-4 py-2 rounded flex items-center gap-2 border border-white/5 transition-all"
            >
-             <span className="text-white text-xs font-bold -translate-x-0.5">PREV</span>
+             <span className="text-white text-[9px] font-bold tracking-widest uppercase">Prev</span>
            </button>
            <button 
              onClick={handleNext}
-             className="w-12 h-12 bg-white/5 hover:bg-white/10 rounded-full flex items-center justify-center border border-white/5 transition-all active:scale-90"
+             className="bg-white/5 hover:bg-white/10 px-4 py-2 rounded flex items-center gap-2 border border-white/5 transition-all"
            >
-             <span className="text-white text-xs font-bold translate-x-0.5">NEXT</span>
+             <span className="text-white text-[9px] font-bold tracking-widest uppercase">Next</span>
            </button>
         </div>
       </footer>
-
-      {/* Decorative HUD lines */}
-      <div className="fixed top-0 left-12 w-[1px] h-full bg-white/[0.03] z-0 pointer-events-none"></div>
-      <div className="fixed top-0 right-12 w-[1px] h-full bg-white/[0.03] z-0 pointer-events-none"></div>
-      <div className="fixed bottom-32 left-0 w-full h-[1px] bg-white/[0.03] z-0 pointer-events-none"></div>
       
     </div>
   );
