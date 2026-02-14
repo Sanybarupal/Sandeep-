@@ -1,96 +1,74 @@
-
 import React from 'react';
-import { 
-  Layout, 
-  Code2, 
-  Settings, 
-  Palette, 
-  Github, 
-  Figma, 
-  Cpu,
-  Layers,
-  Smartphone,
-  Box,
-  Globe,
-  Database,
-  Terminal,
-  Search,
-  PenTool
-} from 'lucide-react';
-import { Service, Skill, Project } from './types';
+import { Layout, Globe, Code2 } from 'lucide-react';
 
-export const SERVICES: Service[] = [
+export const FEATURED_WORK = [
   {
-    title: "Website Design",
-    description: "Modern, clean, and user-focused website designs that attract and retain users effectively.",
-    icon: <Palette className="w-8 h-8 text-indigo-500" />
+    title: "Better Invest",
+    desc: "Modernizing Accounting Agency's Website for Better Engagement",
+    tags: ["Mobile App", "Web App"],
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop"
   },
   {
-    title: "Web Development",
-    description: "Fast, responsive, and secure websites built with clean code and industry best practices.",
-    icon: <Code2 className="w-8 h-8 text-purple-500" />
+    title: "BOTIGA",
+    desc: "Building a customer friendly online store for small business owners",
+    tags: ["Mobile App", "Web App"],
+    image: "https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1200&auto=format&fit=crop"
   },
   {
-    title: "UI/UX Design",
-    description: "User-friendly interfaces with better usability and a core focus on conversion optimization.",
-    icon: <Layout className="w-8 h-8 text-pink-500" />
+    title: "KRIYADOCS",
+    desc: "Revitalizing a Document Publishing SaaS Website for Enhanced User Engagement",
+    tags: ["Mobile App", "Web App"],
+    image: "https://images.unsplash.com/photo-1551288049-bbbda536339a?q=80&w=1200&auto=format&fit=crop"
   },
   {
-    title: "Portfolio & Business",
-    description: "Tailored agency, startup, and company websites designed to showcase your unique value.",
-    icon: <Globe className="w-8 h-8 text-blue-500" />
-  },
-  {
-    title: "Custom Web Solutions",
-    description: "Developing custom features and complex functionalities aligned with your specific business goals.",
-    icon: <Settings className="w-8 h-8 text-teal-500" />
+    title: "WOO Spaces",
+    desc: "Building a friendly neighborhood co-working space platform",
+    tags: ["Mobile App", "Web App"],
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop"
   }
 ];
 
-export const SKILLS: Skill[] = [
-  // Design
-  { name: "UI/UX Design", category: "design", icon: <Layout size={24} /> },
-  { name: "Website Layout", category: "design", icon: <Layers size={24} /> },
-  { name: "Responsive Design", category: "design", icon: <Smartphone size={24} /> },
-  { name: "Wireframing", category: "design", icon: <PenTool size={24} /> },
-  { name: "3D Modeling", category: "design", icon: <Box size={24} /> },
-  // Dev
-  { name: "React JS", category: "development", icon: <Globe size={24} /> },
-  { name: "Tailwind CSS", category: "development", icon: <Palette size={24} /> },
-  { name: "Three.js", category: "development", icon: <Cpu size={24} /> },
-  { name: "JavaScript", category: "development", icon: <Code2 size={24} /> },
-  { name: "WordPress", category: "development", icon: <Settings size={24} /> },
-  // Tools
-  { name: "Figma", category: "tools", icon: <Figma size={24} /> },
-  { name: "GitHub", category: "tools", icon: <Github size={24} /> },
-  { name: "VS Code", category: "tools", icon: <Terminal size={24} /> },
-  { name: "SEO", category: "tools", icon: <Search size={24} /> },
-  { name: "Database", category: "tools", icon: <Database size={24} /> }
+export const INSIGHTS = [
+  {
+    title: "How to Reduce Churn in SaaS: Proven Strategies to Improve",
+    date: "February 10, 2026",
+    image: "https://images.unsplash.com/photo-1551288049-bbbda536339a?q=80&w=400&auto=format&fit=crop",
+    color: "bg-[#C1FF72]"
+  },
+  {
+    title: "How to Build a Winning SaaS Content Strategy",
+    date: "December 29, 2025",
+    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=400&auto=format&fit=crop",
+    color: "bg-white"
+  },
+  {
+    title: "Choosing the Right No-Code Platform for SaaS Development",
+    date: "December 22, 2025",
+    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400&auto=format&fit=crop",
+    color: "bg-[#8A5CF6]"
+  }
 ];
 
-export const PROJECTS: Project[] = [
+export const SERVICES_LIST = [
   {
-    title: "Business Platform",
-    category: "Web Development",
-    image: "https://picsum.photos/seed/biz/800/600",
-    description: "A full-scale enterprise solution with interactive analytics."
+    category: "Design",
+    items: [
+      "UI UX Design", "Mobile App Design", "Research & Discovery", "Competitive Analysis", "Design Systems", "3D Illustrations",
+      "Website Designs", "Motion Design", "Illustrations", "Iconography", "Prototyping"
+    ]
   },
   {
-    title: "Creative Portfolio",
-    category: "UI/UX Design",
-    image: "https://picsum.photos/seed/port/800/600",
-    description: "Clean aesthetic for a leading architecture firm."
+    category: "Branding",
+    items: [
+      "Visual branding", "Brand Strategy", "Identity Development", "Digital assets",
+      "Packaging design", "Print collaterals", "Brand guidelines"
+    ]
   },
   {
-    title: "E-commerce App",
-    category: "Full Stack",
-    image: "https://picsum.photos/seed/shop/800/600",
-    description: "Secure payment integration and inventory management."
-  },
-  {
-    title: "SaaS Dashboard",
-    category: "UI Design",
-    image: "https://picsum.photos/seed/dash/800/600",
-    description: "Complex data visualization with a minimal UI."
+    category: "Development",
+    items: [
+      "Webflow development", "Front-end development", "Backend development", "API & CMS development",
+      "Mobile App development", "Web Development", "Framer websites"
+    ]
   }
 ];
