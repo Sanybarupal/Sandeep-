@@ -4,58 +4,77 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sandeep Barupal | SK. Portfolio</title>
+    <title>Sandeep Barupal | 3D Artist & Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --font-heading: 'Syne', sans-serif;
-        --font-body: 'Plus Jakarta Sans', sans-serif;
-      }
       body {
-        font-family: var(--font-body);
+        font-family: 'Inter', sans-serif;
         background-color: #f8f8f8;
-        background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
-        background-size: 32px 32px;
-        -webkit-font-smoothing: antialiased;
-        color: #000;
+        background-image: 
+          linear-gradient(#e5e5e5 1px, transparent 1px),
+          linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+        background-size: 40px 40px;
       }
       .font-display {
-        font-family: var(--font-heading);
-        font-weight: 800;
+        font-family: 'Syncopate', sans-serif;
       }
-      .brutalist-card {
-        border: 4px solid #000;
-        transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      .outlined-text-black {
+        -webkit-text-stroke: 1.5px #000;
+        color: transparent;
       }
-      .brutalist-card:hover {
-        transform: translate(-4px, -4px);
-        box-shadow: 8px 8px 0px 0px #000;
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
       }
-      .hire-me-btn {
-        box-shadow: 4px 4px 0px 0px #fb923c;
-        transition: all 0.2s;
-      }
-      .hire-me-btn:hover {
-        transform: translate(2px, 2px);
-        box-shadow: 0px 0px 0px 0px #fb923c;
+      @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
       }
       @keyframes revealUp {
-        0% { transform: translateY(60px); opacity: 0; }
+        0% { transform: translateY(100%); opacity: 0; }
         100% { transform: translateY(0); opacity: 1; }
       }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .animate-marquee {
+        animation: marquee 30s linear infinite;
+      }
+      .animate-reveal {
+        animation: revealUp 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+      }
+      .delay-200 { animation-delay: 0.2s; }
+      
+      .reveal-container {
+        overflow: hidden;
+      }
+
+      /* Scroll Reveal Classes */
       .reveal-scroll {
         opacity: 0;
-        transform: translateY(40px);
+        transform: translateY(30px);
         transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
       }
       .reveal-scroll.active {
         opacity: 1;
         transform: translateY(0);
       }
-      ::selection {
-        background: #000;
-        color: #fff;
+
+      /* User Requested CSS Overrides */
+      .text-\[30vw\] {
+        font-size: 17vw !important;
+      }
+
+      .bottom-\[-5vw\] {
+        bottom: -2vw !important;
+      }
+
+      /* Ensure text is selectable even with transparent color */
+      .outlined-text-black::selection {
+        background: #fb923c;
+        color: white;
+        -webkit-text-stroke: 0;
       }
     </style>
   <script type="importmap">
@@ -65,13 +84,13 @@
     "react-dom": "https://esm.sh/react-dom@19.0.0",
     "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
     "lucide-react": "https://esm.sh/lucide-react@0.460.0",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/"
   }
 }
 </script>
 </head>
-  <body class="overflow-x-hidden">
+  <body class="text-black overflow-x-hidden">
     <div id="root"></div>
     <script type="module" src="index.tsx"></script>
   </body>
