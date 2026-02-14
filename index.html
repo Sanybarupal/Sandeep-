@@ -70,6 +70,15 @@
         bottom: -2vw !important;
       }
 
+      /* Custom Font Size Override for Name Section */
+      @media (min-width: 768px) {
+          .md\:text-8xl {
+              font-size: 3rem !important;
+              line-height: 1 !important;
+              letter-spacing: 1px !important;
+          }
+      }
+
       /* Ensure text is selectable even with transparent color */
       .outlined-text-black::selection {
         background: #fb923c;

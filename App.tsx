@@ -19,7 +19,12 @@ import {
   ExternalLink,
   MapPin,
   Share2,
-  Grid
+  Grid,
+  Code2,
+  Palette,
+  Layout,
+  PenTool,
+  Cpu
 } from 'lucide-react';
 import { SERVICES, SKILLS } from './constants';
 
@@ -116,49 +121,57 @@ const RotatingBadge = () => (
         </text>
       </svg>
       <div className="text-center">
-        <p className="text-[9px] font-display font-black text-white tracking-widest leading-none border-b border-white/20 pb-1 mb-1">DEVELOPER</p>
+        <p className="text-[9px] font-display font-black text-white tracking-widest leading-none border-b border-white/20 pb-1 mb-1 uppercase">Sandeep</p>
       </div>
     </div>
   </div>
 );
 
 const Hero = () => {
-  const titles = ["Developer", "UI Designer", "UX Designer", "Web Designer", "Content Writer"];
+  const rotatingContent = [
+    { text: "Developer", icon: <Code2 className="text-blue-400 w-12 h-12 md:w-20 md:h-20" /> },
+    { text: "UI Designer", icon: <Palette className="text-pink-400 w-12 h-12 md:w-20 md:h-20" /> },
+    { text: "UX Designer", icon: <Layout className="text-purple-400 w-12 h-12 md:w-20 md:h-20" /> },
+    { text: "Web Designer", icon: <Globe className="text-teal-400 w-12 h-12 md:w-20 md:h-20" /> },
+    { text: "Content Writer", icon: <PenTool className="text-orange-400 w-12 h-12 md:w-20 md:h-20" /> },
+  ];
+
   const [index, setIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % titles.length);
-    }, 3000);
+      setIsVisible(false); // Trigger fade out
+      setTimeout(() => {
+        setIndex((prev) => (prev + 1) % rotatingContent.length);
+        setIsVisible(true); // Trigger fade in after content swap
+      }, 500); // Wait for fade out to complete
+    }, 3500);
     return () => clearInterval(timer);
   }, []);
 
   return (
     <section id="home" className="relative h-screen bg-black overflow-hidden flex items-center justify-center">
       {/* Center Branding Block */}
-      <div className="relative flex flex-col md:flex-row items-center gap-6 md:gap-14 px-6 z-10">
-        {/* 4-Point Star Logo Icon */}
-        <div className="relative w-32 h-32 md:w-56 md:h-56 animate-[revealUp_1.2s_ease_forwards]">
-          <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-[0_0_40px_rgba(59,130,246,0.4)]">
-            <defs>
-              <linearGradient id="starGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#60a5fa" />
-                <stop offset="100%" stopColor="#1e3a8a" />
-              </linearGradient>
-            </defs>
-            {/* The 4-point star shape from reference */}
-            <path 
-              d="M100 10 C115 85 185 85 190 100 C185 115 115 115 100 190 C85 115 15 115 10 100 C15 85 85 85 100 10 Z" 
-              fill="url(#starGradient)" 
-              className="animate-pulse"
-            />
-          </svg>
+      <div className="relative flex flex-col md:flex-row items-center gap-6 md:gap-14 px-6 z-10 w-full max-w-7xl justify-center">
+        
+        {/* Dynamic Icon */}
+        <div 
+          className={`flex items-center justify-center transition-all duration-700 ease-in-out transform ${
+            isVisible ? 'opacity-100 translate-y-0 scale-100 rotate-0' : 'opacity-0 translate-y-4 scale-90 rotate-12'
+          }`}
+        >
+          {rotatingContent[index].icon}
         </div>
 
         {/* Dynamic Rotating Title */}
-        <div className="text-center md:text-left h-[80px] md:h-[120px] flex items-center">
-          <h1 className="text-5xl md:text-[110px] font-display font-bold text-white tracking-tight leading-none transition-all duration-700 ease-in-out">
-            {titles[index]}
+        <div className="text-center md:text-left h-[80px] md:h-[120px] flex items-center min-w-[300px] md:min-w-[600px]">
+          <h1 
+            className={`text-5xl md:text-[110px] font-display font-bold text-white tracking-tight leading-none transition-all duration-700 ease-in-out transform ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+            }`}
+          >
+            {rotatingContent[index].text}
           </h1>
         </div>
       </div>
