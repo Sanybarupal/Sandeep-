@@ -4,31 +4,10 @@ import {
   X, 
   Share2, 
   Grid, 
-  Code2, 
-  Palette, 
-  Layout, 
-  Cpu, 
-  ShieldCheck, 
-  Layers, 
-  Settings, 
-  Figma,
-  Globe,
   Smile,
-  Zap,
-  PenTool,
-  Users,
-  Briefcase
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
-
-// --- Types ---
-interface SlideCategory {
-  id: string;
-  name: string;
-  roles: string[];
-  icon: React.ReactNode;
-  color: string;
-  description: string;
-}
 
 // --- Components ---
 
@@ -37,7 +16,7 @@ const RotatingCircularBadge = ({ text }: { text: string }) => (
     <div className="relative w-44 h-44 flex items-center justify-center">
       <svg className="absolute inset-0 w-full h-full animate-[spin_20s_linear_infinite]" viewBox="0 0 100 100">
         <path id="badgePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
-        <text className="text-[5px] font-display font-bold uppercase tracking-[0.4em] fill-white/20">
+        <text className="text-[5px] font-display font-bold uppercase tracking-[0.4em] fill-white/30">
           <textPath xlinkHref="#badgePath">{text} • {text} • </textPath>
         </text>
       </svg>
@@ -57,92 +36,61 @@ const HUDInfo = ({ side, text }: { side: 'left' | 'right', text: string }) => (
 );
 
 const App: React.FC = () => {
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [isRoleChanging, setIsRoleChanging] = useState(false);
-
-  const categories: SlideCategory[] = [
-    {
-      id: 'dev',
-      name: 'SANDEEP BARUPAL',
-      roles: ['Frontend Developer', 'Web Developer', 'UI Component Engineer', 'JavaScript Developer', 'PHP Developer', 'React Developer', 'Backend Developer', 'WordPress Developer'],
-      icon: <div className="flex items-center text-blue-500"><span className="text-8xl md:text-[10rem] font-light">&lt;</span><span className="text-8xl md:text-[10rem] font-light -mx-2">/</span><span className="text-8xl md:text-[10rem] font-light">&gt;</span></div>,
-      color: '#3B82F6',
-      description: 'BUILDING SCALABLE ARCHITECTURES AND INTERACTIVE SYSTEMS WITH MODERN WEB STANDARDS.'
-    },
-    {
-      id: 'design',
-      name: 'CREATIVE DIRECTOR',
-      roles: ['Web Designer', 'UI / UX Designer'],
-      icon: <Palette className="w-32 h-32 md:w-44 md:h-44 text-pink-500" />,
-      color: '#EC4899',
-      description: 'CRAFTING PIXEL-PERFECT VISUAL EXPERIENCES THAT CONVERT VISITORS INTO LOYAL USERS.'
-    },
-    {
-      id: 'writing',
-      name: 'CONTENT ARCHITECT',
-      roles: ['Content Writer', 'Technical Content Writer'],
-      icon: <PenTool className="w-32 h-32 md:w-44 md:h-44 text-teal-500" />,
-      color: '#14B8A6',
-      description: 'TRANSLATING COMPLEX TECHNICAL CONCEPTS INTO ENGAGING AND READABLE DIGITAL CONTENT.'
-    },
-    {
-      id: 'lead',
-      name: 'TEAM LEAD',
-      roles: ['Project Manager', 'Team Lead', 'Trainer / Mentor'],
-      icon: <Users className="w-32 h-32 md:w-44 md:h-44 text-purple-500" />,
-      color: '#A855F7',
-      description: 'GUIDING CREATIVE TEAMS AND MENTORING THE NEXT GENERATION OF DIGITAL TALENT.'
-    },
-    {
-      id: 'business',
-      name: 'ENTREPRENEUR',
-      roles: ['Freelancer', 'Agency Builder'],
-      icon: <Briefcase className="w-32 h-32 md:w-44 md:h-44 text-yellow-500" />,
-      color: '#EAB308',
-      description: 'TRANSFORMING BUSINESS IDEAS INTO SUCCESSFUL DIGITAL VENTURES AND SCALABLE SOLUTIONS.'
-    }
+  const roles = [
+    "Web Designer",
+    "UI / UX Designer",
+    "Frontend Developer",
+    "Web Developer",
+    "UI Component Engineer",
+    "JavaScript Developer",
+    "PHP Developer",
+    "React Developer",
+    "Backend Developer (Basic)",
+    "WordPress Developer",
+    "Content Writer",
+    "Technical Content Writer",
+    "Project Manager",
+    "Team Lead",
+    "Trainer / Mentor",
+    "Freelancer",
+    "Agency Builder"
   ];
 
-  // Auto-rotate roles within the current category
-  useEffect(() => {
-    const currentCategory = categories[activeSlideIndex];
-    if (currentCategory.roles.length <= 1) return;
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
 
+  // Auto-rotate roles every 3 seconds
+  useEffect(() => {
     const timer = setInterval(() => {
-      setIsRoleChanging(true);
+      setIsAnimating(true);
       setTimeout(() => {
-        setRoleIndex((prev) => (prev + 1) % currentCategory.roles.length);
-        setIsRoleChanging(false);
+        setRoleIndex((prev) => (prev + 1) % roles.length);
+        setIsAnimating(false);
       }, 500);
     }, 3500);
 
     return () => clearInterval(timer);
-  }, [activeSlideIndex]);
+  }, [roles.length]);
 
   const handleNext = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     setTimeout(() => {
-      setActiveSlideIndex((prev) => (prev + 1) % categories.length);
-      setRoleIndex(0);
+      setRoleIndex((prev) => (prev + 1) % roles.length);
       setIsAnimating(false);
-    }, 600);
+    }, 500);
   };
 
   const handlePrev = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     setTimeout(() => {
-      setActiveSlideIndex((prev) => (prev - 1 + categories.length) % categories.length);
-      setRoleIndex(0);
+      setRoleIndex((prev) => (prev - 1 + roles.length) % roles.length);
       setIsAnimating(false);
-    }, 600);
+    }, 500);
   };
 
-  const currentCategory = categories[activeSlideIndex];
-  const currentRole = currentCategory.roles[roleIndex] || currentCategory.roles[0];
+  const currentRole = roles[roleIndex];
 
   return (
     <div className="h-screen w-screen bg-black overflow-hidden flex flex-col font-display relative select-none">
@@ -176,31 +124,29 @@ const App: React.FC = () => {
       {/* Main Presentation Content */}
       <main className="flex-1 relative flex items-center justify-center px-6">
         
-        {/* Dynamic Glow Layer */}
-        <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] blur-[150px] opacity-10 transition-colors duration-1000 pointer-events-none"
-          style={{ backgroundColor: currentCategory.color }}
-        ></div>
+        {/* Constant Glow Background */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] blur-[150px] opacity-10 bg-blue-500 pointer-events-none"></div>
 
         <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-16 max-w-7xl w-full justify-center">
           
-          {/* Left Wing: Visual Identity */}
-          <div className={`flex flex-col items-center md:items-start transition-all duration-700 transform ${isAnimating ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'}`}>
-            <div className="mb-6 drop-shadow-[0_0_20px_rgba(255,255,255,0.05)]">
-              {currentCategory.icon}
+          {/* Static Wing: The Brand Icon & Name */}
+          <div className="flex flex-col items-center md:items-start">
+            <div className="mb-6 drop-shadow-[0_0_20px_rgba(59,130,246,0.3)] flex items-center text-blue-500">
+               <span className="text-8xl md:text-[10rem] font-light tracking-tighter">&lt;</span>
+               <span className="text-8xl md:text-[10rem] font-light -mx-2">/</span>
+               <span className="text-8xl md:text-[10rem] font-light tracking-tighter">&gt;</span>
             </div>
             <div className="text-center md:text-left">
-              {currentCategory.name.split(' ').map((line, i) => (
-                <div key={i} className="text-3xl md:text-5xl font-black italic tracking-tighter leading-[0.8] text-white/90 uppercase">{line}</div>
-              ))}
+                <div className="text-4xl md:text-6xl font-black italic tracking-tighter leading-[0.8] text-white/90 uppercase">SANDEEP</div>
+                <div className="text-4xl md:text-6xl font-black italic tracking-tighter leading-[0.8] text-white/90 uppercase">BARUPAL</div>
             </div>
           </div>
 
-          {/* Right Wing: Rotating Titles (The user's list) */}
-          <div className="flex flex-col text-center md:text-left min-w-[300px] md:min-w-[600px]">
+          {/* Dynamic Wing: Rotating Roles */}
+          <div className="flex flex-col text-center md:text-left min-w-[300px] md:min-w-[650px]">
             <h1 
-              className={`text-5xl md:text-[9.5vw] font-bold text-white tracking-tighter leading-none transition-all duration-700 transform ${
-                isAnimating || isRoleChanging ? 'opacity-0 translate-x-12 blur-xl' : 'opacity-100 translate-x-0 blur-0'
+              className={`text-4xl md:text-[8vw] font-bold text-white tracking-tighter leading-none transition-all duration-700 transform ${
+                isAnimating ? 'opacity-0 translate-x-12 blur-xl' : 'opacity-100 translate-x-0 blur-0'
               }`}
             >
               {currentRole}
@@ -208,11 +154,11 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Narrative Description Block */}
+        {/* Narrative Description Block (Fixed) */}
         <div className="absolute bottom-32 left-16 z-30 max-w-sm hidden lg:block">
            <div className="w-full h-[1px] bg-white/10 mb-6"></div>
            <p className="text-[10px] font-bold text-white/30 tracking-[0.25em] uppercase leading-relaxed font-mono">
-             {currentCategory.description}
+             ARCHITECTING HIGH-PERFORMANCE DIGITAL EXPERIENCES WITH PRECISION AND CREATIVITY.
            </p>
         </div>
       </main>
@@ -220,23 +166,22 @@ const App: React.FC = () => {
       {/* Navigation & Controls */}
       <footer className="fixed bottom-12 left-12 right-12 flex justify-between items-center z-[100]">
         
-        {/* Pagination Dots */}
-        <div className="flex items-center gap-3">
-          {categories.map((_, i) => (
+        {/* Pagination Dots (Representing groups of roles) */}
+        <div className="flex items-center gap-2">
+          {roles.map((_, i) => (
             <button
               key={i}
               onClick={() => {
                 if (!isAnimating) {
                   setIsAnimating(true);
                   setTimeout(() => {
-                    setActiveSlideIndex(i);
-                    setRoleIndex(0);
+                    setRoleIndex(i);
                     setIsAnimating(false);
-                  }, 600);
+                  }, 500);
                 }
               }}
               className={`h-1.5 rounded-full transition-all duration-500 ${
-                i === activeSlideIndex ? 'w-10 md:w-16 bg-white' : 'w-2 bg-white/10'
+                i === roleIndex ? 'w-8 bg-white' : 'w-1.5 bg-white/10'
               }`}
             />
           ))}
