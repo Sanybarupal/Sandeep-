@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sandeep Barupal | Creative 3D Artist & Developer</title>
+    <title>Sandeep Barupal | Creative Developer & 3D Artist</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -29,6 +29,10 @@
       @keyframes revealUp {
         0% { transform: translateY(60px); opacity: 0; }
         100% { transform: translateY(0); opacity: 1; }
+      }
+      @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
       }
       .animate-reveal {
         animation: revealUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
