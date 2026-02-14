@@ -17,7 +17,9 @@ import {
   Smile,
   Bitcoin,
   ExternalLink,
-  MapPin
+  MapPin,
+  Share2,
+  Grid
 } from 'lucide-react';
 import { SERVICES, SKILLS } from './constants';
 
@@ -62,14 +64,13 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 py-6 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md border-b border-zinc-200 shadow-sm' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-[100] py-6 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-zinc-800 shadow-sm' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <div className="flex -space-x-1">
-            <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent animate-pulse"></div>
-            <div className="w-5 h-5 rounded-full border-2 border-orange-400 bg-transparent animate-pulse delay-75"></div>
+          <div className="w-10 h-10 border border-zinc-700 flex items-center justify-center rounded-lg group cursor-pointer hover:border-[#E11D48] transition-colors">
+            <div className="w-5 h-5 bg-[#E11D48] rounded-full blur-[4px] group-hover:blur-[2px] transition-all"></div>
+            <Smile className="absolute text-white" size={18} />
           </div>
-          <a href="#home" className="text-2xl font-display font-bold tracking-tighter text-black uppercase">S.B</a>
         </div>
         
         <div className="hidden md:flex items-center space-x-12">
@@ -77,29 +78,26 @@ const Navbar = () => {
             <a 
               key={link.name} 
               href={link.href} 
-              className="text-xs font-display font-bold text-zinc-500 hover:text-black transition-colors tracking-[0.1em]"
+              className="text-[10px] font-display font-bold text-zinc-400 hover:text-white transition-colors tracking-[0.2em]"
             >
               {link.name}
             </a>
           ))}
-          <a 
-            href="#contact" 
-            className="bg-black text-white px-6 py-2.5 rounded-lg text-xs font-display font-bold hover:bg-orange-500 transition-all shadow-[4px_4px_0px_#fb923c] active:translate-x-1 active:translate-y-1 active:shadow-none"
-          >
-            HIRE ME
-          </a>
+          <button className="text-zinc-400 hover:text-white transition-colors">
+            <Share2 size={18} />
+          </button>
         </div>
 
-        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-black p-2 border-2 border-black rounded-lg">
-          {isOpen ? <X /> : <Menu />}
+        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-white p-2 border border-zinc-800 rounded-lg">
+          {isOpen ? <X /> : <Grid size={20} />}
         </button>
       </div>
 
       {isOpen && (
-        <div className="md:hidden fixed inset-0 bg-white flex flex-col items-center justify-center space-y-8 z-[60]">
-          <button onClick={() => setIsOpen(false)} className="absolute top-8 right-8 text-black"><X size={32} /></button>
+        <div className="md:hidden fixed inset-0 bg-black flex flex-col items-center justify-center space-y-8 z-[60]">
+          <button onClick={() => setIsOpen(false)} className="absolute top-8 right-8 text-white"><X size={32} /></button>
           {navLinks.map((link) => (
-            <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="text-4xl font-display font-bold text-black tracking-widest">{link.name}</a>
+            <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="text-4xl font-display font-bold text-white tracking-widest uppercase">{link.name}</a>
           ))}
         </div>
       )}
@@ -107,15 +105,100 @@ const Navbar = () => {
   );
 };
 
+const RotatingBadge = () => (
+  <div className="absolute top-12 md:top-24 right-6 md:right-24 z-20 hidden sm:block">
+    <div className="relative w-40 h-40 flex items-center justify-center">
+      <svg className="absolute inset-0 w-full h-full animate-[spin_12s_linear_infinite]" viewBox="0 0 100 100">
+        <path id="badgePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
+        <text className="text-[7.5px] font-display font-bold uppercase tracking-[0.3em] fill-zinc-400">
+          <textPath xlinkHref="#badgePath">04 YEARS EXPERIENCE • CREATIVE ARTIST • FULL STACK • </textPath>
+        </text>
+      </svg>
+      <div className="text-center">
+        <p className="text-[10px] font-display font-black text-white tracking-tighter leading-tight">DEVELOPER</p>
+      </div>
+    </div>
+  </div>
+);
+
+const Hero = () => (
+  <section id="home" className="relative h-screen bg-black overflow-hidden flex items-center justify-center">
+    {/* Left Edge Text */}
+    <div className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 flex flex-col items-center gap-48 z-20">
+      <div className="rotate-[-90deg] whitespace-nowrap">
+        <p className="text-[10px] font-display font-bold text-zinc-600 tracking-[0.5em] uppercase">© 2024 SANDEEP BARUPAL</p>
+      </div>
+      <div className="rotate-[-90deg] whitespace-nowrap">
+        <p className="text-[10px] font-display font-bold text-white tracking-[0.8em] uppercase">DEVELOPER</p>
+      </div>
+    </div>
+
+    {/* Right Edge Text */}
+    <div className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 rotate-90 z-20">
+      <p className="text-[10px] font-display font-bold text-zinc-600 tracking-[0.3em] uppercase whitespace-nowrap">
+        VERSION 1.0.0.12.23.24
+      </p>
+    </div>
+
+    {/* Center Branding */}
+    <div className="relative flex flex-col md:flex-row items-center gap-8 md:gap-12 px-6">
+      {/* Abstract Logo */}
+      <div className="relative w-32 h-32 md:w-64 md:h-64 animate-[revealUp_1.5s_ease_forwards]">
+        <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-[0_0_30px_rgba(59,130,246,0.3)]">
+          <defs>
+            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#38bdf8" />
+              <stop offset="50%" stopColor="#3b82f6" />
+              <stop offset="100%" stopColor="#1e3a8a" />
+            </linearGradient>
+          </defs>
+          <path 
+            d="M100 20 C110 80 160 90 180 100 C120 110 110 160 100 180 C90 120 40 110 20 100 C80 90 90 40 100 20 Z" 
+            fill="url(#logoGradient)" 
+            className="animate-pulse"
+          />
+        </svg>
+      </div>
+
+      <div className="text-center md:text-left">
+        <h1 className="text-6xl md:text-[120px] font-display font-bold text-white tracking-tighter leading-none opacity-0 animate-[revealUp_1s_ease_forwards_0.3s]">
+          Developer
+        </h1>
+      </div>
+    </div>
+
+    {/* Lower Left Name */}
+    <div className="absolute left-16 md:left-32 bottom-16 md:bottom-24 z-20 opacity-0 animate-[revealUp_1s_ease_forwards_0.6s]">
+      <h2 className="text-4xl md:text-6xl font-display font-bold text-white tracking-tighter leading-[0.9]">
+        Sandeep<br/>Barupal
+      </h2>
+    </div>
+
+    {/* Bottom Dots */}
+    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-3 z-20">
+      {[...Array(12)].map((_, i) => (
+        <div 
+          key={i} 
+          className={`h-2 rounded-full transition-all duration-500 cursor-pointer hover:scale-125 
+            ${i === 5 ? 'w-8 bg-[#E11D48]' : 'w-2 bg-zinc-800 hover:bg-zinc-600'}
+            ${i === 0 ? 'w-6 bg-zinc-700' : ''}`}
+        ></div>
+      ))}
+    </div>
+
+    <RotatingBadge />
+  </section>
+);
+
 const Marquee = () => (
-  <div className="bg-black py-6 overflow-hidden flex whitespace-nowrap border-y-4 border-black relative z-20">
+  <div className="bg-black py-8 overflow-hidden flex whitespace-nowrap border-y border-zinc-800 relative z-20">
     <div className="flex animate-marquee items-center">
       {[...Array(10)].map((_, i) => (
         <React.Fragment key={i}>
-          <span className="text-white font-display font-bold text-2xl mx-12 flex items-center gap-6">
-            3D ARTIST <span className="w-3 h-3 bg-orange-500 rounded-full"></span> 
-            DEVELOPER <span className="w-3 h-3 bg-white rounded-full"></span> 
-            DESIGNER <span className="w-3 h-3 bg-purple-500 rounded-full"></span>
+          <span className="text-zinc-600 font-display font-bold text-xl mx-12 flex items-center gap-6">
+            3D ARTIST <span className="w-2 h-2 bg-[#E11D48] rounded-full"></span> 
+            DEVELOPER <span className="w-2 h-2 bg-white rounded-full"></span> 
+            DESIGNER <span className="w-2 h-2 bg-zinc-800 rounded-full"></span>
           </span>
         </React.Fragment>
       ))}
@@ -131,7 +214,7 @@ const BentoFooter = () => {
       <div className="max-w-[1400px] mx-auto bg-zinc-950 rounded-[3rem] md:rounded-[5rem] p-6 md:p-14 text-white overflow-hidden shadow-2xl relative">
         
         {/* Decorative Background Text */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[45vw] font-display font-bold text-white/[0.012] pointer-events-none select-none tracking-tighter whitespace-nowrap">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[45vw] font-display font-bold text-white/[0.012] pointer-events-none select-none tracking-tighter whitespace-nowrap uppercase">
           SANDEEP
         </div>
 
@@ -143,7 +226,7 @@ const BentoFooter = () => {
             
             <div>
               <div className="flex items-center gap-4 mb-10">
-                <div className="w-3 h-3 rounded-full bg-[#C1FF72] animate-pulse"></div>
+                <div className="w-3 h-3 rounded-full bg-[#E11D48] animate-pulse"></div>
                 <h3 className="text-xs font-display font-bold tracking-[0.3em] text-zinc-500 uppercase">CONTACT ME</h3>
               </div>
               
@@ -186,7 +269,7 @@ const BentoFooter = () => {
             <div className="mt-14 flex items-center justify-between">
                <div className="flex gap-1">
                   {[...Array(5)].map((_, i) => (
-                    <div key={i} className="w-1 h-1 rounded-full bg-[#C1FF72]/40"></div>
+                    <div key={i} className="w-1 h-1 rounded-full bg-[#E11D48]/40"></div>
                   ))}
                </div>
                <p className="text-[8px] font-display text-zinc-600 tracking-[0.4em] uppercase">VERIFIED DIGITAL CREATOR</p>
@@ -292,57 +375,10 @@ const App: React.FC = () => {
   useIntersectionObserver();
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-black">
       <Navbar />
 
-      {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 bg-transparent overflow-hidden">
-        <div className="mb-12 flex items-center gap-2 opacity-0 animate-[revealUp_0.8s_ease_forwards_0.1s]">
-          <span className="text-2xl">👋</span>
-          <p className="text-lg md:text-xl font-medium text-zinc-600 uppercase tracking-widest font-display">
-            3D ARTIST & DEVELOPER
-          </p>
-        </div>
-
-        <div className="relative w-full max-w-7xl">
-          <div className="relative z-0 text-center select-none flex flex-col items-center">
-            <div className="reveal-container mb-2">
-              <h1 className="text-[10vw] md:text-[8vw] font-display font-bold leading-[0.85] tracking-tighter text-black animate-reveal opacity-0">
-                Sandeep
-              </h1>
-            </div>
-            <div className="reveal-container">
-              <h2 className="text-[10vw] md:text-[8vw] font-display font-bold leading-[0.85] tracking-tighter outlined-text-black animate-reveal delay-200 opacity-0">
-                Barupal
-              </h2>
-            </div>
-          </div>
-        </div>
-
-        <div className="w-full max-w-7xl mt-16 flex flex-col items-center gap-12">
-          <div className="opacity-0 animate-[revealUp_0.8s_ease_forwards_0.4s]">
-            <p className="text-xl md:text-2xl font-medium text-zinc-500 font-display text-center uppercase tracking-widest">
-              BASED IN INDIA.
-            </p>
-          </div>
-          
-          <div className="opacity-0 animate-[revealUp_0.8s_ease_forwards_0.6s]">
-            <a 
-              href="#contact"
-              className="group relative bg-black text-white px-16 py-6 rounded-2xl font-display font-bold text-xl tracking-tighter hover:bg-orange-500 transition-all shadow-[8px_8px_0px_#C1FF72] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none inline-block active:translate-x-2 active:translate-y-2 active:shadow-none"
-            >
-              HIRE ME
-            </a>
-          </div>
-
-          <div className="flex flex-wrap justify-center items-center gap-10 opacity-20 grayscale pointer-events-none animate-[revealUp_0.8s_ease_forwards_0.8s]">
-            <span className="font-bold text-lg tracking-tighter uppercase font-display">React</span>
-            <span className="font-bold text-lg tracking-tighter uppercase font-display">Three.js</span>
-            <span className="font-bold text-lg tracking-tighter uppercase font-display">Blender</span>
-            <span className="font-bold text-lg tracking-tighter uppercase font-display">Figma</span>
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       <Marquee />
 
@@ -355,24 +391,24 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto relative z-10 reveal-scroll">
           <div className="grid lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-7">
-              <span className="text-orange-400 font-display font-bold text-sm tracking-[0.3em] uppercase block mb-6">Discovery</span>
+              <span className="text-[#E11D48] font-display font-bold text-sm tracking-[0.3em] uppercase block mb-6">Discovery</span>
               <h2 className="text-5xl md:text-[6vw] font-display font-bold mb-8 leading-[0.85] tracking-tighter uppercase">
                 CRAFTING THE <br /> 
                 <span className="text-white italic relative inline-block">
                   DIGITAL
-                  <span className="absolute bottom-1 left-0 w-full h-1 md:h-2 bg-orange-400 -z-10"></span>
+                  <span className="absolute bottom-1 left-0 w-full h-1 md:h-2 bg-[#E11D48] -z-10"></span>
                 </span> 
                 <br /> DIMENSION.
               </h2>
               <div className="max-w-2xl">
                 <p className="text-xl md:text-2xl text-zinc-300 font-medium leading-tight mb-8">
-                  I am Sandeep Barupal, a multidisciplinary designer and developer specializing in <span className="text-orange-400">immersive 3D environments</span> and high-performance web applications.
+                  I am Sandeep Barupal, a multidisciplinary designer and developer specializing in <span className="text-[#E11D48]">immersive 3D environments</span> and high-performance web applications.
                 </p>
                 <div className="space-y-6 text-zinc-400 text-lg leading-relaxed">
                   <p>
                     My expertise lies at the intersection of technical precision and artistic vision. I build digital experiences that aren't just visually striking but are architecturally sound and user-centric.
                   </p>
-                  <p className="border-l-4 border-orange-400 pl-8 italic text-zinc-300">
+                  <p className="border-l-4 border-[#E11D48] pl-8 italic text-zinc-300">
                     "From sculpting the perfect 3D mesh in Blender to architecting robust React applications, I am committed to pushing the boundaries of what's possible on the web."
                   </p>
                 </div>
@@ -381,7 +417,7 @@ const App: React.FC = () => {
             
             <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-6 lg:mt-24">
               {[
-                { label: 'EXPERIENCE', value: '4+ YEARS', color: 'border-orange-400' },
+                { label: 'EXPERIENCE', value: '4+ YEARS', color: 'border-[#E11D48]' },
                 { label: '3D PROJECTS', value: '30+', color: 'border-purple-400' },
                 { label: 'CLIENTS', value: 'GLOBAL', color: 'border-[#C1FF72]' },
                 { label: 'CREATIVITY', value: 'UNBOUND', color: 'border-blue-400' }
@@ -394,7 +430,7 @@ const App: React.FC = () => {
                   <div className="text-[10px] font-display font-bold text-zinc-500 mb-4 tracking-widest uppercase">{stat.label}</div>
                   <div className="text-3xl font-display font-bold uppercase text-white transition-colors flex items-end justify-between">
                     {stat.value}
-                    <MoveUpRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity text-orange-400" />
+                    <MoveUpRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity text-[#E11D48]" />
                   </div>
                 </div>
               ))}
@@ -408,7 +444,7 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-32 gap-12 reveal-scroll">
             <div>
-              <span className="text-orange-500 font-display font-bold text-sm tracking-[0.4em] uppercase block mb-4">My Arsenal</span>
+              <span className="text-[#E11D48] font-display font-bold text-sm tracking-[0.4em] uppercase block mb-4">My Arsenal</span>
               <h2 className="text-7xl md:text-[9vw] font-display font-bold tracking-tighter uppercase italic leading-[0.8]">
                 SKILLS <br /> <span className="text-zinc-200">& TOOLS</span>
               </h2>
@@ -433,7 +469,7 @@ const App: React.FC = () => {
                   <h3 className="text-sm md:text-base lg:text-lg font-display font-bold tracking-tighter leading-tight uppercase break-words transition-all group-hover:scale-105 origin-left">
                     {skill.name}
                   </h3>
-                  <div className="w-full h-1 bg-zinc-100 group-hover:bg-orange-500 transition-colors mt-3"></div>
+                  <div className="w-full h-1 bg-zinc-100 group-hover:bg-[#E11D48] transition-colors mt-3"></div>
                 </div>
               </div>
             ))}
