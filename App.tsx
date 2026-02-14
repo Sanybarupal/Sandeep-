@@ -47,14 +47,6 @@ const RotatingCircularBadge = ({ text }: { text: string }) => (
   </div>
 );
 
-const HUDInfo = ({ side, text }: { side: 'left' | 'right', text: string }) => (
-  <div className={`fixed top-1/2 -translate-y-1/2 z-40 hidden lg:block ${side === 'left' ? 'left-6 origin-top-left -rotate-90' : 'right-6 origin-bottom-right rotate-90'}`}>
-    <span className="text-[9px] font-display font-bold tracking-[0.6em] text-white/20 uppercase whitespace-nowrap">
-      {text}
-    </span>
-  </div>
-);
-
 const App: React.FC = () => {
   const roles: RoleData[] = [
     { title: "Web Designer", icon: <Palette size={140} />, color: "#EC4899" },
@@ -128,10 +120,6 @@ const App: React.FC = () => {
         </button>
       </div>
 
-      {/* Side HUD Elements */}
-      <HUDInfo side="left" text={`© ${new Date().getFullYear()} SANDEEP BARUPAL • DIGITAL ARCHITECT`} />
-      <HUDInfo side="right" text="VERSION 18.8.6.20.27.28" />
-
       {/* Rotating Badge */}
       <RotatingCircularBadge text="66 DAYS • 20 HOURS • 27 MINUTES • 28 SECONDS • " />
 
@@ -170,14 +158,6 @@ const App: React.FC = () => {
               {current.title}
             </h1>
           </div>
-        </div>
-
-        {/* Narrative Description Block (Fixed Bottom Left) */}
-        <div className="absolute bottom-32 left-16 z-30 max-w-sm hidden lg:block">
-           <div className="w-full h-[1px] bg-white/10 mb-6"></div>
-           <p className="text-[10px] font-bold text-white/30 tracking-[0.3em] uppercase leading-relaxed font-mono">
-             ENGINEERING HIGH-FIDELITY DIGITAL INTERFACES WITH TECHNICAL EXCELLENCE AND CREATIVE VISION.
-           </p>
         </div>
       </main>
 
