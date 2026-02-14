@@ -15,6 +15,7 @@
           linear-gradient(#111 1px, transparent 1px),
           linear-gradient(90deg, #111 1px, transparent 1px);
         background-size: 60px 60px;
+        overflow: hidden;
       }
       .font-display {
         font-family: 'Comfortaa', cursive;
@@ -27,6 +28,10 @@
         0% { transform: translateY(100%); opacity: 0; }
         100% { transform: translateY(0); opacity: 1; }
       }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.98); }
+        to { opacity: 1; transform: scale(1); }
+      }
       .animate-float {
         animation: float 6s ease-in-out infinite;
       }
@@ -34,23 +39,12 @@
         animation: revealUp 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
       }
       
-      /* Scroll Reveal Classes */
-      .reveal-scroll {
-        opacity: 0;
-        transform: translateY(40px);
-        transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .reveal-scroll.active {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      /* Scrollbar Styling */
+      /* Scrollbar Styling for mobile bento */
       ::-webkit-scrollbar {
-        width: 8px;
+        width: 4px;
       }
       ::-webkit-scrollbar-track {
-        background: #000;
+        background: transparent;
       }
       ::-webkit-scrollbar-thumb {
         background: #222;
@@ -73,7 +67,7 @@
 }
 </script>
 </head>
-  <body class="text-white overflow-x-hidden">
+  <body class="text-white overflow-hidden">
     <div id="root"></div>
     <script type="module" src="index.tsx"></script>
   </body>

@@ -24,30 +24,7 @@ import {
   Figma
 } from 'lucide-react';
 
-const useIntersectionObserver = () => {
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1,
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, observerOptions);
-
-    const revealElements = document.querySelectorAll('.reveal-scroll');
-    revealElements.forEach((el) => observer.observe(el));
-
-    return () => {
-      revealElements.forEach((el) => observer.unobserve(el));
-    };
-  }, []);
-};
-
-const Navbar = () => {
+const Navbar = ({ activeSection, setActiveSection }: { activeSection: string, setActiveSection: (s: string) => void }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -58,30 +35,34 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'HOME', href: '#home' },
-    { name: 'SKILLS', href: '#skills' },
-    { name: 'SERVICES', href: '#services' },
-    { name: 'CONTACT', href: '#contact' }
+    { name: 'HOME', id: 'home' },
+    { name: 'SKILLS', id: 'skills' },
+    { name: 'SERVICES', id: 'services' },
+    { name: 'CONTACT', id: 'contact' }
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-[100] py-6 transition-all duration-300 ${scrolled ? 'bg-black/80 backdrop-blur-xl border-b border-white/5 shadow-2xl' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-[100] py-6 transition-all duration-300 ${scrolled || activeSection !== 'home' ? 'bg-black/80 backdrop-blur-xl border-b border-white/5 shadow-2xl' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
         <div className="flex items-center">
-          <div className="w-10 h-10 border border-zinc-800 flex items-center justify-center rounded-lg group cursor-pointer hover:border-[#E11D48] transition-all bg-black">
-            <Smile className="text-[#E11D48] group-hover:scale-110 transition-transform" size={20} />
-          </div>
+          <button 
+            onClick={() => setActiveSection('home')}
+            className="w-10 h-10 border border-zinc-800 flex items-center justify-center rounded-lg group cursor-pointer hover:border-[#E11D48] transition-all bg-black"
+          >
+            <Smile className={`transition-all ${activeSection === 'home' ? 'text-[#E11D48] scale-110' : 'text-zinc-600'}`} size={20} />
+          </button>
         </div>
         
         <div className="hidden md:flex items-center space-x-12">
           {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              className="text-[10px] font-display font-bold text-zinc-400 hover:text-white transition-colors tracking-[0.3em] uppercase"
+            <button 
+              key={link.id} 
+              onClick={() => setActiveSection(link.id)}
+              className={`text-[10px] font-display font-bold transition-all tracking-[0.3em] uppercase relative py-2 group ${activeSection === link.id ? 'text-white' : 'text-zinc-500 hover:text-white'}`}
             >
               {link.name}
-            </a>
+              <span className={`absolute bottom-0 left-0 h-[2px] bg-[#E11D48] transition-all duration-500 ${activeSection === link.id ? 'w-full' : 'w-0'}`}></span>
+            </button>
           ))}
           <button className="text-zinc-500 hover:text-white transition-colors">
             <Share2 size={18} />
@@ -97,7 +78,13 @@ const Navbar = () => {
         <div className="md:hidden fixed inset-0 bg-black flex flex-col items-center justify-center space-y-8 z-[60]">
           <button onClick={() => setIsOpen(false)} className="absolute top-8 right-8 text-white"><X size={32} /></button>
           {navLinks.map((link) => (
-            <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="text-4xl font-display font-bold text-white tracking-widest uppercase italic">{link.name}</a>
+            <button 
+              key={link.id} 
+              onClick={() => { setActiveSection(link.id); setIsOpen(false); }} 
+              className={`text-4xl font-display font-bold tracking-widest uppercase italic transition-all ${activeSection === link.id ? 'text-[#E11D48]' : 'text-white'}`}
+            >
+              {link.name}
+            </button>
           ))}
         </div>
       )}
@@ -137,7 +124,7 @@ const SectionSidebar = ({ label }: { label: string }) => (
   </div>
 );
 
-const Hero = () => {
+const Hero = ({ isActive }: { isActive: boolean }) => {
   const rotatingContent = [
     { text: "Web Designer", icon: <Globe className="text-teal-400 w-16 h-16 md:w-28 md:h-28" /> },
     { text: "Web Developer", icon: <Code2 className="text-blue-400 w-16 h-16 md:w-28 md:h-28" /> },
@@ -150,6 +137,7 @@ const Hero = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
+    if (!isActive) return;
     const timer = setInterval(() => {
       setIsVisible(false);
       setTimeout(() => {
@@ -158,10 +146,12 @@ const Hero = () => {
       }, 700);
     }, 4500);
     return () => clearInterval(timer);
-  }, [rotatingContent.length]);
+  }, [rotatingContent.length, isActive]);
+
+  if (!isActive) return null;
 
   return (
-    <section id="home" className="relative h-screen bg-black overflow-hidden flex items-center justify-center">
+    <section className="relative h-screen bg-black overflow-hidden flex items-center justify-center animate-[fadeIn_1s_ease_forwards]">
       <div className="relative flex flex-col md:flex-row items-center gap-8 md:gap-16 px-6 z-10 w-full max-w-7xl justify-center">
         <div 
           className={`flex items-center justify-center transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
@@ -182,7 +172,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="absolute left-10 md:left-24 bottom-16 md:bottom-24 z-20 opacity-0 animate-[revealUp_1.5s_ease_forwards_0.5s]">
+      <div className="absolute left-10 md:left-24 bottom-16 md:bottom-24 z-20">
         <h2 className="text-5xl md:text-[7vw] font-display font-bold text-white tracking-tighter leading-[0.8] select-none italic">
           Sandeep<br/>Barupal
         </h2>
@@ -199,11 +189,12 @@ const Hero = () => {
   );
 };
 
-const ShowcaseSection = ({ id, label, items, interval = 5000 }: { id: string, label: string, items: any[], interval?: number }) => {
+const ShowcaseSection = ({ id, label, items, interval = 5000, isActive }: { id: string, label: string, items: any[], interval?: number, isActive: boolean }) => {
   const [index, setIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
+    if (!isActive) return;
     const timer = setInterval(() => {
       setIsVisible(false);
       setTimeout(() => {
@@ -212,10 +203,12 @@ const ShowcaseSection = ({ id, label, items, interval = 5000 }: { id: string, la
       }, 700);
     }, interval);
     return () => clearInterval(timer);
-  }, [items.length, interval]);
+  }, [items.length, interval, isActive]);
+
+  if (!isActive) return null;
 
   return (
-    <section id={id} className="py-20 md:py-40 bg-black text-white relative overflow-hidden flex flex-col items-center justify-center min-h-screen border-y border-zinc-900">
+    <section className="relative h-screen bg-black overflow-hidden flex flex-col items-center justify-center animate-[fadeIn_1s_ease_forwards]">
       <SectionSidebar label={label} />
       
       <div className="max-w-7xl mx-auto px-10 md:px-6 w-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 relative z-10">
@@ -257,59 +250,56 @@ const ShowcaseSection = ({ id, label, items, interval = 5000 }: { id: string, la
   );
 };
 
-const BentoFooter = () => {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+const BentoFooter = ({ isActive, setActiveSection }: { isActive: boolean, setActiveSection: (s: string) => void }) => {
+  if (!isActive) return null;
 
   return (
-    <footer id="contact" className="bg-black py-20 px-4 md:px-12 relative overflow-hidden">
+    <footer className="bg-black relative h-screen overflow-hidden flex flex-col justify-center px-4 md:px-12 animate-[fadeIn_1s_ease_forwards]">
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-blue-500/5 rounded-full blur-[120px] pointer-events-none"></div>
       
-      <div className="max-w-7xl mx-auto flex flex-col items-center text-center mb-40 reveal-scroll">
-        <h2 className="text-6xl md:text-[14vw] font-display font-bold text-white/5 tracking-tighter leading-none uppercase italic hover:text-white/10 transition-colors duration-1000 select-none">
+      <div className="max-w-7xl mx-auto flex flex-col items-center text-center mb-16 md:mb-24">
+        <h2 className="text-6xl md:text-[10vw] font-display font-bold text-white/5 tracking-tighter leading-none uppercase italic hover:text-white/10 transition-colors duration-1000 select-none">
           LET'S CREATE
         </h2>
-        <h3 className="text-5xl md:text-[9vw] font-display font-bold text-white tracking-tighter leading-none uppercase mt-[-4vw]">
+        <h3 className="text-5xl md:text-[7vw] font-display font-bold text-white tracking-tighter leading-none uppercase mt-[-2vw]">
           SOMETHING <span className="text-[#E11D48]">BOLD</span>
         </h3>
-        <p className="max-w-3xl text-zinc-500 font-medium text-xl md:text-3xl mt-16 leading-relaxed">
-          I bridge the gap between aesthetics and functionality. Based in Rajasthan, working with visionaries worldwide.
-        </p>
       </div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10 w-full overflow-y-auto max-h-[60vh] md:max-h-none md:overflow-visible pr-2">
         
         {/* Contact Bento */}
-        <div className="md:col-span-8 bg-zinc-900/50 border border-zinc-800 rounded-[4rem] p-12 md:p-20 group transition-all hover:bg-zinc-800/60 overflow-hidden relative">
+        <div className="md:col-span-8 bg-zinc-900/50 border border-zinc-800 rounded-[3rem] md:rounded-[4rem] p-10 md:p-16 group transition-all hover:bg-zinc-800/60 overflow-hidden relative">
            <div className="absolute -right-10 -bottom-10 opacity-[0.03] text-[200px] font-black group-hover:opacity-[0.07] transition-opacity">HI</div>
            <div>
-              <div className="flex items-center gap-4 mb-16">
+              <div className="flex items-center gap-4 mb-10 md:mb-16">
                  <div className="w-3 h-3 rounded-full bg-[#E11D48] animate-pulse"></div>
                  <span className="text-xs font-display font-black text-zinc-600 tracking-[0.5em] uppercase">HIRE ME</span>
               </div>
               
-              <div className="space-y-16">
+              <div className="space-y-10 md:space-y-16">
                  <a href="tel:+917878142323" className="block group/link">
-                    <p className="text-zinc-600 text-[10px] font-bold tracking-[0.4em] uppercase mb-4">DIRECT ACCESS</p>
-                    <div className="flex items-center gap-6">
-                       <span className="text-4xl md:text-7xl font-display font-bold text-white tracking-tighter group-hover/link:text-[#C1FF72] transition-all">
+                    <p className="text-zinc-600 text-[10px] font-bold tracking-[0.4em] uppercase mb-2 md:mb-4">DIRECT ACCESS</p>
+                    <div className="flex items-center gap-4 md:gap-6">
+                       <span className="text-3xl md:text-6xl font-display font-bold text-white tracking-tighter group-hover/link:text-[#C1FF72] transition-all">
                          +91 7878142323
                        </span>
-                       <ArrowUpRight className="text-[#E11D48] opacity-0 group-hover/link:opacity-100 transition-all translate-y-4 group-hover/link:translate-y-0" size={56} />
+                       <ArrowUpRight className="text-[#E11D48] opacity-0 group-hover/link:opacity-100 transition-all translate-y-4 group-hover/link:translate-y-0" size={48} />
                     </div>
                  </a>
 
-                 <div className="flex flex-wrap gap-10">
-                    <a href="https://instagram.com/itz_sandeep_97" target="_blank" className="flex items-center gap-5 group/social">
-                       <div className="w-14 h-14 rounded-2xl bg-zinc-800 flex items-center justify-center group-hover/social:bg-[#E4405F] group-hover/social:rotate-[-8deg] transition-all">
-                          <Instagram className="text-white" size={24} />
+                 <div className="flex flex-wrap gap-8 md:gap-10">
+                    <a href="https://instagram.com/itz_sandeep_97" target="_blank" className="flex items-center gap-4 group/social">
+                       <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-zinc-800 flex items-center justify-center group-hover/social:bg-[#E4405F] group-hover/social:rotate-[-8deg] transition-all">
+                          <Instagram className="text-white" size={20} />
                        </div>
-                       <span className="text-zinc-400 font-bold tracking-tighter group-hover/social:text-white transition-colors text-lg">ITZ_SANDEEP_97</span>
+                       <span className="text-zinc-400 font-bold tracking-tighter group-hover/social:text-white transition-colors text-base md:text-lg">ITZ_SANDEEP_97</span>
                     </a>
-                    <a href="https://linkedin.com/in/sandeep-barupal" target="_blank" className="flex items-center gap-5 group/social">
-                       <div className="w-14 h-14 rounded-2xl bg-zinc-800 flex items-center justify-center group-hover/social:bg-[#0077B5] group-hover/social:rotate-[8deg] transition-all">
-                          <Linkedin className="text-white" size={24} />
+                    <a href="https://linkedin.com/in/sandeep-barupal" target="_blank" className="flex items-center gap-4 group/social">
+                       <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-zinc-800 flex items-center justify-center group-hover/social:bg-[#0077B5] group-hover/social:rotate-[8deg] transition-all">
+                          <Linkedin className="text-white" size={20} />
                        </div>
-                       <span className="text-zinc-400 font-bold tracking-tighter group-hover/social:text-white transition-colors text-lg">SANDEEP BARUPAL</span>
+                       <span className="text-zinc-400 font-bold tracking-tighter group-hover/social:text-white transition-colors text-base md:text-lg">SANDEEP BARUPAL</span>
                     </a>
                  </div>
               </div>
@@ -317,61 +307,61 @@ const BentoFooter = () => {
         </div>
 
         {/* Status Bento */}
-        <div className="md:col-span-4 bg-[#C1FF72] rounded-[4rem] p-12 flex flex-col justify-between group overflow-hidden relative transition-transform hover:scale-[1.02]">
+        <div className="md:col-span-4 bg-[#C1FF72] rounded-[3rem] md:rounded-[4rem] p-10 md:p-12 flex flex-col justify-between group overflow-hidden relative transition-transform hover:scale-[1.02]">
            <div className="flex justify-between items-start">
-              <Smile size={60} className="text-black group-hover:rotate-12 transition-transform duration-500" />
-              <div className="bg-black text-[#C1FF72] px-5 py-2 rounded-full text-[10px] font-black tracking-widest uppercase">
+              <Smile size={48} className="text-black group-hover:rotate-12 transition-transform duration-500" />
+              <div className="bg-black text-[#C1FF72] px-4 py-1.5 rounded-full text-[9px] font-black tracking-widest uppercase">
                  ONLINE NOW
               </div>
            </div>
            <div>
-              <p className="text-black/40 text-[10px] font-black tracking-[0.3em] uppercase mb-4">PORTFOLIO V2.5</p>
-              <div className="bg-black/10 backdrop-blur-sm p-8 rounded-3xl border border-black/5 flex items-center justify-center">
-                 <QrCode size={120} className="text-black" />
+              <p className="text-black/40 text-[9px] font-black tracking-[0.3em] uppercase mb-3">PORTFOLIO V2.5</p>
+              <div className="bg-black/10 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-black/5 flex items-center justify-center">
+                 <QrCode size={100} className="text-black" />
               </div>
            </div>
         </div>
 
         {/* Action Bento */}
-        <div className="md:col-span-12 grid grid-cols-1 md:grid-cols-4 gap-8">
-           <div className="md:col-span-2 bg-zinc-900/40 border border-zinc-800 rounded-[3rem] p-10 flex items-center justify-between group">
+        <div className="md:col-span-12 grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
+           <div className="md:col-span-2 bg-zinc-900/40 border border-zinc-800 rounded-[2rem] md:rounded-[3rem] p-8 md:p-10 flex items-center justify-between group">
               <div className="flex gap-4">
                  {[...Array(3)].map((_, i) => (
-                    <div key={i} className="w-4 h-4 rounded-full bg-zinc-800 group-hover:bg-[#E11D48] transition-colors" style={{ transitionDelay: `${i * 100}ms` }}></div>
+                    <div key={i} className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-zinc-800 group-hover:bg-[#E11D48] transition-colors" style={{ transitionDelay: `${i * 100}ms` }}></div>
                  ))}
               </div>
               <div className="text-right">
-                <p className="text-zinc-600 font-display font-bold text-[10px] tracking-[0.4em] uppercase">RAJASTHAN, INDIA</p>
-                <p className="text-white font-bold tracking-widest mt-1">GMT+5:30</p>
+                <p className="text-zinc-600 font-display font-bold text-[9px] tracking-[0.4em] uppercase">RAJASTHAN, INDIA</p>
+                <p className="text-white font-bold tracking-widest mt-1 text-xs">GMT+5:30</p>
               </div>
            </div>
            
            <button 
-             onClick={scrollToTop}
-             className="md:col-span-2 bg-[#E11D48] rounded-[3rem] p-10 flex items-center justify-between group overflow-hidden relative hover:bg-white transition-colors duration-500"
+             onClick={() => setActiveSection('home')}
+             className="md:col-span-2 bg-[#E11D48] rounded-[2rem] md:rounded-[3rem] p-8 md:p-10 flex items-center justify-between group overflow-hidden relative hover:bg-white transition-colors duration-500"
            >
-              <span className="text-white font-display font-bold text-3xl tracking-tighter group-hover:text-black transition-colors z-10">BACK TO TOP</span>
-              <div className="w-16 h-16 bg-black/20 rounded-full flex items-center justify-center z-10 group-hover:bg-[#E11D48] transition-all group-hover:-translate-y-3">
-                 <ChevronUp size={36} className="text-white" />
+              <span className="text-white font-display font-bold text-2xl md:text-3xl tracking-tighter group-hover:text-black transition-colors z-10">RESTART JOURNEY</span>
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-black/20 rounded-full flex items-center justify-center z-10 group-hover:bg-[#E11D48] transition-all group-hover:-translate-y-3">
+                 <ChevronUp size={32} className="text-white" />
               </div>
            </button>
         </div>
 
       </div>
 
-      <div className="max-w-7xl mx-auto mt-40 pt-16 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-10 text-zinc-700 font-display font-black text-[9px] tracking-[0.5em] uppercase">
-         <div className="flex gap-16">
-            <a href="#" className="hover:text-white transition-colors">© {new Date().getFullYear()} SANDEEP</a>
-            <a href="#" className="hover:text-white transition-colors">TERMS</a>
+      <div className="max-w-7xl mx-auto mt-16 md:mt-24 pt-10 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-zinc-700 font-display font-black text-[8px] tracking-[0.5em] uppercase w-full">
+         <div className="flex gap-10">
+            <span>© {new Date().getFullYear()} SANDEEP</span>
+            <span className="hidden md:inline">DESIGNED & ENGINEERED FOR IMPACT</span>
          </div>
-         <p className="text-center md:text-right">DESIGNED & ENGINEERED FOR IMPACT</p>
+         <p>RAJASTHAN BASED • WORLDWIDE REACH</p>
       </div>
     </footer>
   );
 };
 
 const App: React.FC = () => {
-  useIntersectionObserver();
+  const [activeSection, setActiveSection] = useState('home');
 
   const coreSkills = [
     { 
@@ -425,12 +415,32 @@ const App: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black">
-      <Navbar />
-      <Hero />
-      <ShowcaseSection id="skills" label="TECHNICAL ARSENAL" items={coreSkills} />
-      <ShowcaseSection id="services" label="SERVICE OFFERINGS" items={services} interval={6000} />
-      <BentoFooter />
+    <div className="h-screen bg-black overflow-hidden flex flex-col">
+      <Navbar activeSection={activeSection} setActiveSection={setActiveSection} />
+      
+      <main className="flex-1 relative">
+        <Hero isActive={activeSection === 'home'} />
+        <ShowcaseSection 
+          id="skills" 
+          label="TECHNICAL ARSENAL" 
+          items={coreSkills} 
+          isActive={activeSection === 'skills'} 
+        />
+        <ShowcaseSection 
+          id="services" 
+          label="SERVICE OFFERINGS" 
+          items={services} 
+          interval={6000} 
+          isActive={activeSection === 'services'} 
+        />
+        <BentoFooter isActive={activeSection === 'contact'} setActiveSection={setActiveSection} />
+      </main>
+
+      {/* Background decoration consistent across sections */}
+      <div className="fixed inset-0 pointer-events-none z-[-1] opacity-30">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#E11D48]/5 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px]"></div>
+      </div>
     </div>
   );
 };
