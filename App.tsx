@@ -51,7 +51,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -64,26 +64,27 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-[100] py-6 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-zinc-800 shadow-sm' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-[100] py-6 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-zinc-900 shadow-sm' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <div className="w-10 h-10 border border-zinc-700 flex items-center justify-center rounded-lg group cursor-pointer hover:border-[#E11D48] transition-colors">
-            <div className="w-5 h-5 bg-[#E11D48] rounded-full blur-[4px] group-hover:blur-[2px] transition-all"></div>
-            <Smile className="absolute text-white" size={18} />
+        {/* Top Left: Logo Icon */}
+        <div className="flex items-center">
+          <div className="w-10 h-10 border border-zinc-800 flex items-center justify-center rounded-lg group cursor-pointer hover:border-[#E11D48] transition-all bg-zinc-950">
+            <Smile className="text-[#E11D48]" size={20} />
           </div>
         </div>
         
-        <div className="hidden md:flex items-center space-x-12">
+        {/* Top Right: Links */}
+        <div className="hidden md:flex items-center space-x-10">
           {navLinks.map((link) => (
             <a 
               key={link.name} 
               href={link.href} 
-              className="text-[10px] font-display font-bold text-zinc-400 hover:text-white transition-colors tracking-[0.2em]"
+              className="text-[11px] font-display font-medium text-zinc-400 hover:text-white transition-colors tracking-[0.15em]"
             >
               {link.name}
             </a>
           ))}
-          <button className="text-zinc-400 hover:text-white transition-colors">
+          <button className="text-zinc-500 hover:text-white transition-colors ml-4">
             <Share2 size={18} />
           </button>
         </div>
@@ -106,96 +107,80 @@ const Navbar = () => {
 };
 
 const RotatingBadge = () => (
-  <div className="absolute top-12 md:top-24 right-6 md:right-24 z-20 hidden sm:block">
-    <div className="relative w-40 h-40 flex items-center justify-center">
-      <svg className="absolute inset-0 w-full h-full animate-[spin_12s_linear_infinite]" viewBox="0 0 100 100">
+  <div className="absolute top-32 right-12 md:right-32 z-20 hidden sm:block">
+    <div className="relative w-44 h-44 flex items-center justify-center">
+      <svg className="absolute inset-0 w-full h-full animate-[spin_15s_linear_infinite]" viewBox="0 0 100 100">
         <path id="badgePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
-        <text className="text-[7.5px] font-display font-bold uppercase tracking-[0.3em] fill-zinc-400">
-          <textPath xlinkHref="#badgePath">04 YEARS EXPERIENCE • CREATIVE ARTIST • FULL STACK • </textPath>
+        <text className="text-[7px] font-display font-bold uppercase tracking-[0.35em] fill-zinc-500">
+          <textPath xlinkHref="#badgePath">EXPERIENCE • CREATIVE ARTIST • 4 YEARS • </textPath>
         </text>
       </svg>
       <div className="text-center">
-        <p className="text-[10px] font-display font-black text-white tracking-tighter leading-tight">DEVELOPER</p>
+        <p className="text-[9px] font-display font-black text-white tracking-widest leading-none border-b border-white/20 pb-1 mb-1">DEVELOPER</p>
       </div>
     </div>
   </div>
 );
 
-const Hero = () => (
-  <section id="home" className="relative h-screen bg-black overflow-hidden flex items-center justify-center">
-    {/* Left Edge Text */}
-    <div className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 flex flex-col items-center gap-48 z-20">
-      <div className="rotate-[-90deg] whitespace-nowrap">
-        <p className="text-[10px] font-display font-bold text-zinc-600 tracking-[0.5em] uppercase">© 2024 SANDEEP BARUPAL</p>
+const Hero = () => {
+  const titles = ["Developer", "UI Designer", "UX Designer", "Web Designer", "Content Writer"];
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % titles.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <section id="home" className="relative h-screen bg-black overflow-hidden flex items-center justify-center">
+      {/* Center Branding Block */}
+      <div className="relative flex flex-col md:flex-row items-center gap-6 md:gap-14 px-6 z-10">
+        {/* 4-Point Star Logo Icon */}
+        <div className="relative w-32 h-32 md:w-56 md:h-56 animate-[revealUp_1.2s_ease_forwards]">
+          <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-[0_0_40px_rgba(59,130,246,0.4)]">
+            <defs>
+              <linearGradient id="starGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#60a5fa" />
+                <stop offset="100%" stopColor="#1e3a8a" />
+              </linearGradient>
+            </defs>
+            {/* The 4-point star shape from reference */}
+            <path 
+              d="M100 10 C115 85 185 85 190 100 C185 115 115 115 100 190 C85 115 15 115 10 100 C15 85 85 85 100 10 Z" 
+              fill="url(#starGradient)" 
+              className="animate-pulse"
+            />
+          </svg>
+        </div>
+
+        {/* Dynamic Rotating Title */}
+        <div className="text-center md:text-left h-[80px] md:h-[120px] flex items-center">
+          <h1 className="text-5xl md:text-[110px] font-display font-bold text-white tracking-tight leading-none transition-all duration-700 ease-in-out">
+            {titles[index]}
+          </h1>
+        </div>
       </div>
-      <div className="rotate-[-90deg] whitespace-nowrap">
-        <p className="text-[10px] font-display font-bold text-white tracking-[0.8em] uppercase">DEVELOPER</p>
-      </div>
-    </div>
 
-    {/* Right Edge Text */}
-    <div className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 rotate-90 z-20">
-      <p className="text-[10px] font-display font-bold text-zinc-600 tracking-[0.3em] uppercase whitespace-nowrap">
-        VERSION 1.0.0.12.23.24
-      </p>
-    </div>
-
-    {/* Center Branding */}
-    <div className="relative flex flex-col md:flex-row items-center gap-8 md:gap-12 px-6">
-      {/* Abstract Logo */}
-      <div className="relative w-32 h-32 md:w-64 md:h-64 animate-[revealUp_1.5s_ease_forwards]">
-        <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-[0_0_30px_rgba(59,130,246,0.3)]">
-          <defs>
-            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#38bdf8" />
-              <stop offset="50%" stopColor="#3b82f6" />
-              <stop offset="100%" stopColor="#1e3a8a" />
-            </linearGradient>
-          </defs>
-          <path 
-            d="M100 20 C110 80 160 90 180 100 C120 110 110 160 100 180 C90 120 40 110 20 100 C80 90 90 40 100 20 Z" 
-            fill="url(#logoGradient)" 
-            className="animate-pulse"
-          />
-        </svg>
+      {/* Bottom Left Name Placement */}
+      <div className="absolute left-10 md:left-24 bottom-16 md:bottom-24 z-20 opacity-0 animate-[revealUp_1s_ease_forwards_0.5s]">
+        <h2 className="text-5xl md:text-8xl font-display font-bold text-white tracking-tighter leading-[0.85] select-none">
+          Sandeep<br/>Barupal
+        </h2>
       </div>
 
-      <div className="text-center md:text-left">
-        <h1 className="text-6xl md:text-[120px] font-display font-bold text-white tracking-tighter leading-none opacity-0 animate-[revealUp_1s_ease_forwards_0.3s]">
-          Developer
-        </h1>
-      </div>
-    </div>
-
-    {/* Lower Left Name */}
-    <div className="absolute left-16 md:left-32 bottom-16 md:bottom-24 z-20 opacity-0 animate-[revealUp_1s_ease_forwards_0.6s]">
-      <h2 className="text-4xl md:text-6xl font-display font-bold text-white tracking-tighter leading-[0.9]">
-        Sandeep<br/>Barupal
-      </h2>
-    </div>
-
-    {/* Bottom Dots */}
-    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-3 z-20">
-      {[...Array(12)].map((_, i) => (
-        <div 
-          key={i} 
-          className={`h-2 rounded-full transition-all duration-500 cursor-pointer hover:scale-125 
-            ${i === 5 ? 'w-8 bg-[#E11D48]' : 'w-2 bg-zinc-800 hover:bg-zinc-600'}
-            ${i === 0 ? 'w-6 bg-zinc-700' : ''}`}
-        ></div>
-      ))}
-    </div>
-
-    <RotatingBadge />
-  </section>
-);
+      <RotatingBadge />
+    </section>
+  );
+};
 
 const Marquee = () => (
-  <div className="bg-black py-8 overflow-hidden flex whitespace-nowrap border-y border-zinc-800 relative z-20">
+  <div className="bg-black py-10 overflow-hidden flex whitespace-nowrap border-y border-zinc-900 relative z-20">
     <div className="flex animate-marquee items-center">
       {[...Array(10)].map((_, i) => (
         <React.Fragment key={i}>
-          <span className="text-zinc-600 font-display font-bold text-xl mx-12 flex items-center gap-6">
+          <span className="text-zinc-700 font-display font-bold text-xl mx-16 flex items-center gap-8">
             3D ARTIST <span className="w-2 h-2 bg-[#E11D48] rounded-full"></span> 
             DEVELOPER <span className="w-2 h-2 bg-white rounded-full"></span> 
             DESIGNER <span className="w-2 h-2 bg-zinc-800 rounded-full"></span>
