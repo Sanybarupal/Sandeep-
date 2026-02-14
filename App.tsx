@@ -197,34 +197,41 @@ const Hero = () => {
   );
 };
 
-const Marquee = () => (
-  <div className="bg-black py-10 overflow-hidden flex whitespace-nowrap border-y border-zinc-900 relative z-20">
-    <div className="flex animate-marquee items-center">
-      {[...Array(10)].map((_, i) => (
-        <React.Fragment key={i}>
-          <span className="text-zinc-700 font-display font-bold text-xl mx-16 flex items-center gap-8">
-            3D ARTIST <span className="w-2 h-2 bg-[#E11D48] rounded-full"></span> 
-            DEVELOPER <span className="w-2 h-2 bg-white rounded-full"></span> 
-            DESIGNER <span className="w-2 h-2 bg-zinc-800 rounded-full"></span>
-          </span>
-        </React.Fragment>
-      ))}
-    </div>
-  </div>
-);
-
 const SkillsShowcase = () => {
   const [index, setIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
-  // Highlighting key skills to match the hero-style presentation
   const coreSkills = [
-    { name: "React JS", icon: <Globe className="text-blue-400 w-16 h-16 md:w-32 md:h-32" /> },
-    { name: "Three.js & 3D", icon: <Cpu className="text-purple-400 w-16 h-16 md:w-32 md:h-32" /> },
-    { name: "Tailwind CSS", icon: <Palette className="text-pink-400 w-16 h-16 md:w-32 md:h-32" /> },
-    { name: "UI/UX Design", icon: <Layout className="text-teal-400 w-16 h-16 md:w-32 md:h-32" /> },
-    { name: "Figma Mastery", icon: <Figma className="text-orange-400 w-16 h-16 md:w-32 md:h-32" /> },
-    { name: "Cyber Security", icon: <ShieldCheck className="text-green-400 w-16 h-16 md:w-32 md:h-32" /> },
+    { 
+      name: "React JS", 
+      icon: <Globe className="text-blue-400 w-16 h-16 md:w-32 md:h-32" />,
+      description: "Building high-performance, interactive user interfaces with scalable component architecture."
+    },
+    { 
+      name: "Three.js & 3D", 
+      icon: <Cpu className="text-purple-400 w-16 h-16 md:w-32 md:h-32" />,
+      description: "Creating immersive 3D web experiences using WebGL for next-gen digital storytelling."
+    },
+    { 
+      name: "Tailwind CSS", 
+      icon: <Palette className="text-pink-400 w-16 h-16 md:w-32 md:h-32" />,
+      description: "Designing modern, responsive layouts with utility-first precision and rapid development cycles."
+    },
+    { 
+      name: "UI/UX Design", 
+      icon: <Layout className="text-teal-400 w-16 h-16 md:w-32 md:h-32" />,
+      description: "Crafting intuitive user journeys and pixel-perfect interfaces that prioritize the end-user."
+    },
+    { 
+      name: "Figma Mastery", 
+      icon: <Figma className="text-orange-400 w-16 h-16 md:w-32 md:h-32" />,
+      description: "Translating complex visions into high-fidelity prototypes and professional design systems."
+    },
+    { 
+      name: "Cyber Security", 
+      icon: <ShieldCheck className="text-green-400 w-16 h-16 md:w-32 md:h-32" />,
+      description: "Understanding core security protocols to ensure digital assets are protected and robust."
+    },
   ];
 
   useEffect(() => {
@@ -245,7 +252,6 @@ const SkillsShowcase = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 relative z-10">
-        {/* Large Skill Icon */}
         <div 
           className={`flex items-center justify-center transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
             isVisible ? 'opacity-100 translate-y-0 scale-100 rotate-0' : 'opacity-0 translate-y-12 scale-75 rotate-12'
@@ -254,8 +260,7 @@ const SkillsShowcase = () => {
           {coreSkills[index].icon}
         </div>
 
-        {/* Large Skill Title */}
-        <div className="text-center md:text-left h-[100px] md:h-[200px] flex items-center">
+        <div className="text-center md:text-left min-h-[220px] md:min-h-[350px] flex flex-col justify-center max-w-2xl">
           <h2 
             className={`text-4xl md:text-[9vw] font-display font-bold text-white tracking-tighter leading-none transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
               isVisible ? 'opacity-100 translate-x-0 blur-0' : 'opacity-0 translate-x-20 blur-xl'
@@ -263,10 +268,16 @@ const SkillsShowcase = () => {
           >
             {coreSkills[index].name}
           </h2>
+          <p 
+            className={`text-zinc-500 text-lg md:text-2xl mt-6 font-medium leading-relaxed transition-all duration-1000 delay-100 transform ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 blur-sm'
+            }`}
+          >
+            {coreSkills[index].description}
+          </p>
         </div>
       </div>
 
-      {/* Navigation Indicators */}
       <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-4">
         {coreSkills.map((_, i) => (
           <div 
@@ -276,7 +287,6 @@ const SkillsShowcase = () => {
         ))}
       </div>
 
-      {/* Background Decorative Element */}
       <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-[0.02] text-[20vw] font-display font-black tracking-tighter select-none pointer-events-none uppercase">
         SKILLS
       </div>
@@ -289,11 +299,31 @@ const ServicesShowcase = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   const services = [
-    { title: "Website Design", icon: <Palette className="text-pink-500 w-16 h-16 md:w-32 md:h-32" /> },
-    { title: "Web Development", icon: <Code2 className="text-blue-500 w-16 h-16 md:w-32 md:h-32" /> },
-    { title: "UI/UX Design", icon: <Layout className="text-indigo-500 w-16 h-16 md:w-32 md:h-32" /> },
-    { title: "Portfolio & Business", icon: <Globe className="text-teal-500 w-16 h-16 md:w-32 md:h-32" /> },
-    { title: "Custom Web Solutions", icon: <Settings className="text-orange-500 w-16 h-16 md:w-32 md:h-32" /> },
+    { 
+      title: "Website Design", 
+      icon: <Palette className="text-pink-500 w-16 h-16 md:w-32 md:h-32" />,
+      description: "Crafting beautiful, high-impact designs that reflect your brand identity and engage users."
+    },
+    { 
+      title: "Web Development", 
+      icon: <Code2 className="text-blue-500 w-16 h-16 md:w-32 md:h-32" />,
+      description: "Building lightning-fast, secure, and fully responsive web applications using modern tech stacks."
+    },
+    { 
+      title: "UI/UX Design", 
+      icon: <Layout className="text-indigo-500 w-16 h-16 md:w-32 md:h-32" />,
+      description: "Optimizing user experience through deep analysis, intuitive flow, and seamless interface design."
+    },
+    { 
+      title: "Portfolio & Business", 
+      icon: <Globe className="text-teal-500 w-16 h-16 md:w-32 md:h-32" />,
+      description: "Professional digital solutions tailored for creative agencies, startups, and established enterprises."
+    },
+    { 
+      title: "Custom Web Solutions", 
+      icon: <Settings className="text-orange-500 w-16 h-16 md:w-32 md:h-32" />,
+      description: "Engineering specialized features and complex integrations to solve your unique business challenges."
+    },
   ];
 
   useEffect(() => {
@@ -308,13 +338,12 @@ const ServicesShowcase = () => {
   }, [services.length]);
 
   return (
-    <section id="services" className="py-40 bg-black text-white relative overflow-hidden flex flex-col items-center justify-center min-h-[80vh]">
+    <section id="services" className="py-40 bg-black text-white relative overflow-hidden flex flex-col items-center justify-center min-h-[85vh]">
       <div className="absolute top-10 left-1/2 -translate-x-1/2 opacity-20 reveal-scroll">
         <span className="text-[10px] font-display font-bold tracking-[0.5em] uppercase text-zinc-500">EXCEPTIONAL OFFERINGS</span>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 relative z-10">
-        {/* Large Service Icon */}
         <div 
           className={`flex items-center justify-center transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
             isVisible ? 'opacity-100 translate-x-0 scale-100 rotate-0' : 'opacity-0 -translate-x-12 scale-90 -rotate-12'
@@ -323,8 +352,7 @@ const ServicesShowcase = () => {
           {services[index].icon}
         </div>
 
-        {/* Large Service Title */}
-        <div className="text-center md:text-left h-[100px] md:h-[200px] flex items-center">
+        <div className="text-center md:text-left min-h-[220px] md:min-h-[350px] flex flex-col justify-center max-w-2xl">
           <h2 
             className={`text-5xl md:text-[8vw] font-display font-bold text-white tracking-tighter leading-none transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1) transform ${
               isVisible ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-lg'
@@ -332,10 +360,16 @@ const ServicesShowcase = () => {
           >
             {services[index].title}
           </h2>
+          <p 
+            className={`text-zinc-500 text-lg md:text-2xl mt-6 font-medium leading-relaxed transition-all duration-1000 delay-100 transform ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10 blur-sm'
+            }`}
+          >
+            {services[index].description}
+          </p>
         </div>
       </div>
 
-      {/* Navigation Indicators */}
       <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-4">
         {services.map((_, i) => (
           <div 
@@ -521,8 +555,6 @@ const App: React.FC = () => {
       <Navbar />
 
       <Hero />
-
-      <Marquee />
 
       {/* Hero-style Skills Section */}
       <SkillsShowcase />
