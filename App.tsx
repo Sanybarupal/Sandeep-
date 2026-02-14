@@ -19,7 +19,11 @@ import {
   Briefcase,
   Users,
   Zap,
-  Rocket
+  Rocket,
+  X,
+  Phone,
+  Mail,
+  ArrowRight
 } from 'lucide-react';
 
 // --- Types ---
@@ -70,13 +74,15 @@ const App: React.FC = () => {
 
   const [roleIndex, setRoleIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
 
   useEffect(() => {
+    if (isContactOpen) return;
     const timer = setInterval(() => {
       handleNext();
     }, 3500);
     return () => clearInterval(timer);
-  }, [roleIndex]);
+  }, [roleIndex, isContactOpen]);
 
   const handleNext = () => {
     if (isAnimating) return;
@@ -161,6 +167,58 @@ const App: React.FC = () => {
         </div>
       </main>
 
+      {/* Contact Section Modal */}
+      {isContactOpen && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl animate-in fade-in duration-300">
+          <div className="relative w-full max-w-2xl bg-[#0a0a0a] border border-white/10 p-8 md:p-12 shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden">
+            {/* Background Accent */}
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-500/10 blur-[80px] rounded-full"></div>
+            
+            <button 
+              onClick={() => setIsContactOpen(false)}
+              className="absolute top-6 right-6 text-white/40 hover:text-white transition-colors"
+            >
+              <X size={24} />
+            </button>
+
+            <div className="relative z-10">
+              <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter text-white mb-2 uppercase">GET IN TOUCH</h2>
+              <p className="text-white/40 text-xs font-bold tracking-[0.3em] uppercase mb-12">AVAILABLE FOR WORLDWIDE COLLABORATION</p>
+              
+              <div className="space-y-8">
+                <a href="tel:+91XXXXXXXXXX" className="group flex items-center gap-6 p-4 -ml-4 hover:bg-white/5 transition-all rounded-lg">
+                  <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500 group-hover:text-black transition-all">
+                    <Phone size={20} className="text-blue-500 group-hover:text-black" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold text-white/30 tracking-widest uppercase mb-1">CALL DIRECT</p>
+                    <p className="text-2xl md:text-3xl font-bold text-white tracking-tight">+91 999 999 9999</p>
+                  </div>
+                  <ArrowRight className="ml-auto opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all text-blue-500" />
+                </a>
+
+                <a href="mailto:hello@sandeepbarupal.com" className="group flex items-center gap-6 p-4 -ml-4 hover:bg-white/5 transition-all rounded-lg">
+                  <div className="w-12 h-12 rounded-full bg-pink-500/10 flex items-center justify-center group-hover:bg-pink-500 group-hover:text-black transition-all">
+                    <Mail size={20} className="text-pink-500 group-hover:text-black" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold text-white/30 tracking-widest uppercase mb-1">EMAIL ADDRESS</p>
+                    <p className="text-2xl md:text-3xl font-bold text-white tracking-tight italic">hello@sandeepbarupal.com</p>
+                  </div>
+                  <ArrowRight className="ml-auto opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all text-pink-500" />
+                </a>
+              </div>
+
+              <div className="mt-16 pt-8 border-t border-white/5 flex flex-wrap gap-6 text-[10px] font-bold text-white/20 tracking-[0.2em] uppercase">
+                <span>INSTAGRAM / @SANDEEP</span>
+                <span>LINKEDIN / SANDEEPBARUPAL</span>
+                <span>TWITTER / @SANDEEP_DEV</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Navigation & Controls */}
       <footer className="fixed bottom-12 left-12 right-12 flex justify-between items-center z-[100]">
         
@@ -185,10 +243,13 @@ const App: React.FC = () => {
           ))}
         </div>
 
-        {/* Center Action Button */}
+        {/* Center Hire Me Button */}
         <div className="absolute left-1/2 -translate-x-1/2 bottom-0">
-          <button className="bg-white text-black text-[10px] font-black px-10 py-3 rounded uppercase tracking-[0.4em] hover:bg-[#C1FF72] transition-all hover:scale-105 active:scale-95 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-            Explore
+          <button 
+            onClick={() => setIsContactOpen(true)}
+            className="bg-white text-black text-[10px] font-black px-10 py-3 rounded uppercase tracking-[0.4em] hover:bg-[#C1FF72] transition-all hover:scale-105 active:scale-95 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-2"
+          >
+            Hire Me
           </button>
         </div>
 
