@@ -64,7 +64,6 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'ABOUT', href: '#about' },
     { name: 'SERVICES', href: '#services' },
     { name: 'SKILLS', href: '#skills' },
     { name: 'CONTACT', href: '#contact' }
@@ -298,9 +297,9 @@ const BentoFooter = () => {
           <div className="md:col-span-3 bg-zinc-900 rounded-[3rem] p-10 border border-white/5 hover:border-[#C1FF72]/30 transition-all">
              <p className="text-[10px] font-display font-bold text-zinc-600 uppercase tracking-[0.3em] mb-10">MENU</p>
              <ul className="space-y-5">
-              {['HOME', 'ABOUT', 'SERVICES', 'SKILLS'].map((item) => (
+              {['HOME', 'SERVICES', 'SKILLS'].map((item) => (
                 <li key={item}>
-                  <a href={`#${item.toLowerCase()}`} className="group flex items-center justify-between">
+                  <a href={`#${item.toLowerCase() === 'home' ? 'home' : item.toLowerCase()}`} className="group flex items-center justify-between">
                     <span className="text-xl font-display font-bold tracking-tighter text-zinc-500 group-hover:text-white transition-colors">{item}</span>
                     <ArrowUpRight size={18} className="text-zinc-700 group-hover:text-[#C1FF72] transition-all transform group-hover:-translate-y-1 group-hover:translate-x-1" />
                   </a>
@@ -381,63 +380,6 @@ const App: React.FC = () => {
       <Hero />
 
       <Marquee />
-
-      {/* About Section */}
-      <section id="about" className="py-40 relative bg-black text-white overflow-hidden px-6">
-        <div className="absolute top-0 right-0 text-[30vw] font-display font-bold text-white/5 leading-none select-none pointer-events-none uppercase">
-          ABOUT
-        </div>
-        
-        <div className="max-w-7xl mx-auto relative z-10 reveal-scroll">
-          <div className="grid lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-7">
-              <span className="text-[#E11D48] font-display font-bold text-sm tracking-[0.3em] uppercase block mb-6">Discovery</span>
-              <h2 className="text-5xl md:text-[6vw] font-display font-bold mb-8 leading-[0.85] tracking-tighter uppercase">
-                CRAFTING THE <br /> 
-                <span className="text-white italic relative inline-block">
-                  DIGITAL
-                  <span className="absolute bottom-1 left-0 w-full h-1 md:h-2 bg-[#E11D48] -z-10"></span>
-                </span> 
-                <br /> DIMENSION.
-              </h2>
-              <div className="max-w-2xl">
-                <p className="text-xl md:text-2xl text-zinc-300 font-medium leading-tight mb-8">
-                  I am Sandeep Barupal, a multidisciplinary designer and developer specializing in <span className="text-[#E11D48]">immersive 3D environments</span> and high-performance web applications.
-                </p>
-                <div className="space-y-6 text-zinc-400 text-lg leading-relaxed">
-                  <p>
-                    My expertise lies at the intersection of technical precision and artistic vision. I build digital experiences that aren't just visually striking but are architecturally sound and user-centric.
-                  </p>
-                  <p className="border-l-4 border-[#E11D48] pl-8 italic text-zinc-300">
-                    "From sculpting the perfect 3D mesh in Blender to architecting robust React applications, I am committed to pushing the boundaries of what's possible on the web."
-                  </p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-6 lg:mt-24">
-              {[
-                { label: 'EXPERIENCE', value: '4+ YEARS', color: 'border-[#E11D48]' },
-                { label: '3D PROJECTS', value: '30+', color: 'border-purple-400' },
-                { label: 'CLIENTS', value: 'GLOBAL', color: 'border-[#C1FF72]' },
-                { label: 'CREATIVITY', value: 'UNBOUND', color: 'border-blue-400' }
-              ].map((stat, i) => (
-                <div 
-                  key={i} 
-                  className={`group p-8 border-2 ${stat.color} bg-zinc-900 shadow-[8px_8px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none cursor-default reveal-scroll`}
-                  style={{ transitionDelay: `${i * 100}ms` }}
-                >
-                  <div className="text-[10px] font-display font-bold text-zinc-500 mb-4 tracking-widest uppercase">{stat.label}</div>
-                  <div className="text-3xl font-display font-bold uppercase text-white transition-colors flex items-end justify-between">
-                    {stat.value}
-                    <MoveUpRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity text-[#E11D48]" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Skills Section */}
       <section id="skills" className="py-40 bg-white text-black px-6 border-y-4 border-black overflow-hidden relative">
