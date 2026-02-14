@@ -4,77 +4,64 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sandeep Barupal | 3D Artist & Developer</title>
+    <title>Sandeep Barupal | Creative 3D Artist & Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+      :root {
+        --font-heading: 'Syne', sans-serif;
+        --font-body: 'Plus Jakarta Sans', sans-serif;
+      }
       body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f8f8f8;
-        background-image: 
-          linear-gradient(#e5e5e5 1px, transparent 1px),
-          linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
-        background-size: 40px 40px;
+        font-family: var(--font-body);
+        background-color: #ffffff;
+        -webkit-font-smoothing: antialiased;
+        color: #000;
       }
       .font-display {
-        font-family: 'Syncopate', sans-serif;
+        font-family: var(--font-heading);
+        font-weight: 800;
       }
       .outlined-text-black {
-        -webkit-text-stroke: 1.5px #000;
+        -webkit-text-stroke: 1px #000;
         color: transparent;
       }
-      @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-20px); }
-      }
-      @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-      }
       @keyframes revealUp {
-        0% { transform: translateY(100%); opacity: 0; }
+        0% { transform: translateY(60px); opacity: 0; }
         100% { transform: translateY(0); opacity: 1; }
       }
-      .animate-float {
-        animation: float 6s ease-in-out infinite;
-      }
-      .animate-marquee {
-        animation: marquee 30s linear infinite;
-      }
       .animate-reveal {
-        animation: revealUp 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        animation: revealUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       }
-      .delay-200 { animation-delay: 0.2s; }
       
-      .reveal-container {
-        overflow: hidden;
-      }
-
-      /* Scroll Reveal Classes */
       .reveal-scroll {
         opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateY(40px);
+        transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
       }
       .reveal-scroll.active {
         opacity: 1;
         transform: translateY(0);
       }
 
-      /* User Requested CSS Overrides */
-      .text-\[30vw\] {
-        font-size: 17vw !important;
+      ::selection {
+        background: #000;
+        color: #fff;
       }
 
-      .bottom-\[-5vw\] {
-        bottom: -2vw !important;
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
       }
-
-      /* Ensure text is selectable even with transparent color */
-      .outlined-text-black::selection {
-        background: #fb923c;
-        color: white;
-        -webkit-text-stroke: 0;
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #000;
       }
     </style>
   <script type="importmap">
@@ -90,7 +77,7 @@
 }
 </script>
 </head>
-  <body class="text-black overflow-x-hidden">
+  <body class="overflow-x-hidden">
     <div id="root"></div>
     <script type="module" src="index.tsx"></script>
   </body>
